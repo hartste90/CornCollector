@@ -145,9 +145,12 @@ public class GameController : MonoBehaviour {
 	                coinController.LerpToPosition (GetRandomLocationOnscreen (), .5f);
 	        }
 	}
-	public GameObject SpawnGameObjectAtPosition (GameObject gameObject, Vector3 position)
+	public GameObject SpawnGameObjectAtPosition (GameObject gameObject, Vector2 position)
 	{
-		GameObject obj = Instantiate(gameObject, position, Quaternion.identity, gameStageParent);
+		Vector3 pos3 = new Vector3 (position.x, position.y, 0);
+		GameObject obj = Instantiate(gameObject, Vector3.zero, Quaternion.identity, gameStageParent);
+		RectTransform rect = obj.GetComponent<RectTransform> ();
+		rect.anchoredPosition = position;
 		if (gameObject.tag != "Safe")
 		{
 			obj.transform.localScale = new Vector3(384, 384, 1);
