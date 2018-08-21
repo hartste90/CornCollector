@@ -44,6 +44,12 @@ public class GameController : MonoBehaviour {
 		Tools.screenHeight = Screen.height;
 	}
 
+	public void TestFunc()
+	{
+//		Debug.Log (GetRandomLocationOnscreen ());
+//		PrintScreenDimensionsInWorldSpace();
+//		SpawnGameObjectAtPosition (safePrefab, GetRandomLocationOnscreen ());
+	}
 
 	void Start()
 	{
@@ -91,6 +97,10 @@ public class GameController : MonoBehaviour {
 	        {
 			ResetScene();
 	        }
+		if (Input.GetKeyDown ("u"))
+		{
+			TestFunc ();
+		}
 	}
 
 	public void ResetScene()
@@ -121,34 +131,47 @@ public class GameController : MonoBehaviour {
 		return SpawnGameObjectAtPosition (gameObject, screenPosition);
 	}
 
+	public void PrintScreenDimensionsInWorldSpace()
+	{
+		Debug.Log (GetRandomLocationOnscreen());
+
+	}
+
 	public static Vector3 GetRandomLocationOnscreen ()
 	{
-		Vector2 topRightCorner = new Vector2 (1, 1);
-		Vector2 edgeVector = Camera.main.ViewportToWorldPoint (topRightCorner);
-//		Debug.Log("EDge Vector: " + edgeVector.ToString ());
-//		Debug.Log("w/h: " + Screen.currentResolution.width + "," + Screen.currentResolution.height);
 
-		float halfheight = edgeVector.y;
-		float halfwidth = edgeVector.x;
-		Vector3 position = new Vector3 (Random.Range (-halfwidth, halfwidth), Random.Range (-halfheight, halfheight), 0);
-//		Debug.Log("Random Position: " + position.ToString ());
+		float horizontalBuffer = 20;
+		float verticalBuffer = 20;
+
+		float width = Screen.width;
+		float height = Screen.height;
+
+		float halfwidth = width / 2;
+		float halfheight = height / 2;
+
+		Vector3 position = new Vector3 (Random.Range (-halfwidth+horizontalBuffer, halfwidth-horizontalBuffer), Random.Range (-halfheight+verticalBuffer, halfheight-verticalBuffer), 0);
 		return position;
-
 	}
 
 	public void HandleSafeDestroyed(int numCoins, Transform safeLocation)
 	{
-		for (int i = 0; i < numCoins; i++)
-	        {
-	                GameObject coin = SpawnGameObjectAtPosition (coinPrefab, safeLocation.position);
-	                CoinController coinController = coin.GetComponent<CoinController>();
-	                coinController.LerpToPosition (GetRandomLocationOnscreen (), .5f);
-	        }
+		//CODE TO CREATE MULTIPLE COINS AND LERP TO RANDOM SCREEN POSITIONS
+		// for (int i = 0; i < numCoins; i++)
+	        // {
+	        //         GameObject coin = SpawnGameObjectAtPosition (coinPrefab, safeLocation.position);
+	        //         CoinController coinController = coin.GetComponent<CoinController>();
+	        //         coinController.LerpToPosition (GetRandomLocationOnscreen (), .5f);
+	        // }
+
+		//CODE TO CREATE SINGE COIN ON TOP OF SAFE AND CREATE NEW SAFE AT RANDOM SCREEN POSITION
+		GameObject coin = SpawnGameObjectAtPosition (coinPrefab, safeLocation.localPosition);
+//		CreateSafeForLevel(1);
 	}
 	public GameObject SpawnGameObjectAtPosition (GameObject gameObject, Vector2 position)
 	{
 		Vector3 pos3 = new Vector3 (position.x, position.y, 0);
 		GameObject obj = Instantiate(gameObject, Vector3.zero, Quaternion.identity, gameStageParent);
+		obj.transform.localPosition = pos3;
 		RectTransform rect = obj.GetComponent<RectTransform> ();
 		rect.anchoredPosition = position;
 		if (gameObject.tag != "Safe")
@@ -197,7 +220,7 @@ public class GameController : MonoBehaviour {
 	public void CreateSafeForLevel(int userLevel)
 	{
 	        List<GameObject> safeList = SpawnMultiple (1, safePrefab);
-	        int health = 3;
+	        int health = 1;
 		int coinValue =  Random.Range (1, userLevel)+1;
 		int keyCost = Random.Range (coinValue, coinValue + 3);
 	        safeList[0].GetComponent<SafeController>().init (health, coinValue, keyCost, this);
