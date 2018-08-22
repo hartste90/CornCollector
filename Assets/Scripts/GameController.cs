@@ -176,11 +176,11 @@ public class GameController : MonoBehaviour {
 		rect.anchoredPosition = position;
 		if (gameObject.tag != "Safe")
 		{
-			obj.transform.localScale = new Vector3(384, 384, 1);
+			obj.transform.localScale = new Vector3(3, 3, 1);
 		}
 		if (gameObject == coinPrefab) 
 		{
-			obj.transform.localScale = new Vector3 (384, 384, 1);
+			obj.transform.localScale = new Vector3 (100,100, 1);
 			coinList.Add (obj);
 		}
 		else if (gameObject == minePrefab)

@@ -19,17 +19,19 @@ public class MineController : MonoBehaviour {
 
 	IEnumerator ActivateAfterSeconds(int waitTime) 
 	{
-	        yield return new WaitForSeconds(waitTime);
-	        GetComponent <PolygonCollider2D>().enabled = true;
+        yield return new WaitForSeconds(waitTime);
+        GetComponent <PolygonCollider2D>().enabled = true;
 		UpdateCountdownLabel (countDownNumber);
 		StartCoroutine (ReduceCountdown (1));
+		mineAnimator.SetTrigger ("TurnRed");
+
 	}
 	IEnumerator ReduceCountdown(int timerSpeed) 
 	{
 	        yield return new WaitForSeconds(timerSpeed);
 		CountdownTick ();
 //		countdownAnimator.SetTrigger ("CTA");
-		if (countDownNumber == 1)
+		if (countDownNumber == 3)
 		{
 		        mineAnimator.SetTrigger ("TurnRed");
 		}
