@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour {
 	        rigidbody.velocity =Vector3.zero;
 	        characterController = GetComponent <CharacterController>();
 	        lastTouchVector = Vector3.zero;
-	        dropsMines = true;
+//	        dropsMines = true;
 	        animator = GetComponent<Animator>();
 	}
 	

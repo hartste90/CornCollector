@@ -20,7 +20,7 @@ public class MineController : MonoBehaviour {
 	IEnumerator ActivateAfterSeconds(int waitTime) 
 	{
 	        yield return new WaitForSeconds(waitTime);
-	        GetComponent <CircleCollider2D>().enabled = true;
+	        GetComponent <PolygonCollider2D>().enabled = true;
 		UpdateCountdownLabel (countDownNumber);
 		StartCoroutine (ReduceCountdown (1));
 	}
