@@ -10,8 +10,14 @@ public class CoinController : MonoBehaviour {
 	public Vector3 lerpStartPosition;
 	public Vector3 lerpTargetPosition;
 
+	// public float minTrajectory = 10000f;
+	public float maxTrajectory = 10000f;
+
 	void Start()
 	{
+			//give random small trajectory
+			Vector2 randomDirection = new Vector2(Random.Range(-maxTrajectory, maxTrajectory), Random.Range(-maxTrajectory, maxTrajectory));
+			GetComponent<Rigidbody2D>().AddForce(randomDirection, ForceMode2D.Impulse);
 	}
 	void OnCollisionEnter2D(Collision2D collider) 
 	{
@@ -38,7 +44,7 @@ public class CoinController : MonoBehaviour {
 	}
 	public void MoveToUnoccupiedSpace()
 	{
-		Debug.Log ("Moved to new location");
+		// Debug.Log ("Moved to new location");
 		transform.position = GameController.GetRandomLocationOnscreen ();
 	}
 

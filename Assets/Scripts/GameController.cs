@@ -48,7 +48,7 @@ public class GameController : MonoBehaviour {
 	{
 //		Debug.Log (GetRandomLocationOnscreen ());
 //		PrintScreenDimensionsInWorldSpace();
-//		SpawnGameObjectAtPosition (safePrefab, GetRandomLocationOnscreen ());
+		SpawnGameObjectAtPosition (coinPrefab, Vector3.zero);
 	}
 
 	void Start()
@@ -84,12 +84,12 @@ public class GameController : MonoBehaviour {
 		//spawn starting bumpers
 		SpawnMultiple(numStartingBumpers, bumperPrefab);
 		playerObject = Instantiate (playerPrefab, gameStageParent);
-		playerObject.transform.localScale = new Vector3(384, 384, 1);
+		// playerObject.transform.localScale = new Vector3(384, 384, 1);
 		playerObject.transform.localPosition = Vector3.zero;
-	        playerController = playerObject.GetComponent<PlayerController>();
+		// playerObject.transform.position = Vector3.zero;
+		playerController = playerObject.GetComponent<PlayerController>();
 	        playerController.Init (this);
 	        playerController.rigidbody.velocity = Vector3.zero;	
-		playerObject.transform.position = Vector3.zero;
 	}
 	void Update ()
 	{
@@ -155,16 +155,20 @@ public class GameController : MonoBehaviour {
 
 	public void HandleSafeDestroyed(int numCoins, Transform safeLocation)
 	{
-		//CODE TO CREATE MULTIPLE COINS AND LERP TO RANDOM SCREEN POSITIONS
-		// for (int i = 0; i < numCoins; i++)
-	        // {
-	        //         GameObject coin = SpawnGameObjectAtPosition (coinPrefab, safeLocation.position);
-	        //         CoinController coinController = coin.GetComponent<CoinController>();
-	        //         coinController.LerpToPosition (GetRandomLocationOnscreen (), .5f);
-	        // }
+		//spawn multiple coins	
+		numCoins = 10;	
+		for (int i = 0; i < numCoins; i++)
+	        {
+	                GameObject coin = SpawnGameObjectAtPosition (coinPrefab, safeLocation.localPosition);
+			Debug.Log(safeLocation.localPosition);
+	                CoinController coinController = coin.GetComponent<CoinController>();
+			//lerp to random position
+	                // coinController.LerpToPosition (GetRandomLocationOnscreen (), .5f);
+	        }
+
 
 		//CODE TO CREATE SINGE COIN ON TOP OF SAFE AND CREATE NEW SAFE AT RANDOM SCREEN POSITION
-		GameObject coin = SpawnGameObjectAtPosition (coinPrefab, safeLocation.localPosition);
+		// GameObject coin = SpawnGameObjectAtPosition (coinPrefab, safeLocation.localPosition);
 //		CreateSafeForLevel(1);
 	}
 	public GameObject SpawnGameObjectAtPosition (GameObject gameObject, Vector2 position)
@@ -180,7 +184,7 @@ public class GameController : MonoBehaviour {
 		}
 		if (gameObject == coinPrefab) 
 		{
-			obj.transform.localScale = new Vector3 (100,100, 1);
+			obj.transform.localScale = new Vector3 (30,30, 1);
 			coinList.Add (obj);
 		}
 		else if (gameObject == minePrefab)
@@ -233,9 +237,10 @@ public class GameController : MonoBehaviour {
 
 	public void DestroyAllItemsOnscreen()
 	{
-	        Debug.Log(coinList.Count);
-		Debug.Log(bumperList.Count);
-		Debug.Log(mineList.Count);
+		// Debug.Log("Destroying all items onscreen");
+	        // Debug.Log(coinList.Count);
+		// Debug.Log(bumperList.Count);
+		// Debug.Log(mineList.Count);
 	        for (int i = coinList.Count-1; i >= 0; i-- )
 	        {
 			Destroy (coinList[i].gameObject);

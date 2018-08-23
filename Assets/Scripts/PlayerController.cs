@@ -247,8 +247,12 @@ public class PlayerController : MonoBehaviour {
 
 	public void OnChangeDirection( Vector3 tempDirection)
 	{
-		gameController.SpawnGameObjectAtPosition (minePrefab, transform.GetComponent<RectTransform>().anchoredPosition);
+		if(dropsMines)
+		{
+			gameController.SpawnGameObjectAtPosition (minePrefab, transform.GetComponent<RectTransform>().anchoredPosition);
+		}
 		SetDirection (tempDirection);
+		
 
 	}
 	protected void SetDirection (Vector3 tempDirection )

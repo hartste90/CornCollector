@@ -104,7 +104,7 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1324097209040142}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: bc186b7b7993d446c81f2a44165d7950, type: 2}
   m_CullingMode: 0
@@ -239,14 +239,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameController: {fileID: 0}
-  direction: {x: 0, y: 0, z: 100}
+  direction: {x: 0, y: 0, z: 0}
   explosionPrefab: {fileID: 1199903913866718, guid: 4e58d5a12017541a7a70c3dd3f8b0db8,
     type: 2}
   playerExplosionPrefab: {fileID: 1199903913866718, guid: d26f4743a8eb64158af657152437de0b,
     type: 2}
   minePrefab: {fileID: 1969627338554662, guid: eeaea0ac402084f4dbac644cb4b85895, type: 2}
   rigidbody: {fileID: 50572722650293256}
-  dropsMines: 0
+  dropsMines: 1
   animator: {fileID: 0}
 --- !u!212 &212024472161820920
 SpriteRenderer:
