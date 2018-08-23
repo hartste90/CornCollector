@@ -21,9 +21,12 @@ public class ExplosionController : MonoBehaviour {
 
 		}
 		explosionPuffObjectList[0].GetComponent<Rigidbody2D>().AddForce(Vector2.right * explosionStrength, ForceMode2D.Force);
+		explosionPuffObjectList[0].GetComponent<RectTransform>().Rotate(new Vector3 (0,0, -90));
 		explosionPuffObjectList[1].GetComponent<Rigidbody2D>().AddForce(Vector2.up * explosionStrength, ForceMode2D.Force);
 		explosionPuffObjectList[2].GetComponent<Rigidbody2D>().AddForce(Vector2.left * explosionStrength, ForceMode2D.Force);
+		explosionPuffObjectList[2].GetComponent<RectTransform>().Rotate(new Vector3 (0,0, 90));
 		explosionPuffObjectList[3].GetComponent<Rigidbody2D>().AddForce(Vector2.down * explosionStrength, ForceMode2D.Force);
+		explosionPuffObjectList[3].GetComponent<RectTransform>().Rotate(new Vector3 (0,0, 180));
 
 	}
 }
