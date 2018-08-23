@@ -268,8 +268,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ed555b8454b43bfae6a26f859f9990, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 2
-  currentHealth: 2
+  startingHealth: 1
+  currentHealth: 1
   coinPrefab: {fileID: 1115446076801792, guid: 6f2d6d602140943cdb586d0d8c64cd79, type: 2}
   gameController: {fileID: 0}
   coinValue: 3
@@ -431,7 +431,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1717595767532530}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -16197.12}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224396118371417512}
@@ -443,7 +443,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7, y: 239}
+  m_AnchoredPosition: {x: 0, y: 239}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224164190462064908
