@@ -160,7 +160,7 @@ public class GameController : MonoBehaviour {
 		for (int i = 0; i < numCoins; i++)
 	        {
 	                GameObject coin = SpawnGameObjectAtPosition (coinPrefab, safeLocation.localPosition);
-			Debug.Log(safeLocation.localPosition);
+			//Debug.Log(safeLocation.localPosition);
 	                CoinController coinController = coin.GetComponent<CoinController>();
 			//lerp to random position
 	                // coinController.LerpToPosition (GetRandomLocationOnscreen (), .5f);
@@ -169,7 +169,7 @@ public class GameController : MonoBehaviour {
 
 		//CODE TO CREATE SINGE COIN ON TOP OF SAFE AND CREATE NEW SAFE AT RANDOM SCREEN POSITION
 		// GameObject coin = SpawnGameObjectAtPosition (coinPrefab, safeLocation.localPosition);
-//		CreateSafeForLevel(1);
+		CreateSafeForLevel(1);
 	}
 	public GameObject SpawnGameObjectAtPosition (GameObject gameObject, Vector2 position)
 	{
@@ -215,7 +215,7 @@ public class GameController : MonoBehaviour {
 	{
 		userLevel++;
 //		CreateCoinsForLevel(userLevel);
-		CreateSafeForLevel(userLevel);
+		// CreateSafeForLevel(userLevel);
 	}
 	public void CreateCoinsForLevel(int level)
 	{

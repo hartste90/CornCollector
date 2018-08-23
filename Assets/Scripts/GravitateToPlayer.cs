@@ -10,6 +10,7 @@ public class GravitateToPlayer : MonoBehaviour {
     public float speed = 0f;
     public float acceleration = .1f;
     public bool isFollowing = true;
+    public float maxSpeed = 10f;
 
  	private Transform playerTransform;
      private Rigidbody2D rb;
@@ -26,8 +27,15 @@ public class GravitateToPlayer : MonoBehaviour {
 
     private void AccellerateTowardsTarget()
     {
-        Vector3 direction = playerTransform.position - transform.position;
+        Vector3 direction = new Vector3(-45, 45, 0);
+        if (playerTransform)
+        { 
+            direction = playerTransform.position - transform.position; 
+        }
         rb.AddForce(new Vector2(direction.x, direction.y).normalized * acceleration, ForceMode2D.Impulse);
+        if (rb.velocity.magnitude > maxSpeed){
+            rb.velocity = rb.velocity.normalized * maxSpeed;
+        }
     }
     
 

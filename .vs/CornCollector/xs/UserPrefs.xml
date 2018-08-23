@@ -1,6 +1,6 @@
 ﻿<Properties StartupConfiguration="{1F546C70-C02A-BE77-14CC-9B723185AF95}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GravitateToPlayer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerController.cs">
     <Files>
       <File FileName="Assets/Scripts/PlayerController.cs" Line="250" Column="17" />
       <File FileName="Assets/Scripts/GameController.cs" Line="148" Column="1" />
