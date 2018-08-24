@@ -118,13 +118,11 @@ public class PlayerController : MonoBehaviour {
 				if (difference.x > 0) 
 				{
 //					Debug.Log ("Tapping: RIGHT");
-					animator.SetTrigger ("PlayerRight");
                     tempDirection = Vector3.right;
 				}
 				else
 				{
 //					Debug.Log ("Tapping: LEFT");
-					animator.SetTrigger ("PlayerLeft");
                     tempDirection = Vector3.left;
 				}
 			}
@@ -134,13 +132,11 @@ public class PlayerController : MonoBehaviour {
 				if (difference.y > 0) 
 				{
 //					Debug.Log ("Tapping: UP");
-					animator.SetTrigger ("PlayerUp");
                     tempDirection = Vector3.up;
 				}
 				else
 				{
 //					Debug.Log ("Tapping: DOWN");
-					animator.SetTrigger ("PlayerDown");
                     tempDirection = Vector3.down;
 				}
 			}
@@ -223,22 +219,18 @@ public class PlayerController : MonoBehaviour {
 		Vector3 tempDirection = direction;
         if(Input.GetKey ("left"))
         {
-            animator.SetTrigger ("PlayerLeft");
 		    tempDirection = Vector3.left;
         }
 	    else if(Input.GetKey ("right"))
         {
-		    animator.SetTrigger ("PlayerRight");
             tempDirection = Vector3.right;
         }
 	    else if(Input.GetKey ("up"))
         {
-		    animator.SetTrigger ("PlayerUp");
             tempDirection = Vector3.up;
         }
 	    else if (Input.GetKey ("down"))
 	    {   	                
-		    animator.SetTrigger ("PlayerDown");
             tempDirection = Vector3.down;
         }
 
@@ -306,6 +298,7 @@ public class PlayerController : MonoBehaviour {
 
 	public void OnHitCoin(GameObject coin)
 	{
+        animator.SetTrigger("Bump");
 		gameController.CheckCoinsCollected (coin);
 	}
 

@@ -17,7 +17,11 @@ public class GravitateToPlayer : MonoBehaviour {
 
     void Start()
     {
-    	playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj)
+        {
+            playerTransform = playerObj.transform;
+        }
         rb = GetComponent<Rigidbody2D>();
     }
     void Update () 
@@ -33,10 +37,9 @@ public class GravitateToPlayer : MonoBehaviour {
             direction = playerTransform.position - transform.position; 
         }
         rb.AddForce(new Vector2(direction.x, direction.y).normalized * acceleration, ForceMode2D.Impulse);
-        if (rb.velocity.magnitude > maxSpeed){
+        if (rb.velocity.magnitude > maxSpeed)
+        {
             rb.velocity = rb.velocity.normalized * maxSpeed;
         }
     }
-    
-
  }

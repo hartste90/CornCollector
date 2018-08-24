@@ -134,7 +134,7 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1324097209040142}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: bc186b7b7993d446c81f2a44165d7950, type: 2}
   m_CullingMode: 0
@@ -426,7 +426,7 @@ RectTransform:
   m_GameObject: {fileID: 1324097209040142}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 384, y: 384, z: 192}
+  m_LocalScale: {x: 384.07, y: 384, z: 192}
   m_Children:
   - {fileID: 4196941542423754}
   m_Father: {fileID: 0}

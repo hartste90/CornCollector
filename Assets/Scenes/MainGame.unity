@@ -2011,7 +2011,7 @@ Animation:
   m_Animation: {fileID: 7400000, guid: 33d213bcc036f48deac1c6a833c295bf, type: 2}
   m_Animations: []
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
 --- !u!1001 &1791383740
