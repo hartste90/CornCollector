@@ -113,4 +113,12 @@ public class WrapAroundBehavior : MonoBehaviour {
 	    }
 
 	}
+
+    public void DestroyAllGhosts()
+    {
+        foreach(Transform ghost in ghosts)
+        {
+            Destroy(ghost.gameObject);
+        }
+    }
 }

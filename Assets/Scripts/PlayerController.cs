@@ -79,25 +79,25 @@ public class PlayerController : MonoBehaviour {
 
 		if (Input.GetKeyDown ("left"))
 		{
-            Debug.Log("left");
+            //Debug.Log("left");
             playerDecal.eulerAngles = new Vector3 (0, 0, 90);
             touchPosition = new Vector3 (-1000, 0, 0);
 		}
 		else if (Input.GetKeyDown ("right"))
 		{
-            Debug.Log("right");
+            //Debug.Log("right");
             playerDecal.eulerAngles = new Vector3(0, 0, -90);
             touchPosition = new Vector3 (1000, 0, 0);
 		}
 		else if (Input.GetKeyDown ("up"))
 		{
-            Debug.Log("up");
+            //Debug.Log("up");
             playerDecal.eulerAngles = new Vector3(0, 0, 0);
             touchPosition = new Vector3 (0, 1000, 0);
 		}
 		else if (Input.GetKeyDown ("down"))
 		{
-            Debug.Log("down");
+            //Debug.Log("down");
             playerDecal.eulerAngles = new Vector3(0, 0, 180);
             touchPosition = new Vector3 (0, -1000, 0);
 		}
@@ -275,7 +275,8 @@ public class PlayerController : MonoBehaviour {
 
 		gameController.handlePlayerDestroyed();
 		Time.timeScale = 0.2f;
-		Destroy(gameObject);
+        GetComponent<WrapAroundBehavior>().DestroyAllGhosts();
+        Destroy(gameObject);
 
 
 	}
