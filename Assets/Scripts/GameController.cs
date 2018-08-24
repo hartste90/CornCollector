@@ -38,6 +38,8 @@ public class GameController : MonoBehaviour {
 	protected List<GameObject> bumperList;
 	protected List<GameObject> mineList;
 
+    private TimeController timeController;
+
 	public void Awake()
 	{
 		Tools.screenWidth = Screen.width;
@@ -53,7 +55,7 @@ public class GameController : MonoBehaviour {
 
 	void Start()
 	{
-
+        timeController = GetComponent<TimeController>();
 		endgameScreenController.gameObject.SetActive (false);
 		userLevel = 1;
 		coinList = new List<GameObject> ();
@@ -259,8 +261,10 @@ public class GameController : MonoBehaviour {
 	public void handlePlayerDestroyed()
 	{
 	        uiController.PauseTimer ();
+        timeController.handlePlayerDestroyed();
+            
 
-	        PlayerPrefs.SetInt ("lastScore", uiController.coinCountNum);
+        PlayerPrefs.SetInt ("lastScore", uiController.coinCountNum);
 		if (PlayerPrefs.GetInt ("bestScore") < uiController.coinCountNum)
 	        {
 			PlayerPrefs.SetInt ("bestScore", uiController.coinCountNum);

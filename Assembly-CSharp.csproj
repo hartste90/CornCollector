@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\PlayerExplosionController.cs" />
     <Compile Include="Assets\Scripts\Rotate.cs" />
     <Compile Include="Assets\Scripts\SafeController.cs" />
+    <Compile Include="Assets\Scripts\TimeController.cs" />
     <Compile Include="Assets\Scripts\Tools.cs" />
     <Compile Include="Assets\Scripts\TooltipController.cs" />
     <Compile Include="Assets\Scripts\UIController.cs" />

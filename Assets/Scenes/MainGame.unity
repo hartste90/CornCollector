@@ -626,8 +626,12 @@ Prefab:
         type: 2}
       propertyPath: m_FontData.m_Font
       value: 
-      objectReference: {fileID: 12800000, guid: 1d2aa0c546417435da587d95f372ae40,
+      objectReference: {fileID: 12800000, guid: 5c53e8fff9e5446e79074d44ca088ded,
         type: 3}
+    - target: {fileID: 1153175176120758, guid: 2bcc90e901b63422db860305118ec38d, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bcc90e901b63422db860305118ec38d, type: 2}
   m_IsPrefabAsset: 0
@@ -640,6 +644,7 @@ GameObject:
   m_Component:
   - component: {fileID: 306352828}
   - component: {fileID: 306352827}
+  - component: {fileID: 306352829}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -696,6 +701,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &306352829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 306352826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03817ad621c404da5a9127502ce7e49a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &345745748
 GameObject:
   m_ObjectHideFlags: 0
@@ -1906,7 +1922,8 @@ Prefab:
         type: 2}
       propertyPath: m_FontData.m_Font
       value: 
-      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+      objectReference: {fileID: 12800000, guid: 5c53e8fff9e5446e79074d44ca088ded,
+        type: 3}
     - target: {fileID: 114640585343412888, guid: 991b69a363f234e9d955054b6da57c58,
         type: 2}
       propertyPath: m_Text

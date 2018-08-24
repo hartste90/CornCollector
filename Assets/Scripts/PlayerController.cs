@@ -266,7 +266,6 @@ public class PlayerController : MonoBehaviour {
 //		CreatePhysicalExplosion ();
 
 		gameController.handlePlayerDestroyed();
-		Time.timeScale = 0.2f;
         GetComponent<WrapAroundBehavior>().DestroyAllGhosts();
         Destroy(gameObject);
 
