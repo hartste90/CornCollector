@@ -38,7 +38,7 @@ public class SafeController : MonoBehaviour {
 
 	public void handleAppearAnimationComplete()
 	{
-	        Debug.Log ("handleAppearAnimationComplete");
+	        //Debug.Log ("handleAppearAnimationComplete");
 		GetComponent <PolygonCollider2D>().enabled = true;
 	}
 

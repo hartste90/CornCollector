@@ -20,7 +20,7 @@ public class WrapAroundBehavior : MonoBehaviour {
 
 		screenWidth = screenTopRight.x - screenBottomLeft.x;
 		screenHeight = screenTopRight.y - screenBottomLeft.y;
-		Debug.Log ("W:H " + screenWidth + ":" + screenHeight);
+		//Debug.Log ("W:H " + screenWidth + ":" + screenHeight);
 
 		CreateGhostShips ();
 		PositionGhostShips ();
