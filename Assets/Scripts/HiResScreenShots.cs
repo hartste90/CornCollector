@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
  using System.Collections;
  
- public class HiResScreenShots : MonoBehaviour {
+ public class HiResScreenShots : MonoBehaviour
+{
+    public string keyToScreencap = "k";
      public int resWidth = 2550; 
      public int resHeight = 3300;
  
@@ -26,7 +28,7 @@
 
  
      void LateUpdate() {
-         takeHiResShot |= Input.GetKeyDown("k");
+        takeHiResShot |= Input.GetKeyDown(keyToScreencap);
          if (takeHiResShot) {
              RenderTexture rt = new RenderTexture(resWidth, resHeight, 24);
              Camera.main.targetTexture = rt;
