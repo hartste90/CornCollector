@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
 
 	public GameController gameController;
 	public Vector3 direction = Vector3.zero;
+    public Transform playerDecal;
 	public GameObject explosionPrefab;
 	public GameObject playerExplosionPrefab;
 	public GameObject minePrefab;
@@ -78,19 +79,27 @@ public class PlayerController : MonoBehaviour {
 
 		if (Input.GetKeyDown ("left"))
 		{
-		        touchPosition = new Vector3 (-1000, 0, 0);
+            Debug.Log("left");
+            playerDecal.eulerAngles = new Vector3 (0, 0, 90);
+            touchPosition = new Vector3 (-1000, 0, 0);
 		}
 		else if (Input.GetKeyDown ("right"))
 		{
-			touchPosition = new Vector3 (1000, 0, 0);
+            Debug.Log("right");
+            playerDecal.eulerAngles = new Vector3(0, 0, -90);
+            touchPosition = new Vector3 (1000, 0, 0);
 		}
 		else if (Input.GetKeyDown ("up"))
 		{
-			touchPosition = new Vector3 (0, 1000, 0);
+            Debug.Log("up");
+            playerDecal.eulerAngles = new Vector3(0, 0, 0);
+            touchPosition = new Vector3 (0, 1000, 0);
 		}
 		else if (Input.GetKeyDown ("down"))
 		{
-			touchPosition = new Vector3 (0, -1000, 0);
+            Debug.Log("down");
+            playerDecal.eulerAngles = new Vector3(0, 0, 180);
+            touchPosition = new Vector3 (0, -1000, 0);
 		}
 
 		if (touchPosition != Vector3.zero)
@@ -110,15 +119,13 @@ public class PlayerController : MonoBehaviour {
 				{
 //					Debug.Log ("Tapping: RIGHT");
 					animator.SetTrigger ("PlayerRight");
-
-					tempDirection = Vector3.right;
+                    tempDirection = Vector3.right;
 				}
 				else
 				{
 //					Debug.Log ("Tapping: LEFT");
 					animator.SetTrigger ("PlayerLeft");
-
-					tempDirection = Vector3.left;
+                    tempDirection = Vector3.left;
 				}
 			}
 			//VERTICAL CHANGE
@@ -128,15 +135,13 @@ public class PlayerController : MonoBehaviour {
 				{
 //					Debug.Log ("Tapping: UP");
 					animator.SetTrigger ("PlayerUp");
-
-					tempDirection = Vector3.up;
+                    tempDirection = Vector3.up;
 				}
 				else
 				{
 //					Debug.Log ("Tapping: DOWN");
 					animator.SetTrigger ("PlayerDown");
-
-					tempDirection = Vector3.down;
+                    tempDirection = Vector3.down;
 				}
 			}
 				
@@ -185,6 +190,7 @@ public class PlayerController : MonoBehaviour {
 			if (Mathf.Abs (deltaPosition.x) > Mathf.Abs (deltaPosition.y)) {
 				if (deltaPosition.x > 0) {
 					Debug.Log ("Swiping: RIGHT");
+
 					tempDirection = Vector3.right;
 				} else {
 					Debug.Log ("Swiping: LEFT");
@@ -214,35 +220,32 @@ public class PlayerController : MonoBehaviour {
 
 	public void DetermineDirectionChange()
 	{
-//	Debug.Log (Input.GetAxis ("Vertical"));
-//		Debug.Log (Input.GetAxis ("Horizontal"));
-//
 		Vector3 tempDirection = direction;
-	        if(Input.GetKey ("left"))
-	        {
-	                animator.SetTrigger ("PlayerLeft");
-			tempDirection = Vector3.left;
-	        }
-		else if(Input.GetKey ("right"))
-	        {
-			animator.SetTrigger ("PlayerRight");
-			tempDirection = Vector3.right;
-	        }
-		else if(Input.GetKey ("up"))
-	        {
-			animator.SetTrigger ("PlayerUp");
-			tempDirection = Vector3.up;
-	        }
-		else if (Input.GetKey ("down"))
-		{	                
-			animator.SetTrigger ("PlayerDown");
-			tempDirection = Vector3.down;
-	        }
+        if(Input.GetKey ("left"))
+        {
+            animator.SetTrigger ("PlayerLeft");
+		    tempDirection = Vector3.left;
+        }
+	    else if(Input.GetKey ("right"))
+        {
+		    animator.SetTrigger ("PlayerRight");
+            tempDirection = Vector3.right;
+        }
+	    else if(Input.GetKey ("up"))
+        {
+		    animator.SetTrigger ("PlayerUp");
+            tempDirection = Vector3.up;
+        }
+	    else if (Input.GetKey ("down"))
+	    {   	                
+		    animator.SetTrigger ("PlayerDown");
+            tempDirection = Vector3.down;
+        }
 
-	        if(tempDirection != direction)
-	        {
-	                OnChangeDirection(tempDirection);
-	        }
+        if(tempDirection != direction)
+        {
+            OnChangeDirection(tempDirection);
+        }
 	}
 
 	public void OnChangeDirection( Vector3 tempDirection)
@@ -251,11 +254,9 @@ public class PlayerController : MonoBehaviour {
 		{
 			gameController.SpawnGameObjectAtPosition (minePrefab, transform.GetComponent<RectTransform>().anchoredPosition);
 		}
-		SetDirection (tempDirection);
-		
-
-	}
-	protected void SetDirection (Vector3 tempDirection )
+        SetDirection(tempDirection);
+    }
+    protected void SetDirection (Vector3 tempDirection )
 	{
 		direction = tempDirection;
 		rigidbody.velocity = direction * gameController.gameSpeed;

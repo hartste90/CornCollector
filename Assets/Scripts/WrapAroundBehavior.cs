@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class WrapAroundBehavior : MonoBehaviour {
 
-	float screenWidth;
+    public bool doGhostsDropMines = true;
+    float screenWidth;
 	float screenHeight;
 	Transform[] ghosts = new Transform[8];
 
@@ -36,7 +37,7 @@ public class WrapAroundBehavior : MonoBehaviour {
 	    {
 	        ghosts[i] = Instantiate(transform, Vector3.zero, Quaternion.identity, GetComponent <PlayerController>().gameController.gameStageParent) as Transform;
 	        ghosts[i].GetComponent<CircleCollider2D>().enabled = false;
-	        ghosts[i].GetComponent<PlayerController>().dropsMines = false;
+	        ghosts[i].GetComponent<PlayerController>().dropsMines = doGhostsDropMines;
 	        DestroyImmediate(ghosts[i].GetComponent<WrapAroundBehavior>());
 	    }
 	}
