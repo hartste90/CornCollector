@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour {
 	public Vector3 direction = Vector3.zero;
     public Transform playerDecal;
 	public GameObject explosionPrefab;
+    public GameObject exhaustPrefab;
 	public GameObject playerExplosionPrefab;
 	public GameObject minePrefab;
 	public Rigidbody2D rigidbody;
@@ -17,6 +18,8 @@ public class PlayerController : MonoBehaviour {
 
 	protected Vector3 lastTouchVector;
 
+    public float exhaustFrequency = 10f;
+    private float lastExhaustTime;
 	public bool dropsMines;
 	public Animator animator;
 
@@ -36,6 +39,7 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+            lastExhaustTime = Time.time;
 	        direction = Vector3.zero;
 	        rigidbody = GetComponent <Rigidbody2D>();
 	        rigidbody.velocity =Vector3.zero;
@@ -55,6 +59,7 @@ public class PlayerController : MonoBehaviour {
 		if (direction != Vector3.zero && gameController.swipeTooltipObject.activeSelf)
 		{
 			gameController.tooltipController.Hide();
+            CheckExhaust();
 		}
 
 #if UNITY_EDITOR
@@ -64,7 +69,22 @@ public class PlayerController : MonoBehaviour {
 #endif
 	}
 
-	public void DetermineTapDirection()
+
+    private void CheckExhaust()
+    {
+        if (Time.time > exhaustFrequency + lastExhaustTime)
+        {
+            lastExhaustTime = Time.time;
+            DropExhaust();
+        }
+    }
+
+    private void DropExhaust()
+    {
+        GameObject exhaust = Instantiate(exhaustPrefab, transform.parent);
+        exhaust.transform.localPosition = transform.localPosition;
+    }
+    public void DetermineTapDirection()
 	{
 		Vector3 tempDirection = direction;
 		Vector3 touchPosition = Vector3.zero;
