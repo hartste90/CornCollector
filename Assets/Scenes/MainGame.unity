@@ -1332,6 +1332,76 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 224281532080305888, guid: 68b404f91c2214c91b122bc2c6ec3efc,
     type: 2}
   m_PrefabInternal: {fileID: 586380990}
+--- !u!1 &1148711339 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1168181938241252, guid: 991b69a363f234e9d955054b6da57c58,
+    type: 2}
+  m_PrefabInternal: {fileID: 1581597891}
+--- !u!50 &1148711341
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1148711339}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
+--- !u!95 &1148711342
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1148711339}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ec9ea656d112f4f8489a76f2251edad7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1148711343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1148711339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd3319fce8dba4f3f940d9061a165462, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameController: {fileID: 306352827}
+--- !u!58 &1148711344
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1148711339}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 22.42
 --- !u!1 &1221993223
 GameObject:
   m_ObjectHideFlags: 0
@@ -2131,12 +2201,40 @@ Prefab:
     - target: {fileID: 114640585343412888, guid: 991b69a363f234e9d955054b6da57c58,
         type: 2}
       propertyPath: m_Text
-      value: 392
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224286454739424692, guid: 991b69a363f234e9d955054b6da57c58,
         type: 2}
       propertyPath: m_AnchoredPosition.y
       value: -48
+      objectReference: {fileID: 0}
+    - target: {fileID: 1792862142650696, guid: 991b69a363f234e9d955054b6da57c58, type: 2}
+      propertyPath: m_TagString
+      value: CoinTarget
+      objectReference: {fileID: 0}
+    - target: {fileID: 1168181938241252, guid: 991b69a363f234e9d955054b6da57c58, type: 2}
+      propertyPath: m_Name
+      value: Coin
+      objectReference: {fileID: 0}
+    - target: {fileID: 114640585343412888, guid: 991b69a363f234e9d955054b6da57c58,
+        type: 2}
+      propertyPath: m_FontData.m_FontSize
+      value: 57
+      objectReference: {fileID: 0}
+    - target: {fileID: 114640585343412888, guid: 991b69a363f234e9d955054b6da57c58,
+        type: 2}
+      propertyPath: m_FontData.m_MinSize
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114640585343412888, guid: 991b69a363f234e9d955054b6da57c58,
+        type: 2}
+      propertyPath: m_FontData.m_MaxSize
+      value: 57
+      objectReference: {fileID: 0}
+    - target: {fileID: 114640585343412888, guid: 991b69a363f234e9d955054b6da57c58,
+        type: 2}
+      propertyPath: m_FontData.m_BestFit
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114934086672067094, guid: 991b69a363f234e9d955054b6da57c58, type: 2}

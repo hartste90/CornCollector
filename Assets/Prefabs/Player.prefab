@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4462336802997108}
   - component: {fileID: 331920587440487346}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 4057201756444192}
   - component: {fileID: 212456606944593482}
   - component: {fileID: 96187509522978234}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4776203095254450}
   - component: {fileID: 212529476054056078}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 212981099832100940}
   - component: {fileID: 114248936992024172}
   - component: {fileID: 95264968731526258}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4266651959947576}
   - component: {fileID: 331554244602914684}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}

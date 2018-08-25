@@ -74,9 +74,6 @@ public class PlayerController : MonoBehaviour {
 
     private void CheckExhaust()
     {
-        Debug.Log(exhaustFrequency + lastExhaustTime + ","+ Time.time);
-
-        //DropExhaust();
         if (Time.time > exhaustFrequency + lastExhaustTime)
         {
             lastExhaustTime = Time.time;

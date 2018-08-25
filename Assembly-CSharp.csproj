@@ -61,14 +61,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ContinueScreenController.cs" />
-    <Compile Include="Assets\ExhaustController.cs" />
     <Compile Include="Assets\Scripts\CloudController.cs" />
     <Compile Include="Assets\Scripts\CloudGenerator.cs" />
     <Compile Include="Assets\Scripts\CoinController.cs" />
+    <Compile Include="Assets\Scripts\CoinTargetController.cs" />
+    <Compile Include="Assets\Scripts\ContinueScreenController.cs" />
     <Compile Include="Assets\Scripts\CountdownController.cs" />
     <Compile Include="Assets\Scripts\DestroyAfterTime.cs" />
     <Compile Include="Assets\Scripts\EndgameScreenController.cs" />
+    <Compile Include="Assets\Scripts\ExhaustController.cs" />
     <Compile Include="Assets\Scripts\ExplosionController.cs" />
     <Compile Include="Assets\Scripts\ExplosionPuffController.cs" />
     <Compile Include="Assets\Scripts\Floater.cs" />

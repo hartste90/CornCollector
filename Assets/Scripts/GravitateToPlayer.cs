@@ -7,7 +7,7 @@ public class GravitateToPlayer : MonoBehaviour {
     public float gravityDistance = 10f;
     public float gravityMagnitude = 5f;
 
-    public float speed = 0f;
+    public float speed = 1f;
     public float acceleration = .1f;
     public bool isFollowing = true;
     public float maxSpeed = 10f;
@@ -17,7 +17,9 @@ public class GravitateToPlayer : MonoBehaviour {
 
     void Start()
     {
-        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        GameObject playerObj = GameObject.FindGameObjectWithTag("CoinTarget");
+        //GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+
         if (playerObj)
         {
             playerTransform = playerObj.transform;
@@ -32,11 +34,14 @@ public class GravitateToPlayer : MonoBehaviour {
     private void AccellerateTowardsTarget()
     {
         Vector3 direction = new Vector3(-45, 45, 0);
+        float distance = 1;
         if (playerTransform)
         { 
-            direction = playerTransform.position - transform.position; 
+            direction = playerTransform.position - transform.position;
+            distance = Vector3.Distance(playerTransform.position, transform.position);
         }
-        rb.AddForce(new Vector2(direction.x, direction.y).normalized * acceleration, ForceMode2D.Impulse);
+        speed += acceleration;
+        rb.AddForce(new Vector2(direction.x, direction.y).normalized * speed * 1/ distance, ForceMode2D.Impulse);
         if (rb.velocity.magnitude > maxSpeed)
         {
             rb.velocity = rb.velocity.normalized * maxSpeed;
