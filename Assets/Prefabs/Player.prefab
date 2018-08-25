@@ -339,7 +339,7 @@ MonoBehaviour:
     type: 2}
   minePrefab: {fileID: 1969627338554662, guid: eeaea0ac402084f4dbac644cb4b85895, type: 2}
   rigidbody: {fileID: 50572722650293256}
-  exhaustFrequency: 10
+  exhaustFrequency: 0.1
   dropsMines: 1
   animator: {fileID: 0}
 --- !u!212 &212456606944593482

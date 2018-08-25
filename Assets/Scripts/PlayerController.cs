@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour {
 
 	protected Vector3 lastTouchVector;
 
-    public float exhaustFrequency = 10f;
+    public float exhaustFrequency = .1f;
     private float lastExhaustTime;
 	public bool dropsMines;
 	public Animator animator;
@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-            lastExhaustTime = Time.time;
+            lastExhaustTime = Time.time + exhaustFrequency;
 	        direction = Vector3.zero;
 	        rigidbody = GetComponent <Rigidbody2D>();
 	        rigidbody.velocity =Vector3.zero;
@@ -51,19 +51,21 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-//		MoveInCurrentDirection();
-		if (direction == Vector3.zero)
+        //		MoveInCurrentDirection();
+        CheckExhaust();
+
+        if (direction == Vector3.zero)
 		{
 		        rigidbody.velocity = direction;
 		}
 		if (direction != Vector3.zero && gameController.swipeTooltipObject.activeSelf)
 		{
 			gameController.tooltipController.Hide();
-            CheckExhaust();
 		}
 
+
 #if UNITY_EDITOR
-		DetermineTapDirection();
+        DetermineTapDirection();
 #else
 		DetermineSwipeDirection();
 #endif
@@ -72,6 +74,9 @@ public class PlayerController : MonoBehaviour {
 
     private void CheckExhaust()
     {
+        Debug.Log(exhaustFrequency + lastExhaustTime + ","+ Time.time);
+
+        //DropExhaust();
         if (Time.time > exhaustFrequency + lastExhaustTime)
         {
             lastExhaustTime = Time.time;
