@@ -336,7 +336,7 @@ public class PlayerController : MonoBehaviour {
             if (collision.gameObject.tag == "Mine")
             {
 					OnHitMine ();
-					collision.gameObject.GetComponent<MineController>().DestroySelf ();
+					collision.gameObject.GetComponent<MineController>().MineExplode ();
             }
             else if (collision.gameObject.tag == "Explosion")
             {

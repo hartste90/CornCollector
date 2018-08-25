@@ -14,7 +14,7 @@ public class MineController : MonoBehaviour {
 	// Use this for initialization
 	void Start()
 	{
-		StartCoroutine( ActivateAfterSeconds (1));
+		//StartCoroutine( ActivateAfterSeconds (1));
 	}
 
 	IEnumerator ActivateAfterSeconds(int waitTime) 
@@ -37,7 +37,7 @@ public class MineController : MonoBehaviour {
 		}
 		if (countDownNumber <= 0)
 		{
-			DestroySelf ();
+            MineExplode();
 		}
 		StartCoroutine (ReduceCountdown (1));
 	}
@@ -53,8 +53,8 @@ public class MineController : MonoBehaviour {
 	        countDownLabel.text = num+"";
 	}
 
-	public void DestroySelf()
-	{;
+	public void MineExplode()
+	{
 	        GameObject explosionObject = Instantiate(explosionPrefab, transform.parent);
 		explosionObject.transform.localPosition = transform.localPosition;
 	        Destroy(gameObject);

@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4060353412627192}
   - component: {fileID: 212766438876273866}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ExplosionPuffShape
   m_TagString: Untagged
   m_Icon: {fileID: 0}
