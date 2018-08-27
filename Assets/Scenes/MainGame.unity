@@ -2598,6 +2598,30 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1468771316383982, guid: 991b69a363f234e9d955054b6da57c58, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 222058363895622876, guid: 991b69a363f234e9d955054b6da57c58,
+        type: 2}
+      propertyPath: m_CullTransparentMesh
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224869484901673758, guid: 991b69a363f234e9d955054b6da57c58,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224093863272722002, guid: 991b69a363f234e9d955054b6da57c58,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114336156912801246, guid: 991b69a363f234e9d955054b6da57c58,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114934086672067094, guid: 991b69a363f234e9d955054b6da57c58, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 991b69a363f234e9d955054b6da57c58, type: 2}
