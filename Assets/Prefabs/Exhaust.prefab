@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 4746496087493072}
   - component: {fileID: 212051493693115446}
   m_Layer: 15
-  m_Name: CoinShape
+  m_Name: ExhaustShape
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,7 +104,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: be4bd4418e9c446a590e088d51e5cfd4, type: 3}
-  m_Color: {r: 1, g: 0.98113215, b: 0, a: 1}
+  m_Color: {r: 0.41037738, g: 0.77802444, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
