@@ -207,7 +207,6 @@ public class GameController : MonoBehaviour {
 	        Destroy(coin);
 		if (coinList.Count == 0) 
 		{
-//			Debug.Log ("Victory: collected final coin");
 			CompleteLevel();
 		}
 
@@ -260,7 +259,6 @@ public class GameController : MonoBehaviour {
 
 	public void handlePlayerDestroyed()
 	{
-	        uiController.PauseTimer ();
         timeController.handlePlayerDestroyed();
             
 
@@ -275,7 +273,7 @@ public class GameController : MonoBehaviour {
 	IEnumerator ShowEndgameScreenAfterSeconds (float waitTime) 
 	{
 	        yield return new WaitForSeconds(waitTime);
-	        endgameScreenController.populateEndgameScreenContent (uiController.coinCountUILabel.text, uiController.timerUILabel.text);
+	        endgameScreenController.populateEndgameScreenContent (uiController.coinCountUILabel.text);
 		endgameScreenController.gameObject.SetActive (true);
 	}
 

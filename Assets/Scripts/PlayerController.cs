@@ -20,7 +20,8 @@ public class PlayerController : MonoBehaviour {
 
     public float exhaustFrequency = .1f;
     private float lastExhaustTime;
-	public bool dropsMines;
+    public bool dropExhaust;
+    public bool dropsMines;
 	public Animator animator;
 
 
@@ -52,8 +53,10 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //		MoveInCurrentDirection();
-        CheckExhaust();
-
+        if (dropExhaust)
+        {
+            CheckExhaust();
+        }
         if (direction == Vector3.zero)
 		{
 		        rigidbody.velocity = direction;

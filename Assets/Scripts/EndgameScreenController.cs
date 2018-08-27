@@ -6,11 +6,9 @@ using UnityEngine.UI;
 public class EndgameScreenController : MonoBehaviour {
 
 	public Text coinCountLabel;
-	public Text timerLabel;
 
-	public void populateEndgameScreenContent(string coinCountText, string timerText)
+	public void populateEndgameScreenContent(string coinCountText)
 	{
 	        coinCountLabel.text = coinCountText;
-	        timerLabel.text = timerText;
 	}
 }
