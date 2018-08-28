@@ -28,11 +28,10 @@ public class SafeController : MonoBehaviour {
 		animator = GetComponent<Animator>();
 	}
 
-	public void init (int startingHealth, int coinValue, int keyCost, GameController gameController)
+	public void Init (GameController gameController, int startingHealth = 1, int coinValue = 1)
 	{
 	        this.startingHealth = startingHealth;
 	        this.coinValue = coinValue;
-	        this.keyCost = keyCost;
 	        this.gameController = gameController;
 	}
 
@@ -43,44 +42,39 @@ public class SafeController : MonoBehaviour {
 	}
 
 	public void OnCollisionEnter2D(Collision2D collision)
-         {
-		if (collision.gameObject.tag == "Explosion")
-		{
-			handleHitByExplosion ();
-			collision.gameObject.GetComponent<ExplosionPuffController>().DestroySelf ();
-		}
-		else if (collision.gameObject.tag == "Player")
-		{
-		        Debug.Log ("Safe was hit by player!");
-		}
-               
-         }
+    {
+    	if (collision.gameObject.tag == "Explosion")
+    	{
+    		handleHitByExplosion ();
+    		collision.gameObject.GetComponent<ExplosionPuffController>().DestroySelf ();
+    	}      
+    }
 
 	public void handleHitByExplosion()
 	{
-	        currentHealth = currentHealth - 1;
-	        if (currentHealth <= 0)
-	        {
+        currentHealth = currentHealth - 1;
+        if (currentHealth <= 0)
+        {
 			transform.GetComponent<PolygonCollider2D>().enabled = false;
-	                gameController.HandleSafeDestroyed (coinValue, transform);
-	                //TODO: create explosion
-	                Destroy(gameObject);
-	        }
-	        healthBarImage.fillAmount = ((float)currentHealth/(float)startingHealth);
+            gameController.HandleSafeDestroyed (coinValue, transform);
+            //TODO: create explosion
+            Destroy(gameObject);
+        }
+        healthBarImage.fillAmount = ((float)currentHealth/(float)startingHealth);
 		healthBarImage.color = Color.Lerp(Color.red, Color.green,healthBarImage.fillAmount );
 	}
 
 	public void GenerateCoins (int numCoins)
 	{
-	        for (int i = 0; i < numCoins; i++)
-	        {
-	                Debug.Log("Generating coin");
-	                GameObject coin = Instantiate (coinPrefab, transform.parent);
-	                coin.transform.localScale = new Vector3 (384, 384, 1);
-	                coin.transform.localPosition = transform.localPosition;
-	                coin.GetComponent<Rigidbody2D>().velocity = GetRandom2DDirection();
-	                gameController.coinList.Add (coin);
-	        }
+        for (int i = 0; i < numCoins; i++)
+        {
+            Debug.Log("Generating coin");
+            GameObject coin = Instantiate (coinPrefab, transform.parent);
+            coin.transform.localScale = new Vector3 (384, 384, 1);
+            coin.transform.localPosition = transform.localPosition;
+            coin.GetComponent<Rigidbody2D>().velocity = GetRandom2DDirection();
+            gameController.coinList.Add (coin);
+        }
 	}
 
 	public Vector2 GetRandom2DDirection()

@@ -27,19 +27,20 @@ public class PlayerController : MonoBehaviour {
 
 	void OnDrawGizmos() 
 	{
-	        if (lastTouchVector != Vector3.zero)
-	        {
-	                Gizmos.DrawLine (transform.position, lastTouchVector);
-	        }
+        if (lastTouchVector != Vector3.zero)
+        {
+            Gizmos.DrawLine (transform.position, lastTouchVector);
+        }
      }
 
 	public void Init(GameController controller)
 	{
-	        this.gameController = controller;
-	}
+        this.gameController = controller;
+        transform.localPosition = Vector3.zero;
+    }
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
             lastExhaustTime = Time.time + exhaustFrequency;
 	        direction = Vector3.zero;
 	        rigidbody = GetComponent <Rigidbody2D>();
@@ -290,7 +291,7 @@ public class PlayerController : MonoBehaviour {
 
 //		CreatePhysicalExplosion ();
 
-		gameController.handlePlayerDestroyed();
+		gameController.HandlePlayerDestroyed();
         GetComponent<WrapAroundBehavior>().DestroyAllGhosts();
         Destroy(gameObject);
 
@@ -326,13 +327,6 @@ public class PlayerController : MonoBehaviour {
 		gameController.CheckCoinsCollected (coin);
 	}
 
-	public void OnTriggerEnter2D(Collider2D collider) 
-	{
-		if (collider.gameObject.tag == "Coin")
-                {
-                        OnHitCoin(collider.gameObject);
-                }
-        }
 	public void OnCollisionEnter2D(Collision2D collision)
          {
 //		Debug.Log ("COllision: " + collision.gameObject.tag);

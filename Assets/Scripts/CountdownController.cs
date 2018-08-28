@@ -6,9 +6,9 @@ public class CountdownController : MonoBehaviour {
 
 	public GameController gameController;
 
-	public void handleCountdownAnimationComplete()
+	public void HandleCountdownAnimationComplete()
 	{
-	        gameController.beginTooltip ();
+	        gameController.HandleCountdownAnimationComplete();
 	}
 
 

@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour {
     public int userLevel = 1;
     public float minimumSwipeDistance = 0f;
     public float gameSpeed = 2.5f;
+    public int numCoinsInSafe = 10;
 
 
     //links
@@ -39,29 +40,36 @@ public class GameController : MonoBehaviour {
 
 	public void Awake()
 	{
+        //record device dimensions
 		Tools.screenWidth = Screen.width;
 		Tools.screenHeight = Screen.height;
+        //instantiate lists
         coinList = new List<GameObject>();
         mineList = new List<GameObject>();
     }
 
+    // a test function to trigger custom functionality for debugging
 	public void TestFunc()
 	{
-		SpawnGameObjectAtPosition (coinPrefab, Vector3.zero);
+		SpawnGameObjectAtRandomPosition (safePrefab);
 	}
 
 	void Start()
 	{
+        //setup private links
         tooltipController = swipeTooltipObject.GetComponent<TooltipController>();
         timeController = GetComponent<TimeController>();
+        //hide the end game screen if it's been shown
 		endgameScreenController.gameObject.SetActive (false);		
 	}
 
-	public void beginTooltip()
+    //shows the tooltip at the beginning of the game
+	public void HandleCountdownAnimationComplete()
 	{
+        //enable the tooltip and play its into animation
 		swipeTooltipObject.SetActive (true);
 		tooltipController.Show();
-		
+        //begin gameplay
 		beginGameplay ();
 	}
 
@@ -74,17 +82,13 @@ public class GameController : MonoBehaviour {
 	{
         //create player
 		playerObject = Instantiate (playerPrefab, gameStageParent);
-		playerObject.transform.localPosition = Vector3.zero;
-		playerController = playerObject.GetComponent<PlayerController>();
-        playerController.Init (this);
-        playerController.rigidbody.velocity = Vector3.zero;
+		playerObject.GetComponent<PlayerController>().Init(this);
         //create first safe
         GameObject safeObject = Instantiate(safePrefab, gameStageParent);
-        SafeController safeController = safeObject.GetComponent<SafeController>();
-        safeController.gameObject.SetActive(true);
-        safeController.init(1, 3, 5, this);
+        safeObject.GetComponent<SafeController>().Init(this);
     }
-	void Update ()
+	
+    void Update ()
 	{
 		if(Input.GetKeyDown ("space"))
 	        {
@@ -100,160 +104,136 @@ public class GameController : MonoBehaviour {
 	{
 		Time.timeScale = 1.0f;
 		SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
-//	        uiController.ResetUI();
-//		DestroyAllItemsOnscreen();
-//	        Start();
 	}
 
 	public List<GameObject> SpawnMultiple (int numToSpawn, GameObject gameObject)
 	{
-	        List<GameObject> objectList = new List<GameObject>();
+        List<GameObject> objectList = new List<GameObject>();
 		for (int i = 0; i < numToSpawn; i++) 
 		{
-			GameObject obj = SpawnGameObject (gameObject);
+			GameObject obj = SpawnGameObjectAtRandomPosition(gameObject);
 			objectList.Add(obj);
 		}
 		return objectList;
 	}
 
+    public GameObject SpawnGameObjectAtRandomPosition(GameObject gameObject)
+    {
+        Vector3 screenPosition = GetRandomLocationOnscreen();
+        return SpawnGameObjectAtPosition(gameObject, screenPosition);
+    }
 
+    public GameObject SpawnGameObjectAtPosition(GameObject gameObject, Vector2 position)
+    {
+        Vector3 pos3 = new Vector3(position.x, position.y, 0);
+        GameObject obj = Instantiate(gameObject, Vector3.zero, Quaternion.identity, gameStageParent);
+        obj.transform.localPosition = pos3;
+        RectTransform rect = obj.GetComponent<RectTransform>();
+        rect.anchoredPosition = position;
+        if (gameObject.tag != "Safe")
+        {
+            obj.transform.localScale = new Vector3(3, 3, 1);
+        }
+        if (gameObject == coinPrefab)
+        {
+            obj.transform.localScale = new Vector3(30, 30, 1);
+            coinList.Add(obj);
+        }
+        else if (gameObject == minePrefab)
+        {
+            mineList.Add(obj);
+        }
+        return obj;
+    }
 
-	public GameObject SpawnGameObject (GameObject gameObject)
+    public static Vector3 GetRandomLocationOnscreen ()
 	{
-		Vector3 screenPosition = GetRandomLocationOnscreen ();
-		return SpawnGameObjectAtPosition (gameObject, screenPosition);
-	}
 
-	public void PrintScreenDimensionsInWorldSpace()
-	{
-		Debug.Log (GetRandomLocationOnscreen());
+        float horizontalBuffer = Tools.screenWidth / 10;
+        float verticalBuffer = Tools.screenHeight / 10;
 
-	}
+        float halfwidth = Tools.screenWidth / 2;
+        float halfheight = Tools.screenHeight / 2;
 
-	public static Vector3 GetRandomLocationOnscreen ()
-	{
-
-		float horizontalBuffer = 20;
-		float verticalBuffer = 20;
-
-		float width = Screen.width;
-		float height = Screen.height;
-
-		float halfwidth = width / 2;
-		float halfheight = height / 2;
-
-		Vector3 position = new Vector3 (Random.Range (-halfwidth+horizontalBuffer, halfwidth-horizontalBuffer), Random.Range (-halfheight+verticalBuffer, halfheight-verticalBuffer), 0);
+		Vector3 position = new Vector3 (
+            Random.Range (-halfwidth+horizontalBuffer, halfwidth-horizontalBuffer), 
+            Random.Range (-halfheight+verticalBuffer, halfheight-verticalBuffer),
+            0);
 		return position;
 	}
 
 	public void HandleSafeDestroyed(int numCoins, Transform safeLocation)
 	{
 		//spawn multiple coins	
-		numCoins = 10;	
+        numCoins = numCoinsInSafe;	
 		for (int i = 0; i < numCoins; i++)
-	        {
-	                GameObject coin = SpawnGameObjectAtPosition (coinPrefab, safeLocation.localPosition);
-			//Debug.Log(safeLocation.localPosition);
-	                CoinController coinController = coin.GetComponent<CoinController>();
-			//lerp to random position
-	                // coinController.LerpToPosition (GetRandomLocationOnscreen (), .5f);
-	        }
-
-
-		//CODE TO CREATE SINGE COIN ON TOP OF SAFE AND CREATE NEW SAFE AT RANDOM SCREEN POSITION
-		// GameObject coin = SpawnGameObjectAtPosition (coinPrefab, safeLocation.localPosition);
-		CreateSafeForLevel(1);
+        {
+            SpawnGameObjectAtPosition (coinPrefab, safeLocation.localPosition);
+        }
+		AddSafe();
 	}
-	public GameObject SpawnGameObjectAtPosition (GameObject gameObject, Vector2 position)
-	{
-		Vector3 pos3 = new Vector3 (position.x, position.y, 0);
-		GameObject obj = Instantiate(gameObject, Vector3.zero, Quaternion.identity, gameStageParent);
-		obj.transform.localPosition = pos3;
-		RectTransform rect = obj.GetComponent<RectTransform> ();
-		rect.anchoredPosition = position;
-		if (gameObject.tag != "Safe")
-		{
-			obj.transform.localScale = new Vector3(3, 3, 1);
-		}
-		if (gameObject == coinPrefab) 
-		{
-			obj.transform.localScale = new Vector3 (30,30, 1);
-			coinList.Add (obj);
-		}
-		else if (gameObject == minePrefab)
-		{
-		        mineList.Add (obj);
-		}
-		return obj;
-	}
+	
 
 	public void CheckCoinsCollected(GameObject coin)
 	{
-	        uiController.AddCoinsCollected(1);
-	        coinList.Remove (coin);
-	        Destroy(coin);
+        uiController.AddCoinsCollected(1);
+        coinList.Remove (coin);
+        Destroy(coin);
 		if (coinList.Count == 0) 
 		{
 			CompleteLevel();
 		}
-
 	}
 
 	public void CompleteLevel()
 	{
 		userLevel++;
-//		CreateCoinsForLevel(userLevel);
-		// CreateSafeForLevel(userLevel);
-	}
-	public void CreateCoinsForLevel(int level)
-	{
-		SpawnMultiple (level, coinPrefab);
-	}
-	public void CreateSafeForLevel(int userLevel)
-	{
-	        List<GameObject> safeList = SpawnMultiple (1, safePrefab);
-	        int health = 1;
-		int coinValue =  Random.Range (1, userLevel)+1;
-		int keyCost = Random.Range (coinValue, coinValue + 3);
-	        safeList[0].GetComponent<SafeController>().init (health, coinValue, keyCost, this);
 	}
 
-	public void CreateSafeForLevel()
+	public void AddSafe()
 	{
-		SpawnMultiple (1, safePrefab);
+        GameObject safe = SpawnGameObjectAtRandomPosition(safePrefab);
+        safe.GetComponent<SafeController>().Init(this);
+
 	} 
 
     //!!! This function doesn't take safes or explosion puffs into accound
 	public void DestroyAllItemsOnscreen()
 	{
-        for (int i = coinList.Count-1; i >= 0; i-- )
+        //destroy coins
+        for (int i = coinList.Count - 1; i >= 0; i--)
         {
-            Destroy (coinList[i].gameObject);
+            Destroy(coinList[i].gameObject);
         }
+        //destroy mines
         for (int i = mineList.Count-1; i >= 0; i-- )
         {
             Destroy (mineList[i].gameObject);
         }
+        //destroy player
 		Destroy (playerObject);
 	}
 
-	public void handlePlayerDestroyed()
+	public void HandlePlayerDestroyed()
 	{
         timeController.handlePlayerDestroyed();
-            
-
-        PlayerPrefs.SetInt ("lastScore", uiController.coinCountNum);
-		if (PlayerPrefs.GetInt ("bestScore") < uiController.coinCountNum)
-	        {
-			PlayerPrefs.SetInt ("bestScore", uiController.coinCountNum);
-	        }
+        SavePlayerPrefs();
 		StartCoroutine (ShowEndgameScreenAfterSeconds (delayBeforeEndGameScreenAppears));
 	}
 
+    private void SavePlayerPrefs()
+    {
+        PlayerPrefs.SetInt("lastScore", uiController.coinCountNum);
+        if (PlayerPrefs.GetInt("bestScore") < uiController.coinCountNum)
+        {
+            PlayerPrefs.SetInt("bestScore", uiController.coinCountNum);
+        }
+    }
+
 	IEnumerator ShowEndgameScreenAfterSeconds (float waitTime) 
 	{
-	        yield return new WaitForSeconds(waitTime);
-	        endgameScreenController.populateEndgameScreenContent (uiController.coinCountUILabel.text);
+        yield return new WaitForSeconds(waitTime);
+        endgameScreenController.populateEndgameScreenContent (uiController.coinCountNum+"");
 		endgameScreenController.gameObject.SetActive (true);
 	}
 
