@@ -14,7 +14,7 @@ public class ExhaustController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (transform.localScale.x == startingScale / 10)
+        if (transform.localScale.x <= startingScale / 10)
         {
             Destroy(gameObject);
         }
