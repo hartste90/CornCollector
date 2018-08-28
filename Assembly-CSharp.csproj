@@ -81,6 +81,7 @@
     <Compile Include="Assets\Scripts\TimeController.cs" />
     <Compile Include="Assets\Scripts\Tools.cs" />
     <Compile Include="Assets\Scripts\TooltipController.cs" />
+    <Compile Include="Assets\Scripts\TrailLeaver.cs" />
     <Compile Include="Assets\Scripts\UIController.cs" />
     <Compile Include="Assets\Scripts\WrapAroundBehavior.cs" />
     <Compile Include="Assets\Scripts\WrapAroundScreen.cs" />

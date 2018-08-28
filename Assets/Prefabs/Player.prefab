@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 212981099832100940}
   - component: {fileID: 114248936992024172}
   - component: {fileID: 95264968731526258}
+  - component: {fileID: 114077351982854494}
   m_Layer: 12
   m_Name: Player
   m_TagString: Player
@@ -305,6 +306,20 @@ TrailRenderer:
   m_MinVertexDistance: 0.05
   m_Autodestruct: 1
   m_Emitting: 1
+--- !u!114 &114077351982854494
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1324097209040142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be2621a6cad14d788696b0253972e60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  exhaustFrequency: 0.1
+  dropExhaust: 0
+  exhaustPrefab: {fileID: 0}
 --- !u!114 &114248936992024172
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -328,21 +343,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59e4798218d954aa08604a655272e25d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameController: {fileID: 0}
-  direction: {x: 0, y: 0, z: 0}
+  dropsMines: 1
   playerDecal: {fileID: 4776203095254450}
   explosionPrefab: {fileID: 1199903913866718, guid: 4e58d5a12017541a7a70c3dd3f8b0db8,
-    type: 2}
-  exhaustPrefab: {fileID: 1163104217667706, guid: 266e91259073041bf936fa0db98f1434,
     type: 2}
   playerExplosionPrefab: {fileID: 1199903913866718, guid: d26f4743a8eb64158af657152437de0b,
     type: 2}
   minePrefab: {fileID: 1969627338554662, guid: eeaea0ac402084f4dbac644cb4b85895, type: 2}
-  rigidbody: {fileID: 50572722650293256}
-  exhaustFrequency: 0.1
-  dropExhaust: 1
-  dropsMines: 1
-  animator: {fileID: 0}
+  gameController: {fileID: 0}
 --- !u!212 &212456606944593482
 SpriteRenderer:
   m_ObjectHideFlags: 1

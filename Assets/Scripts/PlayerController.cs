@@ -5,14 +5,11 @@ using System;
 
 public class PlayerController : MonoBehaviour {
    
-    public float exhaustFrequency = .1f;
-    public bool dropExhaust;
     public bool dropsMines;
 
     public Transform playerDecal;
 
     public GameObject explosionPrefab;
-    public GameObject exhaustPrefab;
 	public GameObject playerExplosionPrefab;
 	public GameObject minePrefab;
     public GameController gameController;
@@ -22,7 +19,6 @@ public class PlayerController : MonoBehaviour {
     private Vector3 direction = Vector3.zero;
     private Vector3 lastTouchVector;
     private Rigidbody2D rigidbody;
-    private float lastExhaustTime;
     private Animator animator;
 
 	public void Init(GameController controller)
@@ -34,7 +30,6 @@ public class PlayerController : MonoBehaviour {
     void Start () 
     {
         //dropsMines = true;
-        lastExhaustTime = Time.time + exhaustFrequency;
         direction = Vector3.zero;
         rigidbody = GetComponent <Rigidbody2D>();
         rigidbody.velocity =Vector3.zero;
@@ -42,40 +37,22 @@ public class PlayerController : MonoBehaviour {
         lastTouchVector = Vector3.zero;
         animator = GetComponent<Animator>();
 	}
-	
-	void Update () 
-    {
-        if (dropExhaust)
-        {
-            CheckExhaust();
-        }
-        //hide the tooltip if we are moving and it hasn't been hidden before
-		if (gameController.swipeTooltipObject.activeSelf && direction != Vector3.zero)
-		{
-            gameController.HideTooltip();
-		}
 
-    //Different inputs for editor or live game
+    void Update()
+    {
+
+        //hide the tooltip if we are moving and it hasn't been hidden before
+        if (gameController.swipeTooltipObject.activeSelf && direction != Vector3.zero)
+        {
+            gameController.HideTooltip();
+        }
+
+        //Different inputs for editor or live game
 #if (UNITY_EDITOR || UNITY_STANDALONE)
         DetermineKeyboardDirection();
 #else
     	DetermineSwipeDirection();
 #endif
-	}
-
-    private void CheckExhaust()
-    {
-        if (Time.time > exhaustFrequency + lastExhaustTime)
-        {
-            lastExhaustTime = Time.time;
-            DropExhaust();
-        }
-    }
-
-    private void DropExhaust()
-    {
-        GameObject exhaust = Instantiate(exhaustPrefab, transform.parent);
-        exhaust.transform.localPosition = transform.localPosition;
     }
 
     public void DetermineKeyboardDirection()
