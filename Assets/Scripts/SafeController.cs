@@ -3,36 +3,32 @@ using UnityEngine.UI;
 
 public class SafeController : MonoBehaviour {
 
-	public int startingHealth;
-	public int currentHealth;
 
-	public GameObject coinPrefab;
+    private int startingHealth = 1;
+
+    public GameObject coinPrefab;
 	public GameController gameController;
 
-	public int coinValue;
-	public Text keyCostText;
-	public int keyCost;
+	private int coinValue;
+    private int currentHealth;
+    private Animator animator;
+	private Image healthBarImage;
 
-
-
-	public Animator animator;
-	public Image healthBarImage;
-	void Start () {
-		keyCostText.text = keyCost.ToString ();
+	void Start () 
+    {
 		currentHealth = startingHealth;
 		animator = GetComponent<Animator>();
 	}
 
 	public void Init (GameController gameController, int startingHealth = 1, int coinValue = 1)
 	{
-	        this.startingHealth = startingHealth;
-	        this.coinValue = coinValue;
-	        this.gameController = gameController;
+        this.startingHealth = startingHealth;
+        this.coinValue = coinValue;
+        this.gameController = gameController;
 	}
 
 	public void HandleAppearAnimationComplete()
 	{
-	        //Debug.Log ("handleAppearAnimationComplete");
 		GetComponent <PolygonCollider2D>().enabled = true;
 	}
 
@@ -52,20 +48,9 @@ public class SafeController : MonoBehaviour {
         {
             transform.GetComponent<PolygonCollider2D>().enabled = false;
             gameController.HandleSafeDestroyed(coinValue, transform);
-            //TODO: create explosion
             Destroy(gameObject);
         }
         healthBarImage.fillAmount = ((float)currentHealth / (float)startingHealth);
         healthBarImage.color = Color.Lerp(Color.red, Color.green, healthBarImage.fillAmount);
     }
-
-	public Vector2 GetRandom2DDirection()
-	{
-		float x = Random.Range(-1f, 1f);
-		float y = Random.Range(-1f, 1f);
-		Vector2 direction = new Vector2 (x, y);
-		//if you need the vector to have a specific length:
-		float coinSpeed = Random.Range (1, 3);
-		return (direction.normalized * coinSpeed);
-	}
 }

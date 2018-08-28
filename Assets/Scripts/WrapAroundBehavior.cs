@@ -9,19 +9,16 @@ public class WrapAroundBehavior : MonoBehaviour {
 	float screenHeight;
 	Transform[] ghosts = new Transform[8];
 
-	// Use this for initialization
 	void Start () 
 	{
-
 		var cam = Camera.main;
  
 		var screenBottomLeft = cam.ViewportToWorldPoint(new Vector3(0, 0, transform.position.z));
 		var screenTopRight = cam.ViewportToWorldPoint(new Vector3(1, 1, transform.position.z));
-
 		screenWidth = screenTopRight.x - screenBottomLeft.x;
 		screenHeight = screenTopRight.y - screenBottomLeft.y;
 
-		CreateGhostShips ();
+        CreateGhostShips();
 		PositionGhostShips ();
 	}
 
@@ -98,19 +95,16 @@ public class WrapAroundBehavior : MonoBehaviour {
 
 	void SwapShips()
 	{
-	      for (int i = 0; i < ghosts.Length; i ++)
-	      {
-	                Transform ghost = ghosts[i];
-		        if (ghost.position.x < screenWidth/2 && ghost.position.x > -screenWidth/2 & ghost.position.y < screenHeight/2 && ghost.position.y > -screenHeight/2)
-		        {
-		                
-//		                Debug.Log ("Swapping Ships: " + ghost.position.x + ", " + ghost.position.y);
-		                transform.position = ghost.position;
-				PositionGhostShips();
-//				Debug.Break ();
-		                break;
-		        }
-	    }
+        for (int i = 0; i < ghosts.Length; i ++)
+        {
+            Transform ghost = ghosts[i];
+            if (ghost.position.x < screenWidth/2 && ghost.position.x > -screenWidth/2 & ghost.position.y < screenHeight/2 && ghost.position.y > -screenHeight/2)
+            {
+                transform.position = ghost.position;
+                PositionGhostShips();
+                break;
+            }
+        }
 
 	}
 
