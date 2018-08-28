@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour {
 		}
 		if (direction != Vector3.zero && gameController.swipeTooltipObject.activeSelf)
 		{
-			gameController.tooltipController.Hide();
+            gameController.HideTooltip();
 		}
 
 

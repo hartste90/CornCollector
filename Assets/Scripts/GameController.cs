@@ -15,27 +15,25 @@ public class GameController : MonoBehaviour {
 
     //links
     public GameObject swipeTooltipObject;
-	public TooltipController tooltipController;
-	public Transform gameStageParent;
-	public UIController uiController;
-	public EndgameScreenController endgameScreenController;
-	public ContinueScreenController continueScreenController;
-    public PlayerController playerController;
-    public GameObject playerObject;
     public GameObject playerPrefab;
     public GameObject coinPrefab;
     public GameObject minePrefab;
     public GameObject safePrefab;
-    public GameObject bumperPrefab;
+    public Transform gameStageParent;
+	public UIController uiController;
+	public EndgameScreenController endgameScreenController;
+	public ContinueScreenController continueScreenController;
 
     //private links
     private TimeController timeController;
+    private TooltipController tooltipController;
+    private PlayerController playerController;
+    private GameObject playerObject;
 
     //tracking
     public float lastTimePlayerWatchedVideo = -3000f;
 	public List<GameObject> coinList;
-	protected List<GameObject> bumperList;
-	protected List<GameObject> mineList;
+	public List<GameObject> mineList;
 
 
 
@@ -44,7 +42,6 @@ public class GameController : MonoBehaviour {
 		Tools.screenWidth = Screen.width;
 		Tools.screenHeight = Screen.height;
         coinList = new List<GameObject>();
-        bumperList = new List<GameObject>();
         mineList = new List<GameObject>();
     }
 
@@ -55,6 +52,7 @@ public class GameController : MonoBehaviour {
 
 	void Start()
 	{
+        tooltipController = swipeTooltipObject.GetComponent<TooltipController>();
         timeController = GetComponent<TimeController>();
 		endgameScreenController.gameObject.SetActive (false);		
 	}
@@ -67,7 +65,12 @@ public class GameController : MonoBehaviour {
 		beginGameplay ();
 	}
 
-	public void beginGameplay()
+    public void HideTooltip()
+    {
+        tooltipController.Hide();
+    }
+
+    public void beginGameplay()
 	{
         //create player
 		playerObject = Instantiate (playerPrefab, gameStageParent);
@@ -181,10 +184,6 @@ public class GameController : MonoBehaviour {
 		{
 		        mineList.Add (obj);
 		}
-		else if (gameObject == bumperPrefab)
-		{
-		        bumperList.Add (obj);
-		}
 		return obj;
 	}
 
@@ -224,24 +223,17 @@ public class GameController : MonoBehaviour {
 		SpawnMultiple (1, safePrefab);
 	} 
 
+    //!!! This function doesn't take safes or explosion puffs into accound
 	public void DestroyAllItemsOnscreen()
 	{
-		// Debug.Log("Destroying all items onscreen");
-	        // Debug.Log(coinList.Count);
-		// Debug.Log(bumperList.Count);
-		// Debug.Log(mineList.Count);
-	        for (int i = coinList.Count-1; i >= 0; i-- )
-	        {
-			Destroy (coinList[i].gameObject);
-	        }
-		for (int i = bumperList.Count-1; i >= 0; i-- )
-	        {
-			Destroy (bumperList[i].gameObject);
-	        }
-		for (int i = mineList.Count-1; i >= 0; i-- )
-	        {
-			Destroy (mineList[i].gameObject);
-	        }
+        for (int i = coinList.Count-1; i >= 0; i-- )
+        {
+            Destroy (coinList[i].gameObject);
+        }
+        for (int i = mineList.Count-1; i >= 0; i-- )
+        {
+            Destroy (mineList[i].gameObject);
+        }
 		Destroy (playerObject);
 	}
 

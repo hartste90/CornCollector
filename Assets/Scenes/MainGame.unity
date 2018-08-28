@@ -722,12 +722,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 224952676486143648, guid: 2bcc90e901b63422db860305118ec38d,
     type: 2}
   m_PrefabInternal: {fileID: 268484635}
---- !u!114 &268121375 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114109713262235814, guid: 2bcc90e901b63422db860305118ec38d,
-    type: 2}
-  m_PrefabInternal: {fileID: 268484635}
-  m_Script: {fileID: 11500000, guid: 7e12ddea5ede74c5a82af8a9676e8832, type: 3}
 --- !u!1001 &268484635
 Prefab:
   m_ObjectHideFlags: 0
@@ -911,21 +905,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayBeforeEndGameScreenAppears: 0.7
   userLevel: 1
-  swipeTooltipObject: {fileID: 268121372}
-  initialSafeController: {fileID: 370095336}
-  tooltipController: {fileID: 268121375}
-  gameStageParent: {fileID: 400534355}
-  uiController: {fileID: 1413301182}
-  endgameScreenController: {fileID: 1396909740}
-  continueScreenController: {fileID: 2019542106}
-  lastTimePlayerWatchedVideo: 0
-  numStartingMines: 0
-  numStartingBumpers: 0
-  numStartingCoins: 0
   minimumSwipeDistance: 0
-  playerController: {fileID: 0}
-  playerObject: {fileID: 0}
   gameSpeed: 2.5
+  swipeTooltipObject: {fileID: 268121372}
   playerPrefab: {fileID: 1324097209040142, guid: 68b404f91c2214c91b122bc2c6ec3efc,
     type: 2}
   coinPrefab: {fileID: 1115446076801792, guid: 6f2d6d602140943cdb586d0d8c64cd79, type: 2}
@@ -933,6 +915,11 @@ MonoBehaviour:
   safePrefab: {fileID: 1717595767532530, guid: 2e9760856db1e4342b0068ff791b5927, type: 2}
   bumperPrefab: {fileID: 1617001229288704, guid: b5daf4abcfd5e4782af3ae79cdeee440,
     type: 2}
+  gameStageParent: {fileID: 400534355}
+  uiController: {fileID: 1413301182}
+  endgameScreenController: {fileID: 1396909740}
+  continueScreenController: {fileID: 2019542106}
+  lastTimePlayerWatchedVideo: -3000
   coinList: []
 --- !u!4 &306352828
 Transform:
@@ -1052,12 +1039,6 @@ Canvas:
   m_SortingLayerID: 822275261
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &370095336 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114784170986398840, guid: 2e9760856db1e4342b0068ff791b5927,
-    type: 2}
-  m_PrefabInternal: {fileID: 1534019450}
-  m_Script: {fileID: 11500000, guid: c0ed555b8454b43bfae6a26f859f9990, type: 3}
 --- !u!1 &400534354
 GameObject:
   m_ObjectHideFlags: 0
