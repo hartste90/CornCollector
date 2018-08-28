@@ -11,23 +11,23 @@ public class UIController : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
     {
-        coinCountNum = 0;
-		SetCoinText (0);
+        ResetUI();
 	}
 
 	public void ResetUI()
 	{
-	        Start();
-	}
+        coinCountNum = 0;
+        SetCoinText(0);
+    }
 	
 	public void AddCoinsCollected (int numCoins)
 	{
-	        coinCountNum += numCoins;
-		SetCoinText (coinCountNum);
+        coinCountNum += numCoins;
+        SetCoinText (coinCountNum);
 	}
 
 	public void SetCoinText (int numCoins)
 	{
-	        coinCountUILabel.text = numCoins + "";
+        coinCountUILabel.text = numCoins + "";
 	}
 }

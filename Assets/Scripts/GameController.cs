@@ -178,16 +178,6 @@ public class GameController : MonoBehaviour {
 	{
         uiController.AddCoinsCollected(1);
         coinList.Remove (coin);
-        Destroy(coin);
-		if (coinList.Count == 0) 
-		{
-			CompleteLevel();
-		}
-	}
-
-	public void CompleteLevel()
-	{
-		userLevel++;
 	}
 
 	public void AddSafe()
@@ -233,7 +223,7 @@ public class GameController : MonoBehaviour {
 	IEnumerator ShowEndgameScreenAfterSeconds (float waitTime) 
 	{
         yield return new WaitForSeconds(waitTime);
-        endgameScreenController.populateEndgameScreenContent (uiController.coinCountNum+"");
+        endgameScreenController.PopulateEndgameScreenContent (uiController.coinCountNum+"");
 		endgameScreenController.gameObject.SetActive (true);
 	}
 

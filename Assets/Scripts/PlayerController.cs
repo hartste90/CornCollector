@@ -39,9 +39,13 @@ public class PlayerController : MonoBehaviour {
         transform.localPosition = Vector3.zero;
     }
 
+    private void Awake()
+    {
+    }
+
     // Use this for initialization
     void Start () {
-            lastExhaustTime = Time.time + exhaustFrequency;
+        lastExhaustTime = Time.time + exhaustFrequency;
 	        direction = Vector3.zero;
 	        rigidbody = GetComponent <Rigidbody2D>();
 	        rigidbody.velocity =Vector3.zero;
@@ -312,43 +316,36 @@ public class PlayerController : MonoBehaviour {
 				rb.AddExplosionForce(10f, explosionPos, 100f, 3.0F);
 		}
 	}
-		
 
 
-	public void OnHitBumper()
-	{
-	    Vector3 oppositeDirection = GetOppositeDirection(direction);
-		SetDirection (oppositeDirection);
-	}
 
-	public void OnHitCoin(GameObject coin)
-	{
-        animator.SetTrigger("Bump");
-		gameController.CheckCoinsCollected (coin);
-	}
+    public void OnHitBumper()
+    {
+        Vector3 oppositeDirection = GetOppositeDirection(direction);
+        SetDirection(oppositeDirection);
+    }
 
 	public void OnCollisionEnter2D(Collision2D collision)
-         {
-//		Debug.Log ("COllision: " + collision.gameObject.tag);
-            if (collision.gameObject.tag == "Mine")
-            {
-					OnHitMine ();
-					collision.gameObject.GetComponent<MineController>().MineExplode ();
-            }
-            else if (collision.gameObject.tag == "Explosion")
-            {
-			OnHitMine ();
-            }
-            else if (collision.gameObject.tag == "Safe")
-            {
-                OnHitMine();
-            }
-            else if (collision.gameObject.tag == "Bumper")
-            {
-                    OnHitBumper();
-            }
-               
-         }
+    {
+        if (collision.gameObject.tag == "Mine")
+        {
+    		OnHitMine ();
+    		collision.gameObject.GetComponent<MineController>().MineExplode ();
+        }
+        else if (collision.gameObject.tag == "Explosion")
+        {
+            OnHitMine ();
+        }
+        else if (collision.gameObject.tag == "Safe")
+        {
+            OnHitMine();
+        }
+        else if (collision.gameObject.tag == "Bumper")
+        {
+            OnHitBumper();
+        }
+       
+    }
 
 	protected Vector3 GetOppositeDirection(Vector3 direction)
 	{

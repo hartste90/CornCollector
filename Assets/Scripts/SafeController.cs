@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class SafeController : MonoBehaviour {
@@ -9,11 +7,9 @@ public class SafeController : MonoBehaviour {
 	public int currentHealth;
 
 	public GameObject coinPrefab;
-
 	public GameController gameController;
 
 	public int coinValue;
-
 	public Text keyCostText;
 	public int keyCost;
 
@@ -21,7 +17,6 @@ public class SafeController : MonoBehaviour {
 
 	public Animator animator;
 	public Image healthBarImage;
-	// Use this for initialization
 	void Start () {
 		keyCostText.text = keyCost.ToString ();
 		currentHealth = startingHealth;
@@ -35,7 +30,7 @@ public class SafeController : MonoBehaviour {
 	        this.gameController = gameController;
 	}
 
-	public void handleAppearAnimationComplete()
+	public void HandleAppearAnimationComplete()
 	{
 	        //Debug.Log ("handleAppearAnimationComplete");
 		GetComponent <PolygonCollider2D>().enabled = true;
@@ -45,37 +40,24 @@ public class SafeController : MonoBehaviour {
     {
     	if (collision.gameObject.tag == "Explosion")
     	{
-    		handleHitByExplosion ();
+    		HandleHitByExplosion ();
     		collision.gameObject.GetComponent<ExplosionPuffController>().DestroySelf ();
     	}      
     }
 
-	public void handleHitByExplosion()
-	{
+    public void HandleHitByExplosion()
+    {
         currentHealth = currentHealth - 1;
         if (currentHealth <= 0)
         {
-			transform.GetComponent<PolygonCollider2D>().enabled = false;
-            gameController.HandleSafeDestroyed (coinValue, transform);
+            transform.GetComponent<PolygonCollider2D>().enabled = false;
+            gameController.HandleSafeDestroyed(coinValue, transform);
             //TODO: create explosion
             Destroy(gameObject);
         }
-        healthBarImage.fillAmount = ((float)currentHealth/(float)startingHealth);
-		healthBarImage.color = Color.Lerp(Color.red, Color.green,healthBarImage.fillAmount );
-	}
-
-	public void GenerateCoins (int numCoins)
-	{
-        for (int i = 0; i < numCoins; i++)
-        {
-            Debug.Log("Generating coin");
-            GameObject coin = Instantiate (coinPrefab, transform.parent);
-            coin.transform.localScale = new Vector3 (384, 384, 1);
-            coin.transform.localPosition = transform.localPosition;
-            coin.GetComponent<Rigidbody2D>().velocity = GetRandom2DDirection();
-            gameController.coinList.Add (coin);
-        }
-	}
+        healthBarImage.fillAmount = ((float)currentHealth / (float)startingHealth);
+        healthBarImage.color = Color.Lerp(Color.red, Color.green, healthBarImage.fillAmount);
+    }
 
 	public Vector2 GetRandom2DDirection()
 	{

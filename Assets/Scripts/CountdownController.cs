@@ -1,15 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class CountdownController : MonoBehaviour {
-
+public class CountdownController : MonoBehaviour 
+{
 	public GameController gameController;
 
 	public void HandleCountdownAnimationComplete()
 	{
-	        gameController.HandleCountdownAnimationComplete();
+        gameController.HandleCountdownAnimationComplete();
 	}
-
-
 }

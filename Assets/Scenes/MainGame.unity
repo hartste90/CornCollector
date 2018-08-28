@@ -907,20 +907,20 @@ MonoBehaviour:
   userLevel: 1
   minimumSwipeDistance: 0
   gameSpeed: 2.5
+  numCoinsInSafe: 10
   swipeTooltipObject: {fileID: 268121372}
   playerPrefab: {fileID: 1324097209040142, guid: 68b404f91c2214c91b122bc2c6ec3efc,
     type: 2}
   coinPrefab: {fileID: 1115446076801792, guid: 6f2d6d602140943cdb586d0d8c64cd79, type: 2}
   minePrefab: {fileID: 1969627338554662, guid: eeaea0ac402084f4dbac644cb4b85895, type: 2}
   safePrefab: {fileID: 1717595767532530, guid: 2e9760856db1e4342b0068ff791b5927, type: 2}
-  bumperPrefab: {fileID: 1617001229288704, guid: b5daf4abcfd5e4782af3ae79cdeee440,
-    type: 2}
   gameStageParent: {fileID: 400534355}
   uiController: {fileID: 1413301182}
   endgameScreenController: {fileID: 1396909740}
   continueScreenController: {fileID: 2019542106}
   lastTimePlayerWatchedVideo: -3000
   coinList: []
+  mineList: []
 --- !u!4 &306352828
 Transform:
   m_ObjectHideFlags: 0
@@ -1392,22 +1392,22 @@ Prefab:
     - target: {fileID: 224281532080305888, guid: 68b404f91c2214c91b122bc2c6ec3efc,
         type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224281532080305888, guid: 68b404f91c2214c91b122bc2c6ec3efc,
         type: 2}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224281532080305888, guid: 68b404f91c2214c91b122bc2c6ec3efc,
         type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 224281532080305888, guid: 68b404f91c2214c91b122bc2c6ec3efc,
         type: 2}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 224281532080305888, guid: 68b404f91c2214c91b122bc2c6ec3efc,
         type: 2}
@@ -1467,6 +1467,11 @@ Prefab:
     - target: {fileID: 1324097209040142, guid: 68b404f91c2214c91b122bc2c6ec3efc, type: 2}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224281532080305888, guid: 68b404f91c2214c91b122bc2c6ec3efc,
+        type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68b404f91c2214c91b122bc2c6ec3efc, type: 2}
