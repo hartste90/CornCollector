@@ -7,7 +7,7 @@ public class WrapAroundBehavior : MonoBehaviour {
     public bool doGhostsDropMines = true;
     float screenWidth;
 	float screenHeight;
-	Transform[] ghosts = new Transform[8];
+	Transform[] ghosts = new Transform[4];
 
 	void Start () 
 	{
@@ -29,7 +29,7 @@ public class WrapAroundBehavior : MonoBehaviour {
 
 	void CreateGhostShips()
 	{
-	    for(int i = 0; i < 8; i++)
+	    for(int i = 0; i < 4; i++)
 	    {
 	        ghosts[i] = Instantiate(transform, Vector3.zero, Quaternion.identity, GetComponent <PlayerController>().gameController.gameStageParent) as Transform;
 	        ghosts[i].GetComponent<CircleCollider2D>().enabled = false;
@@ -51,43 +51,23 @@ public class WrapAroundBehavior : MonoBehaviour {
 	    ghostPosition.y = transform.position.y;
 	    ghosts[0].position = ghostPosition;
 	 
-	    // Bottom-right
-	    ghostPosition.x = transform.position.x + screenWidth;
-	    ghostPosition.y = transform.position.y - screenHeight;
-	    ghosts[1].position = ghostPosition;
-	 
 	    // Bottom
 	    ghostPosition.x = transform.position.x;
 	    ghostPosition.y = transform.position.y - screenHeight;
-	    ghosts[2].position = ghostPosition;
-	 
-	    // Bottom-left
-	    ghostPosition.x = transform.position.x - screenWidth;
-	    ghostPosition.y = transform.position.y - screenHeight;
-	    ghosts[3].position = ghostPosition;
+	    ghosts[1].position = ghostPosition;
 	 
 	    // Left
 	    ghostPosition.x = transform.position.x - screenWidth;
 	    ghostPosition.y = transform.position.y;
-	    ghosts[4].position = ghostPosition;
-	 
-	    // Top-left
-	    ghostPosition.x = transform.position.x - screenWidth;
-	    ghostPosition.y = transform.position.y + screenHeight;
-	    ghosts[5].position = ghostPosition;
-	 
+	    ghosts[2].position = ghostPosition;
+
 	    // Top
 	    ghostPosition.x = transform.position.x;
 	    ghostPosition.y = transform.position.y + screenHeight;
-	    ghosts[6].position = ghostPosition;
-	 
-	    // Top-right
-	    ghostPosition.x = transform.position.x + screenWidth;
-	    ghostPosition.y = transform.position.y + screenHeight;
-	    ghosts[7].position = ghostPosition;
+	    ghosts[3].position = ghostPosition;
 	 
 	    // All ghost ships should have the same rotation as the main ship
-	    for(int i = 0; i < 8; i++)
+	    for(int i = 0; i < 4; i++)
 	    {
 	        ghosts[i].rotation = transform.rotation;
 	    }
