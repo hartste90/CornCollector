@@ -7,14 +7,14 @@ public class SafeController : MonoBehaviour {
     private int startingHealth = 1;
 
     public GameObject coinPrefab;
-	public GameController gameController;
+    public Image healthBarImage;
 
-	private int coinValue;
+    private int coinValue;
     private int currentHealth;
     private Animator animator;
-	private Image healthBarImage;
+    private GameController gameController;
 
-	void Start () 
+    void Start () 
     {
 		currentHealth = startingHealth;
 		animator = GetComponent<Animator>();
