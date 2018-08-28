@@ -6,93 +6,81 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
-	public float delayBeforeEndGameScreenAppears;
-	public int userLevel;
+    //magic numbers
+	public float delayBeforeEndGameScreenAppears = .7f;
+    public int userLevel = 1;
+    public float minimumSwipeDistance = 0f;
+    public float gameSpeed = 2.5f;
 
-	public GameObject swipeTooltipObject;
-	public SafeController initialSafeController;
+
+    //links
+    public GameObject swipeTooltipObject;
 	public TooltipController tooltipController;
 	public Transform gameStageParent;
 	public UIController uiController;
 	public EndgameScreenController endgameScreenController;
 	public ContinueScreenController continueScreenController;
-	public float lastTimePlayerWatchedVideo;
+    public PlayerController playerController;
+    public GameObject playerObject;
+    public GameObject playerPrefab;
+    public GameObject coinPrefab;
+    public GameObject minePrefab;
+    public GameObject safePrefab;
+    public GameObject bumperPrefab;
 
-	public int numStartingMines;
-	public int numStartingBumpers; 
-	public int numStartingCoins; 
+    //private links
+    private TimeController timeController;
 
-	public float minimumSwipeDistance;
-
-	public PlayerController playerController;
-	public GameObject playerObject;
-
-	public float gameSpeed;
-	public GameObject playerPrefab;
-	public GameObject coinPrefab;
-	public GameObject minePrefab;
-	public GameObject safePrefab;
-	public GameObject bumperPrefab;
-
+    //tracking
+    public float lastTimePlayerWatchedVideo = -3000f;
 	public List<GameObject> coinList;
 	protected List<GameObject> bumperList;
 	protected List<GameObject> mineList;
 
-    private TimeController timeController;
+
 
 	public void Awake()
 	{
 		Tools.screenWidth = Screen.width;
 		Tools.screenHeight = Screen.height;
-	}
+        coinList = new List<GameObject>();
+        bumperList = new List<GameObject>();
+        mineList = new List<GameObject>();
+    }
 
 	public void TestFunc()
 	{
-//		Debug.Log (GetRandomLocationOnscreen ());
-//		PrintScreenDimensionsInWorldSpace();
 		SpawnGameObjectAtPosition (coinPrefab, Vector3.zero);
 	}
 
 	void Start()
 	{
         timeController = GetComponent<TimeController>();
-		endgameScreenController.gameObject.SetActive (false);
-		userLevel = 1;
-		coinList = new List<GameObject> ();
-		bumperList = new List<GameObject> ();
-		mineList = new List<GameObject> ();
-		lastTimePlayerWatchedVideo = -3000f;
-
+		endgameScreenController.gameObject.SetActive (false);		
 	}
 
 	public void beginTooltip()
 	{
 		swipeTooltipObject.SetActive (true);
 		tooltipController.Show();
-		initialSafeController.gameObject.SetActive (true);
-		initialSafeController.init(1,3,5, this);
+		
 		beginGameplay ();
 	}
 
 	public void beginGameplay()
 	{
-		//spawn starting coin
-//		SpawnMultiple(numStartingCoins, coinPrefab);
-		//spawn starting safes
-//		List<GameObject> safeList = SpawnMultiple(1, safePrefab);
-//		safeList[0].GetComponent<SafeController>().init (3, 3, 5, this);
-		//spawn starting mines
-		SpawnMultiple(numStartingMines, minePrefab);
-		//spawn starting bumpers
-		SpawnMultiple(numStartingBumpers, bumperPrefab);
+        //create player
 		playerObject = Instantiate (playerPrefab, gameStageParent);
-		// playerObject.transform.localScale = new Vector3(384, 384, 1);
 		playerObject.transform.localPosition = Vector3.zero;
-		// playerObject.transform.position = Vector3.zero;
 		playerController = playerObject.GetComponent<PlayerController>();
-	        playerController.Init (this);
-	        playerController.rigidbody.velocity = Vector3.zero;	
-	}
+        playerController.Init (this);
+        playerController.rigidbody.velocity = Vector3.zero;
+        //create first safe
+        GameObject safeObject = Instantiate(safePrefab, gameStageParent);
+        SafeController safeController = safeObject.GetComponent<SafeController>();
+        safeController.gameObject.SetActive(true);
+        safeController.init(1, 3, 5, this);
+    }
 	void Update ()
 	{
 		if(Input.GetKeyDown ("space"))

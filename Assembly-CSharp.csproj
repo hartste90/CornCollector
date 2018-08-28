@@ -61,8 +61,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\CloudController.cs" />
-    <Compile Include="Assets\Scripts\CloudGenerator.cs" />
     <Compile Include="Assets\Scripts\CoinController.cs" />
     <Compile Include="Assets\Scripts\CoinTargetController.cs" />
     <Compile Include="Assets\Scripts\ContinueScreenController.cs" />
@@ -72,7 +70,6 @@
     <Compile Include="Assets\Scripts\ExhaustController.cs" />
     <Compile Include="Assets\Scripts\ExplosionController.cs" />
     <Compile Include="Assets\Scripts\ExplosionPuffController.cs" />
-    <Compile Include="Assets\Scripts\Floater.cs" />
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\GravitateToPlayer.cs" />
     <Compile Include="Assets\Scripts\HiResScreenShots.cs" />
@@ -80,7 +77,6 @@
     <Compile Include="Assets\Scripts\MineController.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerExplosionController.cs" />
-    <Compile Include="Assets\Scripts\Rotate.cs" />
     <Compile Include="Assets\Scripts\SafeController.cs" />
     <Compile Include="Assets\Scripts\TimeController.cs" />
     <Compile Include="Assets\Scripts\Tools.cs" />

@@ -917,11 +917,11 @@ MonoBehaviour:
   gameStageParent: {fileID: 400534355}
   uiController: {fileID: 1413301182}
   endgameScreenController: {fileID: 1396909740}
-  continueScreenController: {fileID: 0}
+  continueScreenController: {fileID: 2019542106}
   lastTimePlayerWatchedVideo: 0
   numStartingMines: 0
   numStartingBumpers: 0
-  numStartingCoins: 1
+  numStartingCoins: 0
   minimumSwipeDistance: 0
   playerController: {fileID: 0}
   playerObject: {fileID: 0}
@@ -2331,10 +2331,6 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1717595767532530, guid: 2e9760856db1e4342b0068ff791b5927, type: 2}
-      propertyPath: m_Name
-      value: Safe
       objectReference: {fileID: 0}
     - target: {fileID: 1717595767532530, guid: 2e9760856db1e4342b0068ff791b5927, type: 2}
       propertyPath: m_IsActive

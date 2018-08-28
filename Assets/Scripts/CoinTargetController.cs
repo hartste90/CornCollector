@@ -18,6 +18,7 @@ public class CoinTargetController : MonoBehaviour {
     {
         animator.SetTrigger("Bump");
         gameController.CheckCoinsCollected(coin);
+        Destroy(coin);
     }
 
     public void OnTriggerEnter2D(Collider2D collider)
