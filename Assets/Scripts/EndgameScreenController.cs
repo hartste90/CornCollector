@@ -3,10 +3,15 @@ using UnityEngine.UI;
 
 public class EndgameScreenController : MonoBehaviour {
 
-	public Text coinCountLabel;
+	public Text recentCoinCount;
+    public Text bestCoinCount;
+    public Text totalCoinCount;
 
-	public void PopulateEndgameScreenContent(string coinCountText)
+    public void PopulateEndgameScreenContent(string recentCoinCountSet, string bestCoinCountSet, string totalCoinCountSet)
 	{
-	        coinCountLabel.text = coinCountText;
+        this.recentCoinCount.text = recentCoinCountSet;
+        this.bestCoinCount.text = bestCoinCountSet;
+        this.totalCoinCount.text = totalCoinCountSet;
+
 	}
 }

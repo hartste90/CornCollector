@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 222177938562498328}
   - component: {fileID: 114625745995983358}
   m_Layer: 0
-  m_Name: Last Coin Text
+  m_Name: Recent Coin Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 114824189891149980}
   - component: {fileID: 114186268437110036}
   m_Layer: 0
-  m_Name: Kill Ads Button
+  m_Name: Remove Ads Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -697,7 +697,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '  kill ads '
+  m_Text: '  remove ads'
 --- !u!114 &114348397276416246
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -742,7 +742,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4af519c1b5674a879b2a18f3ea17b7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinCountLabel: {fileID: 114625745995983358}
+  recentCoinCount: {fileID: 114625745995983358}
+  bestCoinCount: {fileID: 114225262742250140}
+  totalCoinCount: {fileID: 114389815617836444}
 --- !u!114 &114389815617836444
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1568,7 +1570,7 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1846508147893190}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

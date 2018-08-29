@@ -214,6 +214,7 @@ public class GameController : MonoBehaviour {
     private void SavePlayerPrefs()
     {
         PlayerPrefs.SetInt("lastScore", uiController.coinCountNum);
+        PlayerPrefs.SetInt("currentCoins", PlayerPrefs.GetInt("currentCoins", 0) + uiController.coinCountNum);
         if (PlayerPrefs.GetInt("bestScore") < uiController.coinCountNum)
         {
             PlayerPrefs.SetInt("bestScore", uiController.coinCountNum);
@@ -223,8 +224,11 @@ public class GameController : MonoBehaviour {
 	IEnumerator ShowEndgameScreenAfterSeconds (float waitTime) 
 	{
         yield return new WaitForSeconds(waitTime);
-        endgameScreenController.PopulateEndgameScreenContent (uiController.coinCountNum+"");
-		endgameScreenController.gameObject.SetActive (true);
+        endgameScreenController.PopulateEndgameScreenContent(
+            uiController.coinCountNum.ToString(),
+            PlayerPrefs.GetInt("bestScore").ToString(),
+            PlayerPrefs.GetInt("currentCoins").ToString());
+        endgameScreenController.gameObject.SetActive (true);
 	}
 
 
