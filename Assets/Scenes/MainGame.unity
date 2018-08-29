@@ -282,7 +282,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 73755194}
-  - {fileID: 1775412835}
   - {fileID: 1004011803}
   - {fileID: 268121373}
   m_Father: {fileID: 0}
@@ -494,7 +493,7 @@ Prefab:
     - target: {fileID: 224952676486143648, guid: 2bcc90e901b63422db860305118ec38d,
         type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 224952676486143648, guid: 2bcc90e901b63422db860305118ec38d,
         type: 2}
@@ -705,6 +704,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 400534355}
+  - {fileID: 1775412835}
   - {fileID: 569134313}
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -1140,7 +1140,7 @@ Prefab:
     - target: {fileID: 224340064201643502, guid: 840fee2db30684c71bc29c5429b9213b,
         type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 224340064201643502, guid: 840fee2db30684c71bc29c5429b9213b,
         type: 2}
@@ -1197,6 +1197,11 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 306352827}
+    - target: {fileID: 114870840313909058, guid: 840fee2db30684c71bc29c5429b9213b,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 0.9490196
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 840fee2db30684c71bc29c5429b9213b, type: 2}
   m_IsPrefabAsset: 0
@@ -2502,13 +2507,13 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1775412834}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2012221322}
   - {fileID: 598342445}
-  m_Father: {fileID: 202504476}
+  m_Father: {fileID: 345745749}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3052,7 +3057,7 @@ Prefab:
     - target: {fileID: 224969901496998876, guid: 52f8189bf543b4ed8b250126b33f704c,
         type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224969901496998876, guid: 52f8189bf543b4ed8b250126b33f704c,
         type: 2}
