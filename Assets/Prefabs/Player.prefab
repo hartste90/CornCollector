@@ -318,8 +318,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   exhaustFrequency: 0.1
-  dropExhaust: 0
-  exhaustPrefab: {fileID: 0}
+  dropExhaust: 1
+  exhaustPrefab: {fileID: 1163104217667706, guid: 266e91259073041bf936fa0db98f1434,
+    type: 2}
 --- !u!114 &114248936992024172
 MonoBehaviour:
   m_ObjectHideFlags: 1
