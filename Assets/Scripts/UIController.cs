@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour {
 
+    public GameObject uiView;
 	public Text coinCountUILabel;
 	public int coinCountNum;
 
@@ -30,4 +31,13 @@ public class UIController : MonoBehaviour {
 	{
         coinCountUILabel.text = numCoins + "";
 	}
+
+    public void ShowUI()
+    {
+        uiView.SetActive(true);
+    }
+    public void HideUI()
+    {
+        uiView.SetActive(false);
+    }
 }
