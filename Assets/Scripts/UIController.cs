@@ -7,7 +7,6 @@ public class UIController : MonoBehaviour {
 
     public GameObject uiView;
 	public Text coinCountUILabel;
-	public int coinCountNum;
 
 	// Use this for initialization
 	void Start () 
@@ -17,15 +16,8 @@ public class UIController : MonoBehaviour {
 
 	public void ResetUI()
 	{
-        coinCountNum = 0;
         SetCoinText(0);
     }
-	
-	public void AddCoinsCollected (int numCoins)
-	{
-        coinCountNum += numCoins;
-        SetCoinText (coinCountNum);
-	}
 
 	public void SetCoinText (int numCoins)
 	{

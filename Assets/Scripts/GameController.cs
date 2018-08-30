@@ -185,13 +185,14 @@ public class GameController : MonoBehaviour {
 
 	public void CheckCoinsCollected(GameObject coin)
 	{
-        uiController.AddCoinsCollected(1);
+        currentCoinCount++;
+        uiController.SetCoinText(currentCoinCount);
         coinList.Remove (coin);
 	}
 
 	public void AddSafe()
 	{
-        Debug.Log("Adding safe");
+        //Debug.Log("Adding safe");
         GameObject safe = SpawnGameObjectAtRandomPosition(safePrefab);
         safe.GetComponent<SafeController>().Init(this);
 
@@ -223,11 +224,11 @@ public class GameController : MonoBehaviour {
 
     private void SavePlayerPrefs()
     {
-        PlayerPrefs.SetInt("lastScore", uiController.coinCountNum);
-        PlayerPrefs.SetInt("currentCoins", PlayerPrefs.GetInt("currentCoins", 0) + uiController.coinCountNum);
-        if (PlayerPrefs.GetInt("bestScore") < uiController.coinCountNum)
+        PlayerPrefs.SetInt("lastScore", currentCoinCount);
+        PlayerPrefs.SetInt("currentCoins", PlayerPrefs.GetInt("currentCoins", 0) + currentCoinCount);
+        if (PlayerPrefs.GetInt("bestScore") < currentCoinCount)
         {
-            PlayerPrefs.SetInt("bestScore", uiController.coinCountNum);
+            PlayerPrefs.SetInt("bestScore", currentCoinCount);
         }
     }
 
@@ -235,11 +236,16 @@ public class GameController : MonoBehaviour {
 	{
         yield return new WaitForSeconds(waitTime);
         endgameScreenController.PopulateEndgameScreenContent(
-            uiController.coinCountNum.ToString(),
+            currentCoinCount.ToString(),
             PlayerPrefs.GetInt("bestScore").ToString(),
             PlayerPrefs.GetInt("currentCoins").ToString());
         endgameScreenController.gameObject.SetActive (true);
 	}
 
+    public int GetCoinCount()
+    {
+        return currentCoinCount;
+    }
 
 }
+

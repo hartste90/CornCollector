@@ -31,7 +31,7 @@ public class ContinueScreenController : MonoBehaviour {
         //gem button
         //if they have enough gems, show USE GEMS and setup button callback
         //else show Buy GEMS AND CONTINUE BUTTON
-        if (gameController.uiController.coinCountNum < 50)
+        if (gameController.GetCoinCount() < 200)
         {
             continueByCoinButton.GetComponent<Button>().interactable = false;
         }
