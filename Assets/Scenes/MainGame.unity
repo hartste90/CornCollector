@@ -653,7 +653,9 @@ MonoBehaviour:
   lastTimePlayerWatchedVideo: -3000
   coinList: []
   mineList: []
-  currentCoinCount: 200
+  safeList: []
+  explosionPuffList: []
+  currentCoinCount: 0
 --- !u!4 &306352828
 Transform:
   m_ObjectHideFlags: 0

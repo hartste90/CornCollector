@@ -7,6 +7,6 @@ public class TimeController : MonoBehaviour {
 
     public void handlePlayerDestroyed()
     {
-        //Time.timeScale = 0.2f;
+        Time.timeScale = 0.2f;
     }
 }
