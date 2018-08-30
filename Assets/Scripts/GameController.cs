@@ -4,16 +4,16 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameController : MonoBehaviour {
+public class GameController : MonoBehaviour
+{
 
     //magic numbers
-	public float delayBeforeEndGameScreenAppears = .7f;
+    public float delayBeforeEndGameScreenAppears = .7f;
     public int userLevel = 1;
     public int numSafes = 1;
     public float minimumSwipeDistance = 0f;
     public float gameSpeed = 2.5f;
     public int numCoinsInSafe = 10;
-
 
     //links
     public GameObject swipeTooltipObject;
@@ -25,6 +25,7 @@ public class GameController : MonoBehaviour {
 	public UIController uiController;
 	public EndgameScreenController endgameScreenController;
 	public ContinueScreenController continueScreenController;
+    public CountdownController countdownController;
 
     //private links
     private TimeController timeController;
@@ -32,10 +33,27 @@ public class GameController : MonoBehaviour {
     private PlayerController playerController;
     private GameObject playerObject;
 
+    //safe stuff
+    private Dictionary<int, int> safeDictionary = new Dictionary<int, int>
+    {
+        {0, 1},
+        {50, 2},
+        {120, 3},
+        {200, 4},
+        {300, 5},
+        {400, 6},
+        {500, 7},
+        {650, 8},
+        {800, 9},
+        {1000, 10},
+    };
+    private int nextSafeCoinRequirement;
+
     //tracking
     public float lastTimePlayerWatchedVideo = -3000f;
 	public List<GameObject> coinList;
 	public List<GameObject> mineList;
+    public int currentCoinCount = 0;
 
     //void OnGUI()
     //{
@@ -68,12 +86,20 @@ public class GameController : MonoBehaviour {
         //setup private links
         tooltipController = swipeTooltipObject.GetComponent<TooltipController>();
         timeController = GetComponent<TimeController>();
-        //hide the end game screen if it's been shown
-		endgameScreenController.gameObject.SetActive (false);		
+        nextSafeCoinRequirement = 0;
+        ShowBeginUI();
 	}
 
+    private void ShowBeginUI()
+    {
+        //hide the end game screen if it's been shown
+        endgameScreenController.gameObject.SetActive(false);
+        countdownController.ShowCountdown();
+
+    }
+
     //shows the tooltip at the beginning of the game
-	public void HandleCountdownAnimationComplete()
+    public void HandleCountdownAnimationComplete()
 	{
         //enable the tooltip and play its into animation
 		swipeTooltipObject.SetActive (true);
@@ -92,9 +118,35 @@ public class GameController : MonoBehaviour {
         //create player
 		playerObject = Instantiate (playerPrefab, gameStageParent);
 		playerObject.GetComponent<PlayerController>().Init(this);
+        //create safes for number of coins
+        numSafes = FindNumSafesToCreate();
         //create first safe
         GameObject safeObject = Instantiate(safePrefab, gameStageParent);
         safeObject.GetComponent<SafeController>().Init(this);
+        for (int i = 1; i < numSafes; i++)
+        {
+            AddSafe();
+        }
+    }
+
+    private int FindNumSafesToCreate()
+    {
+
+        List<int> coinReq = new List<int>(safeDictionary.Keys);
+        //List<int> safeCount = new List<int>(safeDictionary.Values);
+
+        int nmSafes = safeDictionary[coinReq[0]];
+        for (int i = 0; i < coinReq.Count; i++)
+        {
+            int nextCoinCount = coinReq[i];
+            if (currentCoinCount >=  nextCoinCount)
+            {
+                numSafes = safeDictionary[nextCoinCount];
+                //Debug.Log(currentCoinCount + ":" + coinNum);
+            }
+        }
+
+        return numSafes;
     }
 	
     void Update ()
@@ -114,6 +166,35 @@ public class GameController : MonoBehaviour {
 		Time.timeScale = 1.0f;
 		SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 	}
+
+
+    public void handleContinueFromAd()
+    {
+        ContinueGame(0);
+    }
+
+    public void handleContinueFromCoins()
+    {
+        ContinueGame(200);
+    }
+
+    public void ContinueGame(int coinCost)
+    {
+        currentCoinCount -= coinCost;
+        //unslow time
+        Time.timeScale = 1.0f;
+        //keep coin count & update UI (might change with cost of 
+        uiController.SetCoinText(currentCoinCount);
+        //replace player to center
+        playerObject.transform.position = Vector3.zero;
+        //create appropriate number of safes
+        for (int i = 0; i < FindNumSafesToCreate(); i++)
+        {
+            AddSafe();
+        }
+        //replay game start UI tooltip/tutorial
+
+    }
 
 	public List<GameObject> SpawnMultiple (int numToSpawn, GameObject gameObject)
 	{

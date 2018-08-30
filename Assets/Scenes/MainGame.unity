@@ -635,6 +635,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayBeforeEndGameScreenAppears: 0.7
   userLevel: 1
+  numSafes: 1
   minimumSwipeDistance: 0
   gameSpeed: 2.5
   numCoinsInSafe: 10
@@ -648,9 +649,11 @@ MonoBehaviour:
   uiController: {fileID: 1413301182}
   endgameScreenController: {fileID: 1782175045}
   continueScreenController: {fileID: 2019542106}
+  countdownController: {fileID: 1775412836}
   lastTimePlayerWatchedVideo: -3000
   coinList: []
   mineList: []
+  currentCoinCount: 200
 --- !u!4 &306352828
 Transform:
   m_ObjectHideFlags: 0
@@ -1683,6 +1686,11 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 306352827}
+    - target: {fileID: 224887349334893154, guid: 840fee2db30684c71bc29c5429b9213b,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -423.59998
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 840fee2db30684c71bc29c5429b9213b, type: 2}
   m_IsPrefabAsset: 0
@@ -1971,7 +1979,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiView: {fileID: 0}
   coinCountUILabel: {fileID: 550790994}
-  coinCountNum: 0
 --- !u!1001 &1534019450
 Prefab:
   m_ObjectHideFlags: 0
