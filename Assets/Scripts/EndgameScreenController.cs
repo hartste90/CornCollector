@@ -10,7 +10,9 @@ public class EndgameScreenController : MonoBehaviour {
 
     public AdController adController;
 
-    public Button continueButton;
+    public Button continueAdButton;
+    public Button continueCoinButton;
+
 
     public void PopulateEndgameScreenContent(string recentCoinCountSet, string bestCoinCountSet, string totalCoinCountSet)
 	{
@@ -19,7 +21,13 @@ public class EndgameScreenController : MonoBehaviour {
         this.totalCoinCount.text = totalCoinCountSet;
         if (adController.IsReady())
         {
-            continueButton.gameObject.SetActive(true);
+            continueAdButton.gameObject.SetActive(true);
+            continueCoinButton.gameObject.SetActive(false);
+        }
+        else
+        {
+            continueAdButton.gameObject.SetActive(false);
+            continueCoinButton.gameObject.SetActive(true);
         }
     }
 
