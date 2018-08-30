@@ -8,6 +8,7 @@ public class EndgameScreenController : MonoBehaviour {
     public Text bestCoinCount;
     public Text totalCoinCount;
 
+    public GameController gameController;
     public AdController adController;
 
     public Button continueAdButton;
@@ -31,8 +32,24 @@ public class EndgameScreenController : MonoBehaviour {
         }
     }
 
-    public void HandleContinueButtonPressed()
+    public void HandleContinueAdButtonPressed()
     {
         adController.ShowRewardedAd();
+    }
+
+    public void HandleContinueCoinButtonPressed()
+    {
+        gameController.ContinueGame(200);
+
+    }
+
+    public void HandleBuyCoinButtonPressed()
+    {
+        //TODO: go to buy coin screen
+    }
+
+    public void HandleStartOverButtonPressed()
+    {
+        gameController.HandleStartOverButtonPressed();
     }
 }

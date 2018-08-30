@@ -6,6 +6,8 @@ public class ExplosionController : MonoBehaviour {
 
 	public GameObject explosionPuffPrefab;
 	public GameObject[] explosionPuffObjectList;
+    public GameController gameController;
+
 	public float explosionStrength;
 	// Use this for initialization
 	void Start () {
@@ -14,6 +16,9 @@ public class ExplosionController : MonoBehaviour {
 		for(int i = 0; i < 4; i++)
 		{
 	        GameObject explosionPuffObject = Instantiate (explosionPuffPrefab, transform.parent, true);
+            ExplosionPuffController puffCtr = explosionPuffObject.GetComponent<ExplosionPuffController>();
+            puffCtr.gameController = gameController;
+            gameController.explosionPuffList.Add(explosionPuffObject);
 	        explosionPuffObject.transform.localPosition = transform.localPosition;
             explosionPuffObject.transform.localScale = Vector3.one;
 	        explosionPuffObjectList[i] = explosionPuffObject;
@@ -29,5 +34,7 @@ public class ExplosionController : MonoBehaviour {
 		explosionPuffObjectList[3].GetComponent<Rigidbody2D>().AddForce((transform.rotation * Vector3.down).normalized * explosionStrength, ForceMode2D.Force);
 		explosionPuffObjectList[3].GetComponent<Transform>().Rotate(new Vector3 (0,0, 180));
 
+        Destroy(gameObject);
 	}
+
 }

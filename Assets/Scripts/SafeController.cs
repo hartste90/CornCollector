@@ -13,7 +13,7 @@ public class SafeController : MonoBehaviour {
     private int currentHealth;
     private Animator animator;
     private GameController gameController;
-    private bool isBusted = false;
+    private bool isBeingDestroyed = false;
 
     void Start () 
     {
@@ -23,7 +23,7 @@ public class SafeController : MonoBehaviour {
 
     private void Update()
     {
-        if(isBusted)
+        if(isBeingDestroyed)
         {
             Destroy(gameObject);
         }
@@ -46,26 +46,33 @@ public class SafeController : MonoBehaviour {
     	if (collision.gameObject.tag == "Explosion")
     	{
     		HandleHitByExplosion ();
-    		collision.gameObject.GetComponent<ExplosionPuffController>().DestroySelf ();
+    		collision.gameObject.GetComponent<ExplosionPuffController>().DestroySelf (true);
     	}      
     }
 
     public void HandleHitByExplosion()
     {
         currentHealth = currentHealth - 1;
-        if (currentHealth <= 0 && !isBusted)
+        if (currentHealth <= 0 && !isBeingDestroyed)
         {
             transform.GetComponent<PolygonCollider2D>().enabled = false;
             gameController.HandleSafeDestroyed(coinValue, transform);
-            DestroySelf();
+            DestroySelf(false);
         }
         healthBarImage.fillAmount = ((float)currentHealth / (float)startingHealth);
         healthBarImage.color = Color.Lerp(Color.red, Color.green, healthBarImage.fillAmount);
     }
 
-    public void DestroySelf()
+    public void DestroySelf(bool immediate)
     {
-        isBusted = true;
-
+        gameController.safeList.Remove(gameObject);
+        if (immediate)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            isBeingDestroyed = true;
+        }
     }
 }

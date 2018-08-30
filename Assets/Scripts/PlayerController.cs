@@ -162,8 +162,10 @@ public class PlayerController : MonoBehaviour {
 	{
 		GameObject playerExplosion1 = Instantiate (playerExplosionPrefab, transform.parent);
 		GameObject playerExplosion2 = Instantiate (playerExplosionPrefab, transform.parent);
+        playerExplosion1.GetComponent<ExplosionController>().gameController = gameController;
+        playerExplosion2.GetComponent<ExplosionController>().gameController = gameController;
 
-		playerExplosion1.transform.localPosition = transform.localPosition;
+        playerExplosion1.transform.localPosition = transform.localPosition;
 		playerExplosion2.transform.localPosition = transform.localPosition;
 		playerExplosion2.transform.Rotate (0,0,45);
 		//CreatePhysicalExplosion ();

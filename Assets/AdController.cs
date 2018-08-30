@@ -4,6 +4,8 @@ using UnityEngine.Advertisements;
 public class AdController : MonoBehaviour
 {
 
+    public GameController gameController;
+
     public bool IsReady()
     {
         return Advertisement.IsReady("rewardedVideo");
@@ -24,6 +26,7 @@ public class AdController : MonoBehaviour
         {
             case ShowResult.Finished:
                 Debug.Log("The ad was successfully shown.");
+                gameController.HandleContinueFromAd();
                 //
                 // YOUR CODE TO REWARD THE GAMER
                 // Give coins etc.

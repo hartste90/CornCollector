@@ -53,16 +53,15 @@ public class GameController : MonoBehaviour
     public float lastTimePlayerWatchedVideo = -3000f;
 	public List<GameObject> coinList;
 	public List<GameObject> mineList;
+    public List<GameObject> safeList;
+    public List<GameObject> explosionPuffList;
     public int currentCoinCount = 0;
 
-    //void OnGUI()
-    //{
-    //    //Delete all of the PlayerPrefs settings by pressing this Button
-    //    if (GUI.Button(new Rect(100, 200, 200, 60), "Delete"))
-    //    {
-    //        PlayerPrefs.DeleteAll();
-    //    }
-    //}
+    private static float horizontalBuffer;
+    private static float verticalBuffer;
+
+    private static float halfwidth;
+    private static float halfheight;
 
 
     public void Awake()
@@ -73,12 +72,13 @@ public class GameController : MonoBehaviour
         //instantiate lists
         coinList = new List<GameObject>();
         mineList = new List<GameObject>();
+        safeList = new List<GameObject>();
+        explosionPuffList = new List<GameObject>();
     }
 
     // a test function to trigger custom functionality for debugging
 	public void TestFunc()
 	{
-		SpawnGameObjectAtRandomPosition (safePrefab);
 	}
 
 	void Start()
@@ -88,6 +88,11 @@ public class GameController : MonoBehaviour
         timeController = GetComponent<TimeController>();
         nextSafeCoinRequirement = 0;
         ShowBeginUI();
+        //screen size calculations
+        horizontalBuffer = Tools.screenWidth / 10;
+        verticalBuffer = Tools.screenHeight / 10;
+        halfwidth = Tools.screenWidth / 2;
+        halfheight = Tools.screenHeight / 2;
 	}
 
     private void ShowBeginUI()
@@ -122,6 +127,7 @@ public class GameController : MonoBehaviour
         numSafes = FindNumSafesToCreate();
         //create first safe
         GameObject safeObject = Instantiate(safePrefab, gameStageParent);
+        safeList.Add(safeObject);
         safeObject.GetComponent<SafeController>().Init(this);
         for (int i = 1; i < numSafes; i++)
         {
@@ -168,44 +174,32 @@ public class GameController : MonoBehaviour
 	}
 
 
-    public void handleContinueFromAd()
+    public void HandleContinueFromAd()
     {
         ContinueGame(0);
     }
 
-    public void handleContinueFromCoins()
+    public void HandleContinueFromCoins()
     {
         ContinueGame(200);
     }
 
     public void ContinueGame(int coinCost)
     {
-        currentCoinCount -= coinCost;
+        //pay continue cost if applicable
+        if (coinCost != 0)
+        {
+            currentCoinCount -= coinCost;
+        }
+        //destroy all objects currently on stage
+        DestroyAllItemsOnscreen();
         //unslow time
         Time.timeScale = 1.0f;
         //keep coin count & update UI (might change with cost of 
         uiController.SetCoinText(currentCoinCount);
-        //replace player to center
-        playerObject.transform.position = Vector3.zero;
-        //create appropriate number of safes
-        for (int i = 0; i < FindNumSafesToCreate(); i++)
-        {
-            AddSafe();
-        }
         //replay game start UI tooltip/tutorial
-
+        ShowBeginUI();
     }
-
-	public List<GameObject> SpawnMultiple (int numToSpawn, GameObject gameObject)
-	{
-        List<GameObject> objectList = new List<GameObject>();
-		for (int i = 0; i < numToSpawn; i++) 
-		{
-			GameObject obj = SpawnGameObjectAtRandomPosition(gameObject);
-			objectList.Add(obj);
-		}
-		return objectList;
-	}
 
     public GameObject SpawnGameObjectAtRandomPosition(GameObject gameObject)
     {
@@ -220,10 +214,11 @@ public class GameController : MonoBehaviour
         obj.transform.localPosition = pos3;
         RectTransform rect = obj.GetComponent<RectTransform>();
         rect.anchoredPosition = position;
-        if (gameObject.tag != "Safe")
-        {
-            obj.transform.localScale = new Vector3(3, 3, 1);
-        }
+        //if (gameObject.tag != "Safe")
+        //{
+        //    obj.transform.localScale = new Vector3(3, 3, 1);
+        //    Debug.LogError("WHAT IS THIS OBJECT");
+        //}
         if (gameObject == coinPrefab)
         {
             obj.transform.localScale = new Vector3(30, 30, 1);
@@ -232,24 +227,17 @@ public class GameController : MonoBehaviour
         else if (gameObject == minePrefab)
         {
             mineList.Add(obj);
+            obj.GetComponent<MineController>().gameController = this;
         }
         return obj;
     }
 
     public static Vector3 GetRandomLocationOnscreen ()
 	{
-
-        float horizontalBuffer = Tools.screenWidth / 10;
-        float verticalBuffer = Tools.screenHeight / 10;
-
-        float halfwidth = Tools.screenWidth / 2;
-        float halfheight = Tools.screenHeight / 2;
-
-		Vector3 position = new Vector3 (
+		return new Vector3 (
             Random.Range (-halfwidth+horizontalBuffer, halfwidth-horizontalBuffer), 
             Random.Range (-halfheight+verticalBuffer, halfheight-verticalBuffer),
             0);
-		return position;
 	}
 
 	public void HandleSafeDestroyed(int numCoins, Transform safeLocation)
@@ -275,6 +263,7 @@ public class GameController : MonoBehaviour
 	{
         //Debug.Log("Adding safe");
         GameObject safe = SpawnGameObjectAtRandomPosition(safePrefab);
+        safeList.Add(safe);
         safe.GetComponent<SafeController>().Init(this);
 
 	} 
@@ -290,10 +279,21 @@ public class GameController : MonoBehaviour
         //destroy mines
         for (int i = mineList.Count-1; i >= 0; i-- )
         {
-            Destroy (mineList[i].gameObject);
+            mineList[i].GetComponent<MineController>().DestroySelf(true);
         }
+        //destroy safes
+        for (int i = safeList.Count - 1; i >= 0; i--)
+        {
+            safeList[i].GetComponent<SafeController>().DestroySelf(true);
+        }
+        //destroy explosionPuffs
+        for (int i = explosionPuffList.Count - 1; i >= 0; i--)
+        {
+            explosionPuffList[i].GetComponent<ExplosionPuffController>().DestroySelf(true);
+        }
+
         //destroy player
-		Destroy (playerObject);
+        Destroy(playerObject);
 	}
 
 	public void HandlePlayerDestroyed()
@@ -326,6 +326,18 @@ public class GameController : MonoBehaviour
     public int GetCoinCount()
     {
         return currentCoinCount;
+    }
+
+    public void HandleContinueCoinButtonPressed()
+    {
+
+
+    }
+
+    public void HandleStartOverButtonPressed()
+    {
+        ResetScene();
+
     }
 
 }
