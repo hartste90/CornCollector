@@ -5,3 +5,4 @@ test.*
 UserPrefs.xml
 *.ide-wal
 *.ide
+storage.ide-wal

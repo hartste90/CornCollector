@@ -79,9 +79,11 @@ public class GameController : MonoBehaviour
     // a test function to trigger custom functionality for debugging
 	public void TestFunc()
 	{
-	}
+        PlayerPrefs.DeleteAll();
+    }
 
-	void Start()
+
+    void Start()
 	{
         //setup private links
         tooltipController = swipeTooltipObject.GetComponent<TooltipController>();
@@ -281,7 +283,7 @@ public class GameController : MonoBehaviour
         {
             mineList[i].GetComponent<MineController>().DestroySelf(true);
         }
-        //destroy safes
+        //destrxy safes
         for (int i = safeList.Count - 1; i >= 0; i--)
         {
             safeList[i].GetComponent<SafeController>().DestroySelf(true);
