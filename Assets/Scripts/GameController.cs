@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour {
     //magic numbers
 	public float delayBeforeEndGameScreenAppears = .7f;
     public int userLevel = 1;
+    public int numSafes = 1;
     public float minimumSwipeDistance = 0f;
     public float gameSpeed = 2.5f;
     public int numCoinsInSafe = 10;
@@ -190,6 +191,7 @@ public class GameController : MonoBehaviour {
 
 	public void AddSafe()
 	{
+        Debug.Log("Adding safe");
         GameObject safe = SpawnGameObjectAtRandomPosition(safePrefab);
         safe.GetComponent<SafeController>().Init(this);
 
