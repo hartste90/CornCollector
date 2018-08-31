@@ -8,12 +8,16 @@ public class AdController : MonoBehaviour
 
     public bool IsReady()
     {
-        return Advertisement.IsReady("rewardedVideo");
+        if(gameController.debugAllowAds)
+        {
+            return Advertisement.IsReady("rewardedVideo");
+        }
+        return false;
     }
 
     public void ShowRewardedAd()
     {
-        if (Advertisement.IsReady("rewardedVideo"))
+        if (IsReady())
         {
             var options = new ShowOptions { resultCallback = HandleShowResult };
             Advertisement.Show("rewardedVideo", options);

@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour
     public float minimumSwipeDistance = 0f;
     public float gameSpeed = 2.5f;
     public int numCoinsInSafe = 10;
+    public bool debugAllowAds = true;
 
     //links
     public GameObject swipeTooltipObject;
