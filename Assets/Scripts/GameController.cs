@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameController : MonoBehaviour
+public class  GameController : MonoBehaviour
 {
 
     //magic numbers
@@ -89,7 +89,7 @@ public class GameController : MonoBehaviour
         //setup private links
         tooltipController = swipeTooltipObject.GetComponent<TooltipController>();
         timeController = GetComponent<TimeController>();
-        nextSafeCoinRequirement = 0;
+        nextSafeCoinRequirement = 50;
         ShowBeginUI();
         //screen size calculations
         horizontalBuffer = Tools.screenWidth / 10;
@@ -260,7 +260,17 @@ public class GameController : MonoBehaviour
         currentCoinCount++;
         uiController.SetCoinText(currentCoinCount);
         coinList.Remove (coin);
-	}
+        //check if we need to add another safe
+        if(currentCoinCount >= nextSafeCoinRequirement)
+        {
+            int shouldHave = FindNumSafesToCreate();
+            if (safeList.Count < shouldHave)
+            {
+                AddSafe();
+            }
+        }
+
+    }
 
 	public void AddSafe()
 	{
@@ -324,6 +334,7 @@ public class GameController : MonoBehaviour
             PlayerPrefs.GetInt("bestScore").ToString(),
             PlayerPrefs.GetInt("currentCoins").ToString());
         endgameScreenController.gameObject.SetActive (true);
+        endgameScreenController.ShowEndGameScreen();
 	}
 
     public int GetCoinCount()

@@ -10,16 +10,18 @@ public class EndgameScreenController : MonoBehaviour {
 
     public GameController gameController;
     public AdController adController;
+    public GameObject gameOverPanel;
+    public GameObject getCoinsPanel;
 
     public Button continueAdButton;
     public Button continueCoinButton;
 
-
-    public void PopulateEndgameScreenContent(string recentCoinCountSet, string bestCoinCountSet, string totalCoinCountSet)
+	public void ShowEndGameScreen()
 	{
-        this.recentCoinCount.text = recentCoinCountSet;
-        this.bestCoinCount.text = bestCoinCountSet;
-        this.totalCoinCount.text = totalCoinCountSet;
+        getCoinsPanel.SetActive(false);
+        gameOverPanel.SetActive(true);
+
+        //TODO animate UI on
         if (adController.IsReady())
         {
             continueAdButton.gameObject.SetActive(true);
@@ -30,6 +32,14 @@ public class EndgameScreenController : MonoBehaviour {
             continueAdButton.gameObject.SetActive(false);
             continueCoinButton.gameObject.SetActive(true);
         }
+    }
+
+    public void PopulateEndgameScreenContent(string recentCoinCountSet, string bestCoinCountSet, string totalCoinCountSet)
+	{
+        this.recentCoinCount.text = recentCoinCountSet;
+        this.bestCoinCount.text = bestCoinCountSet;
+        this.totalCoinCount.text = totalCoinCountSet;
+
     }
 
     public void HandleContinueAdButtonPressed()
