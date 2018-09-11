@@ -64,9 +64,9 @@ public class  GameController : MonoBehaviour
     private static float halfwidth;
     private static float halfheight;
 
-
     public void Awake()
-	{
+    {
+
         //record device dimensions
 		Tools.screenWidth = Screen.width;
 		Tools.screenHeight = Screen.height;
@@ -123,6 +123,7 @@ public class  GameController : MonoBehaviour
 
     public void beginGameplay()
 	{
+        GameModel.canCollectCoins = true;
         //create player
 		playerObject = Instantiate (playerPrefab, gameStageParent);
 		playerObject.GetComponent<PlayerController>().Init(this);
@@ -257,7 +258,10 @@ public class  GameController : MonoBehaviour
 
 	public void CheckCoinsCollected(GameObject coin)
 	{
-        currentCoinCount++;
+        if (GameModel.canCollectCoins == true)
+        {
+            currentCoinCount++;
+        }
         uiController.SetCoinText(currentCoinCount);
         coinList.Remove (coin);
         //check if we need to add another safe
@@ -311,6 +315,7 @@ public class  GameController : MonoBehaviour
 
 	public void HandlePlayerDestroyed()
 	{
+        GameModel.canCollectCoins = false;
         timeController.handlePlayerDestroyed();
         SavePlayerPrefs();
 		StartCoroutine (ShowEndgameScreenAfterSeconds (delayBeforeEndGameScreenAppears));

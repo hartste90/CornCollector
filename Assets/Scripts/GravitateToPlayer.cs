@@ -28,7 +28,11 @@ public class GravitateToPlayer : MonoBehaviour {
     }
     void Update () 
     {
-        AccellerateTowardsTarget();
+        if (GameModel.canCollectCoins)
+        {
+            AccellerateTowardsTarget();
+        }
+
     }
 
     private void AccellerateTowardsTarget()
