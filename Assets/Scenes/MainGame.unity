@@ -219,14 +219,14 @@ RectTransform:
   m_GameObject: {fileID: 39238943}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 84.36}
-  m_LocalScale: {x: 0.00521, y: 0.00521, z: 0.00521}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1863523975}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -2.5008}
+  m_AnchoredPosition: {x: 0, y: -2.500801}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &39238945
@@ -1113,7 +1113,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 206658752}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1782175045}
+        m_MethodName: HandleGetCoinButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &214758219
@@ -1911,7 +1922,7 @@ MonoBehaviour:
   numSafes: 1
   minimumSwipeDistance: 0
   gameSpeed: 2.5
-  numCoinsInSafe: 10
+  numCoinsInSafe: 100
   debugAllowAds: 0
   swipeTooltipObject: {fileID: 268121372}
   playerPrefab: {fileID: 1324097209040142, guid: 68b404f91c2214c91b122bc2c6ec3efc,
@@ -2136,7 +2147,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 328945165}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1782175045}
+        m_MethodName: HandleBuyCoinButtonPressed
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &328945165
@@ -3155,7 +3177,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0000076293945, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &509639847
@@ -4182,7 +4204,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 650770787}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1782175045}
+        m_MethodName: HandleBuyCoinButtonPressed
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &650770787
@@ -4476,7 +4509,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1965415395}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1782175045}
+        m_MethodName: HandleContinueCoinButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &795307329
@@ -4506,14 +4550,14 @@ RectTransform:
   m_GameObject: {fileID: 795307329}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 84.36}
-  m_LocalScale: {x: 0.0052100006, y: 0.0052100006, z: 0.0052100006}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1863523975}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.82000005, y: 0}
   m_AnchorMax: {x: 0.94364774, y: 1}
-  m_AnchoredPosition: {x: 0, y: -2.5008}
+  m_AnchoredPosition: {x: 0, y: -2.500801}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &795307331
@@ -4563,7 +4607,7 @@ GameObject:
   - component: {fileID: 818761407}
   - component: {fileID: 818761408}
   m_Layer: 0
-  m_Name: Get Coins Panel
+  m_Name: Store Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6514,7 +6558,7 @@ RectTransform:
   m_GameObject: {fileID: 1501011715}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 84.36}
-  m_LocalScale: {x: 0.00521, y: 0.00521, z: 0.00521}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1863523975}
   m_RootOrder: 1
@@ -7159,7 +7203,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1592052101}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1782175045}
+        m_MethodName: HandleBuyCoinButtonPressed
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1592052101
@@ -8226,15 +8281,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4af519c1b5674a879b2a18f3ea17b7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recentCoinCount: {fileID: 1817069950}
-  bestCoinCount: {fileID: 246709809}
-  totalCoinCount: {fileID: 1738670928}
+  recentCoinCountText: {fileID: 1817069950}
+  bestCoinCountText: {fileID: 246709809}
+  totalCoinCountText: {fileID: 1738670928}
+  continueCoinCostText: {fileID: 845649868}
+  coinsNeededText: {fileID: 1758405851}
   gameController: {fileID: 306352827}
   adController: {fileID: 1239062790}
-  gameOverPanel: {fileID: 0}
-  getCoinsPanel: {fileID: 0}
+  gameOverPanel: {fileID: 115905775}
+  storePanel: {fileID: 818761406}
+  goToStorePanel: {fileID: 2016797772}
   continueAdButton: {fileID: 1863523976}
-  continueCoinButton: {fileID: 0}
+  continueCoinButton: {fileID: 2079513416}
 --- !u!1 &1789549584
 GameObject:
   m_ObjectHideFlags: 0
@@ -9727,6 +9785,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 135933104}
     m_Modifications:
+    - target: {fileID: 114293176997737858, guid: 9bb4ea4fbe4d84dbdb538d1d948294b2,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 224078477376092036, guid: 9bb4ea4fbe4d84dbdb538d1d948294b2,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -9824,6 +9887,36 @@ Prefab:
     - target: {fileID: 1989271991243174, guid: 9bb4ea4fbe4d84dbdb538d1d948294b2, type: 2}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114293176997737858, guid: 9bb4ea4fbe4d84dbdb538d1d948294b2,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114293176997737858, guid: 9bb4ea4fbe4d84dbdb538d1d948294b2,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114293176997737858, guid: 9bb4ea4fbe4d84dbdb538d1d948294b2,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1782175045}
+    - target: {fileID: 114293176997737858, guid: 9bb4ea4fbe4d84dbdb538d1d948294b2,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: HandleBuyCoinButtonPressed
+      objectReference: {fileID: 0}
+    - target: {fileID: 114293176997737858, guid: 9bb4ea4fbe4d84dbdb538d1d948294b2,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114293176997737858, guid: 9bb4ea4fbe4d84dbdb538d1d948294b2,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bb4ea4fbe4d84dbdb538d1d948294b2, type: 2}
@@ -10000,7 +10093,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2016797773
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10316,7 +10409,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0000076293945, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2064280386
