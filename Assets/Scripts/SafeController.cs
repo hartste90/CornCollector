@@ -8,6 +8,7 @@ public class SafeController : MonoBehaviour {
 
     public GameObject coinPrefab;
     public Image healthBarImage;
+    public BoxCollider2D collider;
 
     private int coinValue;
     private int currentHealth;
@@ -38,7 +39,7 @@ public class SafeController : MonoBehaviour {
 
 	public void HandleAppearAnimationComplete()
 	{
-		GetComponent <PolygonCollider2D>().enabled = true;
+        collider.enabled = true;
 	}
 
 	public void OnCollisionEnter2D(Collision2D collision)
@@ -55,7 +56,7 @@ public class SafeController : MonoBehaviour {
         currentHealth = currentHealth - 1;
         if (currentHealth <= 0 && !isBeingDestroyed)
         {
-            transform.GetComponent<PolygonCollider2D>().enabled = false;
+            collider.enabled = false;
             gameController.HandleSafeDestroyed(coinValue, transform);
             DestroySelf(false);
         }

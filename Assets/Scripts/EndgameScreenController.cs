@@ -9,6 +9,7 @@ public class EndgameScreenController : MonoBehaviour {
     public Text totalCoinCountText;
     public Text continueCoinCostText;
     public Text coinsNeededText;
+    public Text numContinuesText;
 
 
     public GameController gameController;
@@ -34,9 +35,10 @@ public class EndgameScreenController : MonoBehaviour {
         this.recentCoinCountText.text = recentCoinCountSet;
         this.bestCoinCountText.text = bestCoinCountSet;
         this.totalCoinCountText.text = totalCoinCountSet;
-        this.continueCoinCost = Mathf.Max(200, (((System.Int32.Parse(recentCoinCountSet) / 2) / 10) * 10));
+        this.continueCoinCost = Mathf.Max(200, (((System.Int32.Parse(recentCoinCountSet) / 2) / 10) * 10)) * GameModel.numAttempts;
+        Debug.LogWarning(continueCoinCost);
         this.continueCoinCostText.text = "-"+this.continueCoinCost.ToString();
-
+        //this.numContinuesText.text = GameModel.numAttempts > 1 ? GameModel.numAttempts.ToString() : "";
         this.coinsNeededText.text = (this.continueCoinCost - this.recentCoinCount).ToString();
 
     }
@@ -67,11 +69,13 @@ public class EndgameScreenController : MonoBehaviour {
     public void HandleContinueAdButtonPressed()
     {
         adController.ShowRewardedAd();
+        GameModel.numAttempts++;
     }
 
     public void HandleContinueCoinButtonPressed()
     {
         gameController.ContinueGame(this.continueCoinCost);
+        GameModel.numAttempts++;
 
     }
 
@@ -89,5 +93,6 @@ public class EndgameScreenController : MonoBehaviour {
     public void HandleStartOverButtonPressed()
     {
         gameController.HandleStartOverButtonPressed();
+        GameModel.numAttempts = 1;
     }
 }

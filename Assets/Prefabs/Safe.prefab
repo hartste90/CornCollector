@@ -85,6 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4601857798587864}
   - component: {fileID: 212750891865396038}
+  - component: {fileID: 61090231331907276}
   m_Layer: 11
   m_Name: Square
   m_TagString: Untagged
@@ -120,7 +121,6 @@ GameObject:
   - component: {fileID: 50289181189617772}
   - component: {fileID: 95104143982893258}
   - component: {fileID: 114784170986398840}
-  - component: {fileID: 60943170665069616}
   m_Layer: 11
   m_Name: Safe
   m_TagString: Safe
@@ -221,12 +221,12 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!60 &60943170665069616
-PolygonCollider2D:
+--- !u!61 &61090231331907276
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1717595767532530}
+  m_GameObject: {fileID: 1442386403673248}
   m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
@@ -237,18 +237,15 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 149, y: 182.2}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 45.428345, y: -44.05136}
-      - {x: 44.938423, y: 44.242676}
-      - {x: -46.063046, y: 44.909393}
-      - {x: -44.286797, y: -44.90399}
+  serializedVersion: 2
+  m_Size: {x: 0.9, y: 0.9}
+  m_EdgeRadius: 0
 --- !u!95 &95104143982893258
 Animator:
   serializedVersion: 3
@@ -356,15 +353,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ed555b8454b43bfae6a26f859f9990, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 1
-  currentHealth: 1
   coinPrefab: {fileID: 1115446076801792, guid: 6f2d6d602140943cdb586d0d8c64cd79, type: 2}
-  gameController: {fileID: 0}
-  coinValue: 3
-  keyCostText: {fileID: 114384849660862054}
-  keyCost: 5
-  animator: {fileID: 95104143982893258}
   healthBarImage: {fileID: 114796039753914012}
+  collider: {fileID: 61090231331907276}
 --- !u!114 &114796039753914012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -518,7 +509,7 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1717595767532530}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -16197.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

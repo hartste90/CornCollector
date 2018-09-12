@@ -86,6 +86,8 @@ public class  GameController : MonoBehaviour
 
     void Start()
 	{
+        GameModel.numAttempts = 1;
+
         //setup private links
         tooltipController = swipeTooltipObject.GetComponent<TooltipController>();
         timeController = GetComponent<TimeController>();
