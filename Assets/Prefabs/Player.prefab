@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4462336802997108}
   - component: {fileID: 331920587440487346}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 4057201756444192}
   - component: {fileID: 212456606944593482}
   - component: {fileID: 96187509522978234}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4776203095254450}
   - component: {fileID: 212529476054056078}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,8 @@ GameObject:
   - component: {fileID: 212981099832100940}
   - component: {fileID: 114248936992024172}
   - component: {fileID: 95264968731526258}
-  m_Layer: 0
+  - component: {fileID: 114077351982854494}
+  m_Layer: 12
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -90,7 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4266651959947576}
   - component: {fileID: 331554244602914684}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,6 +306,21 @@ TrailRenderer:
   m_MinVertexDistance: 0.05
   m_Autodestruct: 1
   m_Emitting: 1
+--- !u!114 &114077351982854494
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1324097209040142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be2621a6cad14d788696b0253972e60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  exhaustFrequency: 0.1
+  dropExhaust: 1
+  exhaustPrefab: {fileID: 1163104217667706, guid: 266e91259073041bf936fa0db98f1434,
+    type: 2}
 --- !u!114 &114248936992024172
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -328,20 +344,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59e4798218d954aa08604a655272e25d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameController: {fileID: 0}
-  direction: {x: 0, y: 0, z: 0}
+  dropsMines: 1
   playerDecal: {fileID: 4776203095254450}
   explosionPrefab: {fileID: 1199903913866718, guid: 4e58d5a12017541a7a70c3dd3f8b0db8,
-    type: 2}
-  exhaustPrefab: {fileID: 1163104217667706, guid: 266e91259073041bf936fa0db98f1434,
     type: 2}
   playerExplosionPrefab: {fileID: 1199903913866718, guid: d26f4743a8eb64158af657152437de0b,
     type: 2}
   minePrefab: {fileID: 1969627338554662, guid: eeaea0ac402084f4dbac644cb4b85895, type: 2}
-  rigidbody: {fileID: 50572722650293256}
-  exhaustFrequency: 0.1
-  dropsMines: 1
-  animator: {fileID: 0}
+  gameController: {fileID: 0}
 --- !u!212 &212456606944593482
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -477,7 +487,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!224 &224281532080305888
@@ -486,7 +496,7 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1324097209040142}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 384.07, y: 384, z: 192}
   m_Children:
@@ -494,7 +504,7 @@ RectTransform:
   - {fileID: 4776203095254450}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -316, y: 677.8}

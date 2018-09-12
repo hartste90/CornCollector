@@ -1,15 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class CountdownController : MonoBehaviour {
-
+public class CountdownController : MonoBehaviour 
+{
 	public GameController gameController;
+    private Animator animator;
 
-	public void handleCountdownAnimationComplete()
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
+
+    public void ShowCountdown()
+    {
+        animator.SetTrigger("Show");
+    }
+
+	public void HandleCountdownAnimationComplete()
 	{
-	        gameController.beginTooltip ();
+        gameController.HandleCountdownAnimationComplete();
 	}
-
-
 }

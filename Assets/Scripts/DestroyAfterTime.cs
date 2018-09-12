@@ -5,9 +5,10 @@ using UnityEngine;
 public class DestroyAfterTime : MonoBehaviour {
 
 	public float timeUntilDestroy;
+    public ExplosionPuffController explosionPuffController;
 	// Use this for initialization
 	void Start () {
-		
+        explosionPuffController = GetComponent<ExplosionPuffController>();
 	}
 	
 	// Update is called once per frame
@@ -22,6 +23,7 @@ public class DestroyAfterTime : MonoBehaviour {
 
 	public void DestroySelf()
 	{
+        explosionPuffController.gameController.explosionPuffList.Remove(gameObject);
 		Destroy (gameObject);
 	}
 }

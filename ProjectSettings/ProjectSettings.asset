@@ -760,13 +760,13 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
-    Collab: 1
+    Collab: 0
     UNet: 1
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
-  cloudProjectId: 96e99100-aca2-4423-a7b4-2160a4cb1558
-  projectName: Platformer2
-  organizationId: falcdawg21
+  cloudProjectId: 775d6c03-badb-4e4d-bf81-31bb4752d564
+  projectName: Bomb Buster
+  organizationId: steve-hart-as-publisher
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

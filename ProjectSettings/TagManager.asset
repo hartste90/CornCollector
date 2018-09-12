@@ -9,6 +9,7 @@ TagManager:
   - Coin
   - Explosion
   - Safe
+  - CoinTarget
   layers:
   - Default
   - TransparentFX
@@ -24,8 +25,8 @@ TagManager:
   - Safe
   - Player
   - Camera
-  - 
-  - 
+  - Background
+  - Exhaust
   - 
   - 
   - 

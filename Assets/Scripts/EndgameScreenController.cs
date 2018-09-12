@@ -1,16 +1,98 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Advertisements;
 
 public class EndgameScreenController : MonoBehaviour {
 
-	public Text coinCountLabel;
-	public Text timerLabel;
+	public Text recentCoinCountText;
+    public Text bestCoinCountText;
+    public Text totalCoinCountText;
+    public Text continueCoinCostText;
+    public Text coinsNeededText;
+    public Text numContinuesText;
 
-	public void populateEndgameScreenContent(string coinCountText, string timerText)
+
+    public GameController gameController;
+    public AdController adController;
+    public GameObject gameOverPanel;
+    public GameObject storePanel;
+    public GameObject goToStorePanel;
+
+    public Button continueAdButton;
+    public GameObject continueCoinButton;
+
+    private int continueCoinCost;
+    private int recentCoinCount;
+    private int bestCoinCount;
+    private int totalCoinCount;
+
+
+    public void PopulateEndgameScreenContent(string recentCoinCountSet, string bestCoinCountSet, string totalCoinCountSet)
 	{
-	        coinCountLabel.text = coinCountText;
-	        timerLabel.text = timerText;
-	}
+        this.recentCoinCount = System.Int32.Parse(recentCoinCountSet); ;
+        this.bestCoinCount = System.Int32.Parse(bestCoinCountSet); ;
+        this.totalCoinCount = System.Int32.Parse(totalCoinCountSet);
+        this.recentCoinCountText.text = recentCoinCountSet;
+        this.bestCoinCountText.text = bestCoinCountSet;
+        this.totalCoinCountText.text = totalCoinCountSet;
+        this.continueCoinCost = Mathf.Max(200, (((System.Int32.Parse(recentCoinCountSet) / 2) / 10) * 10)) * GameModel.numAttempts;
+        Debug.LogWarning(continueCoinCost);
+        this.continueCoinCostText.text = "-"+this.continueCoinCost.ToString();
+        //this.numContinuesText.text = GameModel.numAttempts > 1 ? GameModel.numAttempts.ToString() : "";
+        this.coinsNeededText.text = (this.continueCoinCost - this.recentCoinCount).ToString();
+
+    }
+
+    public void ShowEndGameScreen()
+    {
+        storePanel.SetActive(false);
+        gameOverPanel.SetActive(true);
+
+        //TODO animate UI on
+        if (adController.IsReady()) //play an ad
+        {
+            continueAdButton.gameObject.SetActive(true);
+            continueCoinButton.gameObject.SetActive(false);
+        }
+        else if (this.continueCoinCost > this.recentCoinCount) // not enough coins, show buy button
+        {
+            goToStorePanel.SetActive(true);
+        }
+        else    //show coin continue button
+        {
+            continueAdButton.gameObject.SetActive(false);
+            continueCoinButton.gameObject.SetActive(true);
+        }
+    }
+
+
+    public void HandleContinueAdButtonPressed()
+    {
+        adController.ShowRewardedAd();
+        GameModel.numAttempts++;
+    }
+
+    public void HandleContinueCoinButtonPressed()
+    {
+        gameController.ContinueGame(this.continueCoinCost);
+        GameModel.numAttempts++;
+
+    }
+
+    public void HandleGetCoinButtonPressed()
+    {
+        storePanel.SetActive(true);
+        gameOverPanel.SetActive(false);
+    }
+
+    public void HandleBuyCoinButtonPressed(int packageId)
+    {
+        IAPManager.PurchasePackage(packageId);
+    }
+
+    public void HandleStartOverButtonPressed()
+    {
+        gameController.HandleStartOverButtonPressed();
+        GameModel.numAttempts = 1;
+    }
 }

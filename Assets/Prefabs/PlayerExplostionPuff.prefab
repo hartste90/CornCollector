@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 222108954408956032}
   - component: {fileID: 50598538569240064}
   - component: {fileID: 114679019618581236}
+  - component: {fileID: 114956236520545884}
   m_Layer: 8
   m_Name: PlayerExplostionPuff
   m_TagString: Explosion
@@ -104,6 +105,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeUntilDestroy: 2
+--- !u!114 &114956236520545884
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1474687329819364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b6e634dcc3fa410d8e1a42ecf07e909, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameController: {fileID: 0}
 --- !u!212 &212345033205153558
 SpriteRenderer:
   m_ObjectHideFlags: 1
