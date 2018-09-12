@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Advertisements;
+using System.Collections;
 
 public class EndgameScreenController : MonoBehaviour {
 
@@ -18,6 +19,7 @@ public class EndgameScreenController : MonoBehaviour {
     public GameObject storePanel;
     public GameObject goToStorePanel;
 
+    public Button replayButton;
     public Button continueAdButton;
     public GameObject continueCoinButton;
 
@@ -26,6 +28,15 @@ public class EndgameScreenController : MonoBehaviour {
     private int bestCoinCount;
     private int totalCoinCount;
 
+    private Animator goToStoreButtonAnimator;
+    private Animator replayButtonAnimator;
+
+    void Awake()
+    {
+        goToStoreButtonAnimator = continueCoinButton.GetComponent<Animator>();
+        replayButtonAnimator = replayButton.GetComponent<Animator>(); 
+
+    }
 
     public void PopulateEndgameScreenContent(string recentCoinCountSet, string bestCoinCountSet, string totalCoinCountSet)
 	{
@@ -36,7 +47,6 @@ public class EndgameScreenController : MonoBehaviour {
         this.bestCoinCountText.text = bestCoinCountSet;
         this.totalCoinCountText.text = totalCoinCountSet;
         this.continueCoinCost = Mathf.Max(200, (((System.Int32.Parse(recentCoinCountSet) / 2) / 10) * 10)) * GameModel.numAttempts;
-        Debug.LogWarning(continueCoinCost);
         this.continueCoinCostText.text = "-"+this.continueCoinCost.ToString();
         //this.numContinuesText.text = GameModel.numAttempts > 1 ? GameModel.numAttempts.ToString() : "";
         this.coinsNeededText.text = (this.continueCoinCost - this.recentCoinCount).ToString();
@@ -45,24 +55,28 @@ public class EndgameScreenController : MonoBehaviour {
 
     public void ShowEndGameScreen()
     {
-        storePanel.SetActive(false);
-        gameOverPanel.SetActive(true);
-
+        this.storePanel.SetActive(false);
+        this.gameOverPanel.SetActive(true);
+        
+        
         //TODO animate UI on
         if (adController.IsReady()) //play an ad
         {
-            continueAdButton.gameObject.SetActive(true);
-            continueCoinButton.gameObject.SetActive(false);
+            this.continueAdButton.gameObject.SetActive(true);
+            this.continueCoinButton.gameObject.SetActive(false);
         }
         else if (this.continueCoinCost > this.recentCoinCount) // not enough coins, show buy button
         {
-            goToStorePanel.SetActive(true);
+            this.goToStorePanel.SetActive(true);
+            this.goToStoreButtonAnimator.SetTrigger("Show");
         }
         else    //show coin continue button
         {
-            continueAdButton.gameObject.SetActive(false);
-            continueCoinButton.gameObject.SetActive(true);
+            this.continueAdButton.gameObject.SetActive(false);
+            this.continueCoinButton.gameObject.SetActive(true);
         }
+
+        ShowReplayButtonAfterSeconds(GameModel.timeDelayReplayButton);
     }
 
 
@@ -94,5 +108,18 @@ public class EndgameScreenController : MonoBehaviour {
     {
         gameController.HandleStartOverButtonPressed();
         GameModel.numAttempts = 1;
+    }
+
+    public void ShowReplayButtonAfterSeconds(float seconds)
+    {
+        StartCoroutine(ExecuteAfterTime(seconds));
+    }
+
+    public IEnumerator ExecuteAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        // Code to execute after the delay
+        replayButtonAnimator.SetTrigger("Show");
     }
 }
