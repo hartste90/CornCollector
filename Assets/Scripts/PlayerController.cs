@@ -6,6 +6,7 @@ using System;
 public class PlayerController : MonoBehaviour {
    
     public bool dropsMines;
+    public Transform playerStartPositionAnchor;
 
     public Transform playerDecal;
 
@@ -24,7 +25,7 @@ public class PlayerController : MonoBehaviour {
 	public void Init(GameController controller)
 	{
         this.gameController = controller;
-        transform.localPosition = Vector3.zero;
+        transform.localPosition = playerStartPositionAnchor.localPosition;
     }
 
     void Start () 

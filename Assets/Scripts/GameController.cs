@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class  GameController : MonoBehaviour
 {
-
+    public static bool verbose = true;
     //magic numbers
     public float delayBeforeEndGameScreenAppears = .7f;
     public int userLevel = 1;
@@ -23,7 +23,10 @@ public class  GameController : MonoBehaviour
     public GameObject minePrefab;
     public GameObject safePrefab;
     public Transform gameStageParent;
-	public UIController uiController;
+    public Transform playerStartPositionAnchor;
+    public Transform safeStartPositionAnchor;
+    public UIController uiController;
+    public TitleScreenController titleScreenController;
 	public EndgameScreenController endgameScreenController;
 	public ContinueScreenController continueScreenController;
     public CountdownController countdownController;
@@ -99,30 +102,42 @@ public class  GameController : MonoBehaviour
         verticalBuffer = Tools.screenHeight / 10;
         halfwidth = Tools.screenWidth / 2;
         halfheight = Tools.screenHeight / 2;
-	}
+
+        titleScreenController.ShowTitleScreen();
+        ShowSwipeTooltip();
+        beginGameplay();
+
+    }
 
     private void ShowBeginUI()
     {
         //hide the end game screen if it's been shown
         endgameScreenController.gameObject.SetActive(false);
-        countdownController.ShowCountdown();
+        //countdownController.ShowCountdown();
 
     }
 
+    //DEPRECATED WHEN MOVED TITLE SCREEN TO MAIN GAME
     //shows the tooltip at the beginning of the game
     public void HandleCountdownAnimationComplete()
 	{
-        //enable the tooltip and play its into animation
-		swipeTooltipObject.SetActive (true);
-		tooltipController.Show();
+        ShowSwipeTooltip();
         //begin gameplay
 		beginGameplay ();
 	}
+
+    private void ShowSwipeTooltip()
+    {
+        swipeTooltipObject.SetActive(true);
+        //enable the tooltip and play its into animation
+        tooltipController.Show();
+    }
 
     public void OnPlayerBeginsMovement()
     {
         tooltipController.Hide();
         backgroundMusicController.playBackgroundMusic();
+        titleScreenController.HideTitleScreen();
     }
 
     public void beginGameplay()
@@ -130,11 +145,14 @@ public class  GameController : MonoBehaviour
         GameModel.canCollectCoins = true;
         //create player
 		playerObject = Instantiate (playerPrefab, gameStageParent);
-		playerObject.GetComponent<PlayerController>().Init(this);
+        playerController = playerObject.GetComponent<PlayerController>();
+        playerController.playerStartPositionAnchor = playerStartPositionAnchor;
+        playerController.Init(this);
         //create safes for number of coins
         numSafes = FindNumSafesToCreate();
         //create first safe
         GameObject safeObject = Instantiate(safePrefab, gameStageParent);
+        safeObject.transform.localPosition = safeStartPositionAnchor.localPosition;
         safeList.Add(safeObject);
         safeObject.GetComponent<SafeController>().Init(this);
         for (int i = 1; i < numSafes; i++)

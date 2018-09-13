@@ -3,6 +3,15 @@ using UnityEngine.UI;
 using UnityEngine.Advertisements;
 using System.Collections;
 
+
+public static class Extensions
+{
+    public static int RoundToTensPlace(this int num)
+    {
+        return num / 10 * 10;
+    }
+}
+
 public class EndgameScreenController : MonoBehaviour {
 
 	public Text recentCoinCountText;
@@ -47,7 +56,11 @@ public class EndgameScreenController : MonoBehaviour {
         this.recentCoinCountText.text = recentCoinCountSet;
         this.bestCoinCountText.text = bestCoinCountSet;
         this.totalCoinCountText.text = totalCoinCountSet;
-        this.continueCoinCost = Mathf.Max(200, (((System.Int32.Parse(recentCoinCountSet) / 2) / 10) * 10)) * GameModel.numAttempts;
+        this.continueCoinCost = Mathf.Max(200, (System.Int32.Parse(recentCoinCountSet) / 2) * GameModel.numAttempts/10);
+        if (GameController.verbose)
+        {
+            Debug.Log(string.Format("Cost to continue is {0} = RecentCoins ({1}) / 2 ) / 10 * 10) * numAttempts ({2} / 10)", continueCoinCost, recentCoinCount, GameModel.numAttempts));
+        }
         this.continueCoinCostText.text = "-"+this.continueCoinCost.ToString();
         //this.numContinuesText.text = GameModel.numAttempts > 1 ? GameModel.numAttempts.ToString() : "";
         this.coinsNeededText.text = (this.continueCoinCost - this.recentCoinCount).ToString();
@@ -61,25 +74,43 @@ public class EndgameScreenController : MonoBehaviour {
         
         
         //TODO animate UI on
-        if (adController.IsReady()) //play an ad
+        if (adController.IsReady())
         {
-            this.continueAdButton.gameObject.SetActive(true);
-            this.continueCoinPanel.gameObject.SetActive(false);
+            ShowContinueWithCoinsOption();
         }
-        else if (this.continueCoinCost > this.recentCoinCount) // not enough coins, show buy button
+        else if (this.continueCoinCost > this.recentCoinCount)
         {
-            this.goToStorePanel.SetActive(true);
-            this.continueCoinsButton.interactable = false;
-            this.goToStoreButtonAnimator.SetTrigger("Show");
+            ShowBuyCoinOption();
         }
-        else    //show coin continue button
+        else
         {
-            this.continueCoinsButton.interactable = true;
-            this.continueAdButton.gameObject.SetActive(false);
-            this.continueCoinPanel.gameObject.SetActive(true);
+            ShowContinueWithCoinsOption();
+
         }
 
         ShowReplayButtonAfterSeconds(GameModel.timeDelayReplayButton);
+    }
+
+    private void ShowCointinueWithAdsOption()
+    {
+        this.continueAdButton.gameObject.SetActive(true);
+        this.continueCoinPanel.gameObject.SetActive(false);
+    }
+
+    private void ShowContinueWithCoinsOption()
+    {
+        this.goToStorePanel.SetActive(false);
+        this.continueCoinsButton.interactable = true;
+        this.continueAdButton.gameObject.SetActive(false);
+        this.continueCoinPanel.gameObject.SetActive(true);
+        this.goToStoreButtonAnimator.SetTrigger("Show");
+    }
+
+    private void ShowBuyCoinOption()
+    {
+        this.goToStorePanel.SetActive(true);
+        this.continueCoinsButton.interactable = false;
+        this.goToStoreButtonAnimator.SetTrigger("Show");
     }
 
 
