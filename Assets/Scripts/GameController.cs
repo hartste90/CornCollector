@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class  GameController : MonoBehaviour
 {
+    public bool isVerbose;
     public static bool verbose = true;
     //magic numbers
     public float delayBeforeEndGameScreenAppears = .7f;
@@ -70,7 +71,7 @@ public class  GameController : MonoBehaviour
 
     public void Awake()
     {
-
+        isVerbose = verbose;
         //record device dimensions
 		Tools.screenWidth = Screen.width;
 		Tools.screenHeight = Screen.height;
