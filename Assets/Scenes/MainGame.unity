@@ -2052,6 +2052,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ebbc7d92371f4467bc7428c8ded91e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isVerbose: 0
   delayBeforeEndGameScreenAppears: 0.7
   userLevel: 1
   numSafes: 1
@@ -7365,7 +7366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49aa85db5c316411c97dbf12627ce1c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiView: {fileID: 0}
+  uiView: {fileID: 214758219}
   coinCountUILabel: {fileID: 550790994}
 --- !u!1 &1462137731
 GameObject:
@@ -9188,7 +9189,8 @@ Animation:
   m_Enabled: 1
   serializedVersion: 3
   m_Animation: {fileID: 7400000, guid: 33d213bcc036f48deac1c6a833c295bf, type: 2}
-  m_Animations: []
+  m_Animations:
+  - {fileID: 7400000, guid: 33d213bcc036f48deac1c6a833c295bf, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0

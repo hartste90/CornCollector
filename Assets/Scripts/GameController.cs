@@ -114,6 +114,7 @@ public class  GameController : MonoBehaviour
     {
         //hide the end game screen if it's been shown
         endgameScreenController.gameObject.SetActive(false);
+        uiController.ShowUI();
         //countdownController.ShowCountdown();
 
     }
@@ -357,6 +358,7 @@ public class  GameController : MonoBehaviour
 	IEnumerator ShowEndgameScreenAfterSeconds (float waitTime) 
 	{
         yield return new WaitForSeconds(waitTime);
+        uiController.HideUI();
         endgameScreenController.PopulateEndgameScreenContent(
             currentCoinCount.ToString(),
             PlayerPrefs.GetInt("bestScore").ToString(),
