@@ -1935,6 +1935,7 @@ MonoBehaviour:
   endgameScreenController: {fileID: 1782175045}
   continueScreenController: {fileID: 2019542106}
   countdownController: {fileID: 1775412836}
+  backgroundMusicController: {fileID: 1274186381}
   lastTimePlayerWatchedVideo: -3000
   coinList: []
   mineList: []
@@ -4517,7 +4518,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.3679245, g: 0.3245372, b: 0.3245372, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -4529,7 +4530,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1965415395}
   m_OnClick:
     m_PersistentCalls:
@@ -6151,6 +6152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1274186380}
   - component: {fileID: 1274186379}
+  - component: {fileID: 1274186381}
   m_Layer: 0
   m_Name: Background Music
   m_TagString: Untagged
@@ -6167,8 +6169,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: c4bc93d6124b346368ef762dc8b47aad, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 950aabde917a24158a46dac92ba9464e, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -6266,6 +6268,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1274186381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1274186378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cad10cf9f03664799b2ed265b546940e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1292357162
 GameObject:
   m_ObjectHideFlags: 0
@@ -8313,7 +8326,8 @@ MonoBehaviour:
   goToStorePanel: {fileID: 2016797772}
   replayButton: {fileID: 703169589}
   continueAdButton: {fileID: 1863523976}
-  continueCoinButton: {fileID: 2079513416}
+  continueCoinsButton: {fileID: 737773673}
+  continueCoinPanel: {fileID: 2079513416}
 --- !u!1 &1789549584
 GameObject:
   m_ObjectHideFlags: 0
@@ -9629,7 +9643,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 1, b: 0.04347825, a: 0.4}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -10516,7 +10530,7 @@ GameObject:
   - component: {fileID: 2079513419}
   - component: {fileID: 2079513418}
   m_Layer: 0
-  m_Name: Continue Coins Button
+  m_Name: Continue Coins Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

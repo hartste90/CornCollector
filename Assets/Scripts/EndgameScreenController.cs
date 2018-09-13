@@ -21,7 +21,8 @@ public class EndgameScreenController : MonoBehaviour {
 
     public Button replayButton;
     public Button continueAdButton;
-    public GameObject continueCoinButton;
+    public Button continueCoinsButton;
+    public GameObject continueCoinPanel;
 
     private int continueCoinCost;
     private int recentCoinCount;
@@ -33,7 +34,7 @@ public class EndgameScreenController : MonoBehaviour {
 
     void Awake()
     {
-        goToStoreButtonAnimator = continueCoinButton.GetComponent<Animator>();
+        goToStoreButtonAnimator = continueCoinPanel.GetComponent<Animator>();
         replayButtonAnimator = replayButton.GetComponent<Animator>(); 
 
     }
@@ -63,17 +64,19 @@ public class EndgameScreenController : MonoBehaviour {
         if (adController.IsReady()) //play an ad
         {
             this.continueAdButton.gameObject.SetActive(true);
-            this.continueCoinButton.gameObject.SetActive(false);
+            this.continueCoinPanel.gameObject.SetActive(false);
         }
         else if (this.continueCoinCost > this.recentCoinCount) // not enough coins, show buy button
         {
             this.goToStorePanel.SetActive(true);
+            this.continueCoinsButton.interactable = false;
             this.goToStoreButtonAnimator.SetTrigger("Show");
         }
         else    //show coin continue button
         {
+            this.continueCoinsButton.interactable = true;
             this.continueAdButton.gameObject.SetActive(false);
-            this.continueCoinButton.gameObject.SetActive(true);
+            this.continueCoinPanel.gameObject.SetActive(true);
         }
 
         ShowReplayButtonAfterSeconds(GameModel.timeDelayReplayButton);
@@ -122,4 +125,5 @@ public class EndgameScreenController : MonoBehaviour {
         // Code to execute after the delay
         replayButtonAnimator.SetTrigger("Show");
     }
+
 }

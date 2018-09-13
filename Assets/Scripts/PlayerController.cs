@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour {
         //hide the tooltip if we are moving and it hasn't been hidden before
         if (gameController.swipeTooltipObject.activeSelf && direction != Vector3.zero)
         {
-            gameController.HideTooltip();
+            gameController.OnPlayerBeginsMovement();
         }
 
         //Different inputs for editor or live game

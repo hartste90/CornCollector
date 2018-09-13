@@ -27,6 +27,7 @@ public class  GameController : MonoBehaviour
 	public EndgameScreenController endgameScreenController;
 	public ContinueScreenController continueScreenController;
     public CountdownController countdownController;
+    public BackgroundMusicController backgroundMusicController;
 
     //private links
     private TimeController timeController;
@@ -118,9 +119,10 @@ public class  GameController : MonoBehaviour
 		beginGameplay ();
 	}
 
-    public void HideTooltip()
+    public void OnPlayerBeginsMovement()
     {
         tooltipController.Hide();
+        backgroundMusicController.playBackgroundMusic();
     }
 
     public void beginGameplay()
