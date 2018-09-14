@@ -103,7 +103,7 @@ public class  GameController : MonoBehaviour
         verticalBuffer = Tools.screenHeight / 10;
         halfwidth = Tools.screenWidth / 2;
         halfheight = Tools.screenHeight / 2;
-
+        titleScreenController.gameObject.SetActive(true);
         titleScreenController.ShowTitleScreen();
         ShowSwipeTooltip();
         beginGameplay();
