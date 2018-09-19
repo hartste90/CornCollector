@@ -32,6 +32,7 @@ public class  GameController : MonoBehaviour
 	public ContinueScreenController continueScreenController;
     public CountdownController countdownController;
     public BackgroundMusicController backgroundMusicController;
+    public SoundEffectsController soundEffectsController;
 
     //private links
     private TimeController timeController;
@@ -87,6 +88,7 @@ public class  GameController : MonoBehaviour
 	{
         PlayerPrefs.DeleteAll();
         GameModel.SetPinkCoinCount(7);
+        soundEffectsController.PlayPlayerDeathSound();
     }
 
 
@@ -336,6 +338,7 @@ public class  GameController : MonoBehaviour
         GameModel.canCollectCoins = false;
         timeController.handlePlayerDestroyed();
         SavePlayerPrefs();
+        soundEffectsController.PlayPlayerDeathSound();
 		StartCoroutine (ShowEndgameScreenAfterSeconds (delayBeforeEndGameScreenAppears));
 	}
 

@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour {
     private Rigidbody2D rigidbody;
     private Animator animator;
 
+    private bool isMoving = false;
+
 	public void Init(GameController controller)
 	{
         this.gameController = controller;
@@ -37,23 +39,17 @@ public class PlayerController : MonoBehaviour {
         characterController = GetComponent <CharacterController>();
         lastTouchVector = Vector3.zero;
         animator = GetComponent<Animator>();
+        isMoving = false;
 	}
 
     void Update()
     {
-
-        //hide the tooltip if we are moving and it hasn't been hidden before
-        if (gameController.swipeTooltipObject.activeSelf && direction != Vector3.zero)
-        {
-            gameController.OnPlayerBeginsMovement();
-        }
-
-        //Different inputs for editor or live game
 #if (UNITY_EDITOR || UNITY_STANDALONE)
         DetermineKeyboardDirection();
 #else
-    	DetermineSwipeDirection();
+        DetermineSwipeDirection();
 #endif
+
     }
 
     public void DetermineKeyboardDirection()
@@ -159,6 +155,12 @@ public class PlayerController : MonoBehaviour {
 
 	public void OnChangeDirection( Vector3 tempDirection)
 	{
+        if (isMoving == false)
+        {
+            gameController.OnPlayerBeginsMovement();
+            isMoving = true;
+        }
+
 		if(dropsMines)
 		{
 			gameController.SpawnGameObjectAtPosition (minePrefab, transform.GetComponent<RectTransform>().anchoredPosition);
