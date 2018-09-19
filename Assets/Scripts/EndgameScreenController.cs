@@ -75,7 +75,7 @@ public class EndgameScreenController : MonoBehaviour {
 
     }
 
-    public void ShowEndGameScreen()
+    public void ShowEndGameScreen(bool shouldShowImmediately = false)
     {
         this.storePanel.SetActive(false);
         this.gameOverPanel.SetActive(true);
@@ -92,11 +92,19 @@ public class EndgameScreenController : MonoBehaviour {
         //}
         else
         {
-            ShowContinueWithCoinsOption();
+            ShowContinueWithCoinsOption(shouldShowImmediately);
 
         }
 
-        ShowReplayButtonAfterSeconds(GameModel.timeDelayReplayButton);
+        if (shouldShowImmediately)
+        {
+            ShowReplayButton(true);
+        }
+        else
+        {
+            ShowReplayButtonAfterSeconds(GameModel.timeDelayReplayButton);
+        }
+
     }
 
     //shows the panel that allows users to continue the game by completing a rewarded ad
@@ -106,13 +114,20 @@ public class EndgameScreenController : MonoBehaviour {
         this.continueCoinPanel.gameObject.SetActive(false);
     }
     //shows the panel that allows users to continue by using pink coins, triggers shop if not enough coins currently
-    private void ShowContinueWithCoinsOption()
+    private void ShowContinueWithCoinsOption(bool shouldShowImmediately)
     {
         this.goToStorePanel.SetActive(false);
         this.continueCoinsButton.interactable = true;
         this.continueAdButton.gameObject.SetActive(false);
         this.continueCoinPanel.gameObject.SetActive(true);
-        this.goToStoreButtonAnimator.SetTrigger("Show");
+        if(shouldShowImmediately)
+        {
+            this.goToStoreButtonAnimator.SetTrigger("ShowImmediate");
+        }
+        else{
+            this.goToStoreButtonAnimator.SetTrigger("Show");
+        }
+
     }
 
     //private void ShowBuyCoinOption()
@@ -152,7 +167,7 @@ public class EndgameScreenController : MonoBehaviour {
 
     public void ShowEndgameFromStore()
     {
-        ShowEndGameScreen();
+        ShowEndGameScreen(true);
 
 
     }
@@ -176,7 +191,7 @@ public class EndgameScreenController : MonoBehaviour {
     public void HandleBackButtonPressed()
     {
         ShowEndgameFromStore();
-        ShowReplayButton();
+        ShowReplayButton(true);
     }
 
     public void ShowReplayButtonAfterSeconds(float seconds)
@@ -194,9 +209,16 @@ public class EndgameScreenController : MonoBehaviour {
         }
     }
 
-    private void ShowReplayButton()
+    private void ShowReplayButton(bool shouldShowImmediately = false)
     {
-        replayButtonAnimator.SetTrigger("Show");
+        if (shouldShowImmediately)
+        {
+            replayButtonAnimator.SetTrigger("ShowImmediate");
+        }
+        else
+        {
+            replayButtonAnimator.SetTrigger("Show");
+        }
         replayButtonIsVisible = true;
     }
 
