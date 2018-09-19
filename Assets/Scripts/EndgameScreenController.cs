@@ -16,9 +16,9 @@ public class EndgameScreenController : MonoBehaviour {
 
 	public Text recentCoinCountText;
     public Text bestCoinCountText;
+    public Text pinkCoinCountText;
     public Text totalCoinCountText;
     public Text continueCoinCostText;
-    public Text coinsNeededText;
     public Text numContinuesText;
 
 
@@ -41,29 +41,37 @@ public class EndgameScreenController : MonoBehaviour {
     private Animator goToStoreButtonAnimator;
     private Animator replayButtonAnimator;
 
+    private bool replayButtonIsVisible = false;
+
     void Awake()
     {
         goToStoreButtonAnimator = continueCoinPanel.GetComponent<Animator>();
-        replayButtonAnimator = replayButton.GetComponent<Animator>(); 
-
+        replayButtonAnimator = replayButton.GetComponent<Animator>();
     }
 
     public void PopulateEndgameScreenContent(string recentCoinCountSet, string bestCoinCountSet, string totalCoinCountSet)
 	{
-        this.recentCoinCount = System.Int32.Parse(recentCoinCountSet); ;
-        this.bestCoinCount = System.Int32.Parse(bestCoinCountSet); ;
+        replayButtonIsVisible = false;
+        this.recentCoinCount = System.Int32.Parse(recentCoinCountSet);
+        this.bestCoinCount = System.Int32.Parse(bestCoinCountSet);
         this.totalCoinCount = System.Int32.Parse(totalCoinCountSet);
         this.recentCoinCountText.text = recentCoinCountSet;
         this.bestCoinCountText.text = bestCoinCountSet;
         this.totalCoinCountText.text = totalCoinCountSet;
-        this.continueCoinCost = Mathf.Max(200, (System.Int32.Parse(recentCoinCountSet) / 2) * GameModel.numAttempts/10);
+        //calculate how many pink coins were earned and add to user collection
+        int pinkCoinsEarned = recentCoinCount / 100;
+        recentCoinCount = 0; //TODO: this should animate to 0
+        GameModel.AddPinkCoins(pinkCoinsEarned);
+        //calculate pink coin total
+        this.pinkCoinCountText.text = GameModel.GetPinkCoinCount().ToString();
+
+
+        this.continueCoinCost = 10;//need to calculate cointinue coin cost   Mathf.Max(200, (System.Int32.Parse(recentCoinCountSet) / 2) * GameModel.numAttempts/10);
         if (GameController.verbose)
         {
             Debug.Log(string.Format("Cost to continue is {0} = RecentCoins ({1}) / 2 ) / 10 * 10) * numAttempts ({2} / 10)", continueCoinCost, recentCoinCount, GameModel.numAttempts));
         }
-        this.continueCoinCostText.text = "-"+this.continueCoinCost.ToString();
-        //this.numContinuesText.text = GameModel.numAttempts > 1 ? GameModel.numAttempts.ToString() : "";
-        this.coinsNeededText.text = (this.continueCoinCost - this.recentCoinCount).ToString();
+        this.continueCoinCostText.text = this.continueCoinCost.ToString();
 
     }
 
@@ -76,12 +84,12 @@ public class EndgameScreenController : MonoBehaviour {
         //TODO animate UI on
         if (adController.IsReady())
         {
-            ShowContinueWithCoinsOption();
+            ShowContinueWithAdsOption();
         }
-        else if (this.continueCoinCost > this.recentCoinCount)
-        {
-            ShowBuyCoinOption();
-        }
+        //else if (this.continueCoinCost > GameModel.GetPinkCoinCount())
+        //{
+        //    ShowBuyCoinOption();
+        //}
         else
         {
             ShowContinueWithCoinsOption();
@@ -91,12 +99,13 @@ public class EndgameScreenController : MonoBehaviour {
         ShowReplayButtonAfterSeconds(GameModel.timeDelayReplayButton);
     }
 
-    private void ShowCointinueWithAdsOption()
+    //shows the panel that allows users to continue the game by completing a rewarded ad
+    private void ShowContinueWithAdsOption()
     {
         this.continueAdButton.gameObject.SetActive(true);
         this.continueCoinPanel.gameObject.SetActive(false);
     }
-
+    //shows the panel that allows users to continue by using pink coins, triggers shop if not enough coins currently
     private void ShowContinueWithCoinsOption()
     {
         this.goToStorePanel.SetActive(false);
@@ -106,12 +115,12 @@ public class EndgameScreenController : MonoBehaviour {
         this.goToStoreButtonAnimator.SetTrigger("Show");
     }
 
-    private void ShowBuyCoinOption()
-    {
-        this.goToStorePanel.SetActive(true);
-        this.continueCoinsButton.interactable = false;
-        this.goToStoreButtonAnimator.SetTrigger("Show");
-    }
+    //private void ShowBuyCoinOption()
+    //{
+    //    this.goToStorePanel.SetActive(true);
+    //    this.continueCoinsButton.interactable = false;
+    //    this.goToStoreButtonAnimator.SetTrigger("Show");
+    //}
 
 
     public void HandleContinueAdButtonPressed()
@@ -122,20 +131,40 @@ public class EndgameScreenController : MonoBehaviour {
 
     public void HandleContinueCoinButtonPressed()
     {
-        gameController.ContinueGame(this.continueCoinCost);
-        GameModel.numAttempts++;
-
+        //if have enough coins already, take away coins and continue game
+        if (GameModel.GetPinkCoinCount() > this.continueCoinCost)
+        {
+            gameController.ContinueGame();
+            GameModel.numAttempts++;
+        }
+        //otherwise show the shop screen to buy those coins
+        else
+        {
+            ShowStoreFromEndgame();
+        }
     }
 
-    public void HandleGetCoinButtonPressed()
+    public void ShowStoreFromEndgame()
     {
         storePanel.SetActive(true);
         gameOverPanel.SetActive(false);
     }
 
+    public void ShowEndgameFromStore()
+    {
+        ShowEndGameScreen();
+
+
+    }
+
     public void HandleBuyCoinButtonPressed(int packageId)
     {
         IAPManager.PurchasePackage(packageId);
+    }
+
+    public void HandleRemoveAdsButtonPressed()
+    {
+        IAPManager.HandleRemoveAdsButtonPressed();
     }
 
     public void HandleStartOverButtonPressed()
@@ -144,17 +173,31 @@ public class EndgameScreenController : MonoBehaviour {
         GameModel.numAttempts = 1;
     }
 
-    public void ShowReplayButtonAfterSeconds(float seconds)
+    public void HandleBackButtonPressed()
     {
-        StartCoroutine(ExecuteAfterTime(seconds));
+        ShowEndgameFromStore();
+        ShowReplayButton();
     }
 
-    public IEnumerator ExecuteAfterTime(float time)
+    public void ShowReplayButtonAfterSeconds(float seconds)
     {
-        yield return new WaitForSeconds(time);
+        StartCoroutine(ShowReplayButtonAfterTime(seconds));
+    }
 
-        // Code to execute after the delay
+    public IEnumerator ShowReplayButtonAfterTime(float time)
+    {
+
+        if (replayButtonIsVisible == false)
+        {
+            yield return new WaitForSeconds(time);
+            ShowReplayButton();
+        }
+    }
+
+    private void ShowReplayButton()
+    {
         replayButtonAnimator.SetTrigger("Show");
+        replayButtonIsVisible = true;
     }
 
 }

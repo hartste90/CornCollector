@@ -30,7 +30,7 @@ public class AdController : MonoBehaviour
         {
             case ShowResult.Finished:
                 Debug.Log("The ad was successfully shown.");
-                gameController.HandleContinueFromAd();
+                gameController.ContinueGame();
                 //
                 // YOUR CODE TO REWARD THE GAMER
                 // Give coins etc.

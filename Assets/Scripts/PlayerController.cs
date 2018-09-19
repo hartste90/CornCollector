@@ -122,24 +122,37 @@ public class PlayerController : MonoBehaviour {
 		Vector3 tempDirection = Vector3.zero;
 		Vector2 deltaPosition = Input.GetTouch (0).position - startSwipePosition;
 		if (deltaPosition.magnitude >= gameController.minimumSwipeDistance) {
-			if (Mathf.Abs (deltaPosition.x) > Mathf.Abs (deltaPosition.y)) {
-				if (deltaPosition.x > 0) {
+            if (Mathf.Abs(deltaPosition.x) > Mathf.Abs(deltaPosition.y))
+            {
+                if (deltaPosition.x > 0)
+                {
                     Debug.Log("Swiping: RIGHT");
-					tempDirection = Vector3.right;
-				} else {
-					Debug.Log ("Swiping: LEFT");
-					tempDirection = Vector3.left;
-				}
-			} 
-            else {
-				if (deltaPosition.y > 0) {
-					Debug.Log ("Swiping: UP");
-					tempDirection = Vector3.up;
-				} else {
-					Debug.Log ("Swiping: DOWN");
-					tempDirection = Vector3.down;
-				}
-			}
+                    playerDecal.eulerAngles = new Vector3(0, 0, -90);
+                    tempDirection = Vector3.right;
+                }
+                else
+                {
+                    Debug.Log("Swiping: LEFT");
+                    tempDirection = Vector3.left;
+                    playerDecal.eulerAngles = new Vector3(0, 0, 90);
+
+                }
+            }
+            else
+            {
+                if (deltaPosition.y > 0)
+                {
+                    Debug.Log("Swiping: UP");
+                    playerDecal.eulerAngles = new Vector3(0, 0, 0);
+                    tempDirection = Vector3.up;
+                }
+                else
+                {
+                    Debug.Log("Swiping: DOWN");
+                    playerDecal.eulerAngles = new Vector3(0, 0, 180);
+                    tempDirection = Vector3.down;
+                }
+            }
 		}
 		return tempDirection;
 	}

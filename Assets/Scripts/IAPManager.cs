@@ -7,4 +7,9 @@ public static class IAPManager
     {
         Debug.Log("STUB: purchase package: " + packageId);
     }
+
+    public static void HandleRemoveAdsButtonPressed ()
+    {
+        Debug.Log("STUB: purchase REMOVE ADS package");
+    }
 }

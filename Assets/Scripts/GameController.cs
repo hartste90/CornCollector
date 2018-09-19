@@ -86,12 +86,15 @@ public class  GameController : MonoBehaviour
 	public void TestFunc()
 	{
         PlayerPrefs.DeleteAll();
+        GameModel.SetPinkCoinCount(7);
     }
 
 
     void Start()
 	{
         GameModel.numAttempts = 1;
+        GameModel.SetGoldCoinCount(0);
+        LoadPlayerPrefs();
 
         //setup private links
         tooltipController = swipeTooltipObject.GetComponent<TooltipController>();
@@ -108,6 +111,11 @@ public class  GameController : MonoBehaviour
         ShowSwipeTooltip();
         beginGameplay();
 
+    }
+
+    private void LoadPlayerPrefs()
+    {
+        GameModel.SetPinkCoinCount(PlayerPrefs.GetInt("pinkCoinCount", 0));
     }
 
     private void ShowBeginUI()
@@ -195,30 +203,15 @@ public class  GameController : MonoBehaviour
 		}
 	}
 
-	public void ResetScene()
-	{
-		Time.timeScale = 1.0f;
-		SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
-	}
-
-
-    public void HandleContinueFromAd()
+    public void ResetScene()
     {
-        ContinueGame(0);
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void HandleContinueFromCoins()
+    public void ContinueGame()
     {
-        ContinueGame(200);
-    }
 
-    public void ContinueGame(int coinCost)
-    {
-        //pay continue cost if applicable
-        if (coinCost != 0)
-        {
-            currentCoinCount -= coinCost;
-        }
         //destroy all objects currently on stage
         DestroyAllItemsOnscreen();
         //unslow time
@@ -227,6 +220,7 @@ public class  GameController : MonoBehaviour
         uiController.SetCoinText(currentCoinCount);
         //replay game start UI tooltip/tutorial
         ShowBeginUI();
+        beginGameplay();
     }
 
     public GameObject SpawnGameObjectAtRandomPosition(GameObject gameObject)
@@ -349,6 +343,7 @@ public class  GameController : MonoBehaviour
     {
         PlayerPrefs.SetInt("lastScore", currentCoinCount);
         PlayerPrefs.SetInt("currentCoins", PlayerPrefs.GetInt("currentCoins", 0) + currentCoinCount);
+        PlayerPrefs.SetInt("pinkCoinCount", GameModel.GetPinkCoinCount());
         if (PlayerPrefs.GetInt("bestScore") < currentCoinCount)
         {
             PlayerPrefs.SetInt("bestScore", currentCoinCount);
