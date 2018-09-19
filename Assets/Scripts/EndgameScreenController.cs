@@ -24,6 +24,7 @@ public class EndgameScreenController : MonoBehaviour {
 
     public GameController gameController;
     public AdController adController;
+    public HelptextPanelController helpTextController;
     public GameObject gameOverPanel;
     public GameObject storePanel;
     public GameObject goToStorePanel;
@@ -163,6 +164,7 @@ public class EndgameScreenController : MonoBehaviour {
     {
         storePanel.SetActive(true);
         gameOverPanel.SetActive(false);
+        helpTextController.ShowHelpText();
     }
 
     public void ShowEndgameFromStore()
