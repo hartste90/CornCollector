@@ -1894,7 +1894,7 @@ MonoBehaviour:
   numSafes: 1
   minimumSwipeDistance: 0
   gameSpeed: 2.5
-  numCoinsInSafe: 10
+  numCoinsInSafe: 1000
   debugAllowAds: 0
   swipeTooltipObject: {fileID: 268121372}
   playerPrefab: {fileID: 1324097209040142, guid: 68b404f91c2214c91b122bc2c6ec3efc,
@@ -6433,7 +6433,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 929975013}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1243119, y: -1.0297377, z: 84.36}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -8645,7 +8645,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1274186378}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.3429109, y: 4.7762027, z: 58.071327}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -11830,7 +11830,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4af519c1b5674a879b2a18f3ea17b7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recentCoinCountText: {fileID: 1817069950}
+  coinCountDelayTime: 1
+  rollupIncrement: 10
+  goldCoinTotalText: {fileID: 1817069950}
   bestCoinCountText: {fileID: 246709809}
   pinkCoinCountText: {fileID: 1784861241}
   totalCoinCountText: {fileID: 1738670928}
