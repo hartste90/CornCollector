@@ -4,7 +4,7 @@ public class CoinTargetController : MonoBehaviour {
 
 
     public GameController gameController;
-    private Animator animator;
+    public Animator animator;
 
 
     void Start()

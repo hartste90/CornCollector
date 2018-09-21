@@ -14,19 +14,16 @@ public static class Extensions
 
 public class EndgameScreenController : MonoBehaviour {
 
-    public float coinCountDelayTime = .5f;
-    public int rollupIncrement = 10;
 
-    public Text goldCoinTotalText;
+
     public Text bestCoinCountText;
-    public Text pinkCoinCountText;
-    public Text totalCoinCountText;
     public Text continueCoinCostText;
     public Text numContinuesText;
 
 
     public GameController gameController;
     public AdController adController;
+    public RollupController rollupController;
     public HelptextPanelController helpTextController;
     public GameObject gameOverPanel;
     public GameObject storePanel;
@@ -38,20 +35,13 @@ public class EndgameScreenController : MonoBehaviour {
     public GameObject continueCoinPanel;
 
     private int continueCoinCost;
-    private int pinkCoinsTotal;
-    private int pinkCoinsCurrent;
-    private int goldCoinTotal;
-    private int goldCoinCurrent;
-    private int goldCoinsTransferred;
     private int bestCoinCount;
-    private int totalCoinCount;
 
     private Animator goToStoreButtonAnimator;
     private Animator replayButtonAnimator;
 
 
     private bool replayButtonIsVisible = false;
-    private float coinCountDelayUntilTime;
 
     void Awake()
     {
@@ -59,56 +49,16 @@ public class EndgameScreenController : MonoBehaviour {
         replayButtonAnimator = replayButton.GetComponent<Animator>();
     }
 
-    private void Update()
-    {
-        //continue animating the coins counting if they havent finished
-        if (Time.time > coinCountDelayUntilTime)
-        {
-            if (goldCoinCurrent > 0)
-            {
-                goldCoinCurrent -= rollupIncrement;
-                goldCoinsTransferred += rollupIncrement;
-                if (goldCoinsTransferred > 100)
-                {
-                    goldCoinsTransferred -= 100;
-                    pinkCoinsCurrent++;
-                    pinkCoinCountText.text = pinkCoinsCurrent.ToString();
-                }
-                if (goldCoinCurrent < 0)
-                {
-                    goldCoinCurrent = 0;
-                }
-                goldCoinTotalText.text = goldCoinCurrent.ToString();
-            }
-        }
 
-    }
 
     public void PopulateEndgameScreenContent(string goldCoinTotalSet, string bestCoinCountSet, string totalCoinCountSet)
 	{
+        rollupController.Populate(System.Int32.Parse(goldCoinTotalSet), GameModel.GetPinkCoinCount(), this);
         replayButtonIsVisible = false;
-        this.goldCoinTotal = System.Int32.Parse(goldCoinTotalSet);
-        this.goldCoinCurrent = goldCoinTotal;
         this.bestCoinCount = System.Int32.Parse(bestCoinCountSet);
-        this.totalCoinCount = System.Int32.Parse(totalCoinCountSet);
-        this.goldCoinTotalText.text = goldCoinTotalSet;
-        this.bestCoinCountText.text = bestCoinCountSet;
-        this.totalCoinCountText.text = totalCoinCountSet;
-        //calculate how many pink coins were earned and add to user collection
-        int pinkCoinsEarned = goldCoinTotal / 100;
-        goldCoinTotal = 0; //TODO: this should animate to 0
-        GameModel.AddPinkCoins(pinkCoinsEarned);
-        //calculate pink coin total
-        this.pinkCoinsTotal = GameModel.GetPinkCoinCount();
-        this.pinkCoinsCurrent = 0;
-        this.pinkCoinCountText.text = 0.ToString();
-
-
         this.continueCoinCost = 10;//need to calculate cointinue coin cost   Mathf.Max(200, (System.Int32.Parse(goldCoinTotalSet) / 2) * GameModel.numAttempts/10);
-        if (GameController.verbose)
-        {
-            Debug.Log(string.Format("Cost to continue is {0} = RecentCoins ({1}) / 2 ) / 10 * 10) * numAttempts ({2} / 10)", continueCoinCost, goldCoinTotal, GameModel.numAttempts));
-        }
+
+        this.bestCoinCountText.text = bestCoinCountSet;
         this.continueCoinCostText.text = this.continueCoinCost.ToString();
 
     }
@@ -118,7 +68,7 @@ public class EndgameScreenController : MonoBehaviour {
         this.storePanel.SetActive(false);
         this.gameOverPanel.SetActive(true);
 
-        ShowDetails();
+        rollupController.ShowDetails();
         
         //TODO animate UI on
         if (adController.IsReady())
@@ -142,10 +92,9 @@ public class EndgameScreenController : MonoBehaviour {
 
     }
 
-    private void ShowDetails()
+    public void OnCoinRollupComplete()
     {
-        coinCountDelayUntilTime = Time.time + coinCountDelayTime;
-        goldCoinsTransferred = 0;
+        Debug.Log("Coin rollup animation complete");
     }
 
     //shows the panel that allows users to continue the game by completing a rewarded ad

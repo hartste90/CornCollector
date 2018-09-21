@@ -87,8 +87,12 @@ public class  GameController : MonoBehaviour
 	public void TestFunc()
 	{
         PlayerPrefs.DeleteAll();
-        GameModel.SetPinkCoinCount(7);
-        soundEffectsController.PlayPlayerDeathSound();
+        //GameModel.SetPinkCoinCount(7);
+        //soundEffectsController.PlayPlayerDeathSound();
+        currentCoinCount = 932;
+        HandlePlayerDestroyed();
+
+
     }
 
 
@@ -335,7 +339,7 @@ public class  GameController : MonoBehaviour
 
 	public void HandlePlayerDestroyed()
 	{
-        GameModel.canCollectCoins = false;
+        //GameModel.canCollectCoins = false;
         timeController.handlePlayerDestroyed();
         SavePlayerPrefs();
         soundEffectsController.PlayPlayerDeathSound();

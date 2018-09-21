@@ -12,8 +12,13 @@ public class GravitateToPlayer : MonoBehaviour {
     public bool isFollowing = true;
     public float maxSpeed = 10f;
 
- 	private Transform playerTransform;
-     private Rigidbody2D rb;
+    public Color startColor;
+    public Color endColor;
+    public bool shouldChangeColor = false;
+
+    private Transform playerTransform;
+    private Rigidbody2D rb;
+    private float startDistance;
 
     void Start()
     {
@@ -25,25 +30,25 @@ public class GravitateToPlayer : MonoBehaviour {
             playerTransform = playerObj.transform;
         }
         rb = GetComponent<Rigidbody2D>();
+        startDistance = GetDistance();
     }
     void Update () 
     {
         if (GameModel.canCollectCoins)
         {
-            AccellerateTowardsTarget();
+            float distance = GetDistance();
+            Vector3 direction = GetDirection();
+            AccellerateTowardsTarget(distance, direction);
+            if (shouldChangeColor)
+            {
+                GetComponentInChildren<SpriteRenderer>().color = Color.Lerp(startColor, endColor, startDistance - (distance / startDistance));
+            }
         }
 
     }
 
-    private void AccellerateTowardsTarget()
+    private void AccellerateTowardsTarget(float distance, Vector3 direction)
     {
-        Vector3 direction = new Vector3(-45, 45, 0);
-        float distance = 1;
-        if (playerTransform)
-        { 
-            direction = playerTransform.position - transform.position;
-            distance = Vector3.Distance(playerTransform.position, transform.position);
-        }
         speed += acceleration;
         rb.AddForce(new Vector2(direction.x, direction.y).normalized * speed * 1/ distance, ForceMode2D.Impulse);
         if (rb.velocity.magnitude > maxSpeed)
@@ -51,4 +56,24 @@ public class GravitateToPlayer : MonoBehaviour {
             rb.velocity = rb.velocity.normalized * maxSpeed;
         }
     }
- }
+
+    private float GetDistance()
+    {
+        float distance = 1f;
+        if (playerTransform)
+        {
+            distance = Vector3.Distance(playerTransform.position, transform.position);
+        }
+        return distance;
+    }
+
+    private Vector3 GetDirection()
+    {
+        Vector3 direction = new Vector3(-45, 45, 0);
+        if (playerTransform)
+        {
+            direction = playerTransform.position - transform.position;
+        }
+        return direction;
+    }
+}

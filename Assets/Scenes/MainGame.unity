@@ -1894,7 +1894,7 @@ MonoBehaviour:
   numSafes: 1
   minimumSwipeDistance: 0
   gameSpeed: 2.5
-  numCoinsInSafe: 1000
+  numCoinsInSafe: 200
   debugAllowAds: 0
   swipeTooltipObject: {fileID: 268121372}
   playerPrefab: {fileID: 1324097209040142, guid: 68b404f91c2214c91b122bc2c6ec3efc,
@@ -2527,7 +2527,7 @@ GameObject:
   - component: {fileID: 401605321}
   - component: {fileID: 401605320}
   m_Layer: 0
-  m_Name: Recent Coin Icon
+  m_Name: Gold Coin Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7416,6 +7416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameController: {fileID: 306352827}
+  animator: {fileID: 0}
 --- !u!95 &1148711344
 Animator:
   serializedVersion: 3
@@ -7987,9 +7988,12 @@ GameObject:
   - component: {fileID: 1210231105}
   - component: {fileID: 1210231107}
   - component: {fileID: 1210231106}
+  - component: {fileID: 1210231108}
+  - component: {fileID: 1210231109}
+  - component: {fileID: 1210231110}
   m_Layer: 0
-  m_Name: Recent Coin Icon
-  m_TagString: Untagged
+  m_Name: Pink Coin Icon
+  m_TagString: CoinTarget
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8080,6 +8084,52 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &1210231108
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1210231104}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.0000009536743}
+  serializedVersion: 2
+  m_Radius: 0.32
+--- !u!114 &1210231109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1210231104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e06f4ee11476f44c592e6333be05a17f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameController: {fileID: 306352827}
+  animator: {fileID: 0}
+--- !u!95 &1210231110
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1210231104}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1210382530
 GameObject:
   m_ObjectHideFlags: 0
@@ -11545,6 +11595,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1750447076}
   - component: {fileID: 1750447077}
+  - component: {fileID: 1750447078}
   m_Layer: 0
   m_Name: Stats Panel
   m_TagString: Untagged
@@ -11581,6 +11632,25 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1750447075}
   m_CullTransparentMesh: 0
+--- !u!114 &1750447078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1750447075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7563207fb57e846e19cfd97d0799ff60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinCountDelayTime: 0.1
+  rollupIncrement: 20
+  uiRollupCoinPrefab: {fileID: 1115446076801792, guid: 710f5a95b14ec4e8db8a04f26c4b94d1,
+    type: 2}
+  coinStartTransform: {fileID: 1817069948}
+  coinEndTransform: {fileID: 1210231105}
+  goldCoinTotalText: {fileID: 1817069950}
+  pinkCoinCountText: {fileID: 1784861241}
 --- !u!1 &1754032370
 GameObject:
   m_ObjectHideFlags: 0
@@ -11830,16 +11900,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4af519c1b5674a879b2a18f3ea17b7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinCountDelayTime: 1
-  rollupIncrement: 10
-  goldCoinTotalText: {fileID: 1817069950}
   bestCoinCountText: {fileID: 246709809}
-  pinkCoinCountText: {fileID: 1784861241}
-  totalCoinCountText: {fileID: 1738670928}
   continueCoinCostText: {fileID: 845649868}
   numContinuesText: {fileID: 0}
   gameController: {fileID: 306352827}
   adController: {fileID: 1239062790}
+  rollupController: {fileID: 1750447078}
   helpTextController: {fileID: 1708837356}
   gameOverPanel: {fileID: 115905775}
   storePanel: {fileID: 818761406}
@@ -11861,7 +11927,7 @@ GameObject:
   - component: {fileID: 1784861241}
   - component: {fileID: 1784861240}
   m_Layer: 0
-  m_Name: Recent Coin Text
+  m_Name: Pink Coin Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12214,7 +12280,7 @@ GameObject:
   - component: {fileID: 1817069950}
   - component: {fileID: 1817069949}
   m_Layer: 0
-  m_Name: Recent Coin Text
+  m_Name: Gold Coin Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
