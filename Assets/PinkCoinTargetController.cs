@@ -6,7 +6,7 @@ public class PinkCoinTargetController : CoinTargetController
 {
     public new void OnHitCoin(GameObject coin)
     {
-        //animator.SetTri gger("Bump");
+        animator.SetTrigger("Bump");
         Destroy(coin);
     }
 

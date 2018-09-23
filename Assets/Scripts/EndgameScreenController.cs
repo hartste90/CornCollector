@@ -65,6 +65,7 @@ public class EndgameScreenController : MonoBehaviour {
 
     public void ShowEndGameScreen(bool shouldShowImmediately = false)
     {
+        Time.timeScale = 1f;
         this.storePanel.SetActive(false);
         this.gameOverPanel.SetActive(true);
 

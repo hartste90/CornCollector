@@ -2,7 +2,7 @@
 
 public class CoinController : MonoBehaviour {
 
-    public float maxTrajectory = 10000f;
+    public float maxTrajectory = 0f;
 
 	void Start()
 	{

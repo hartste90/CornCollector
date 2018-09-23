@@ -41,7 +41,7 @@ public class GravitateToPlayer : MonoBehaviour {
             AccellerateTowardsTarget(distance, direction);
             if (shouldChangeColor)
             {
-                GetComponentInChildren<SpriteRenderer>().color = Color.Lerp(startColor, endColor, startDistance - (distance / startDistance));
+                GetComponentInChildren<SpriteRenderer>().color = Color.Lerp(startColor, endColor,  1 - (distance / startDistance));
             }
         }
 

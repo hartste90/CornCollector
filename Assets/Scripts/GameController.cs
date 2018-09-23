@@ -89,7 +89,7 @@ public class  GameController : MonoBehaviour
         PlayerPrefs.DeleteAll();
         //GameModel.SetPinkCoinCount(7);
         //soundEffectsController.PlayPlayerDeathSound();
-        currentCoinCount = 932;
+        currentCoinCount = 220;
         HandlePlayerDestroyed();
 
 
