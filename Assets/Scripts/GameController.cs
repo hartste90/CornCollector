@@ -26,6 +26,7 @@ public class  GameController : MonoBehaviour
     public Transform gameStageParent;
     public Transform playerStartPositionAnchor;
     public Transform safeStartPositionAnchor;
+    public Transform uiCoinTargetTransform;
     public UIController uiController;
     public TitleScreenController titleScreenController;
 	public EndgameScreenController endgameScreenController;
@@ -89,7 +90,7 @@ public class  GameController : MonoBehaviour
         PlayerPrefs.DeleteAll();
         //GameModel.SetPinkCoinCount(7);
         //soundEffectsController.PlayPlayerDeathSound();
-        currentCoinCount = 220;
+        currentCoinCount = 920;
         HandlePlayerDestroyed();
 
 
@@ -242,14 +243,11 @@ public class  GameController : MonoBehaviour
         obj.transform.localPosition = pos3;
         RectTransform rect = obj.GetComponent<RectTransform>();
         rect.anchoredPosition = position;
-        //if (gameObject.tag != "Safe")
-        //{
-        //    obj.transform.localScale = new Vector3(3, 3, 1);
-        //    Debug.LogError("WHAT IS THIS OBJECT");
-        //}
+
         if (gameObject == coinPrefab)
         {
             obj.transform.localScale = new Vector3(30, 30, 1);
+            obj.GetComponent<GravitateToTarget>().SetTarget(uiCoinTargetTransform);
             coinList.Add(obj);
         }
         else if (gameObject == minePrefab)

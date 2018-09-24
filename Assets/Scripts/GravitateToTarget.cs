@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GravitateToPlayer : MonoBehaviour {
+public class GravitateToTarget : MonoBehaviour {
  
     public float gravityDistance = 10f;
     public float gravityMagnitude = 5f;
@@ -16,19 +16,12 @@ public class GravitateToPlayer : MonoBehaviour {
     public Color endColor;
     public bool shouldChangeColor = false;
 
-    private Transform playerTransform;
+    public Transform targetTransform;
     private Rigidbody2D rb;
     private float startDistance;
 
     void Start()
     {
-        GameObject playerObj = GameObject.FindGameObjectWithTag("CoinTarget");
-        //GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-
-        if (playerObj)
-        {
-            playerTransform = playerObj.transform;
-        }
         rb = GetComponent<Rigidbody2D>();
         startDistance = GetDistance();
     }
@@ -47,6 +40,11 @@ public class GravitateToPlayer : MonoBehaviour {
 
     }
 
+    public void SetTarget(Transform targetTransform)
+    {
+        this.targetTransform = targetTransform;
+    }
+
     private void AccellerateTowardsTarget(float distance, Vector3 direction)
     {
         speed += acceleration;
@@ -60,9 +58,9 @@ public class GravitateToPlayer : MonoBehaviour {
     private float GetDistance()
     {
         float distance = 1f;
-        if (playerTransform)
+        if (targetTransform)
         {
-            distance = Vector3.Distance(playerTransform.position, transform.position);
+            distance = Vector3.Distance(targetTransform.position, transform.position);
         }
         return distance;
     }
@@ -70,9 +68,9 @@ public class GravitateToPlayer : MonoBehaviour {
     private Vector3 GetDirection()
     {
         Vector3 direction = new Vector3(-45, 45, 0);
-        if (playerTransform)
+        if (targetTransform)
         {
-            direction = playerTransform.position - transform.position;
+            direction = targetTransform.position - transform.position;
         }
         return direction;
     }

@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224255888020372042}
   - component: {fileID: 114814290759779048}
-  - component: {fileID: 114942081530479378}
+  - component: {fileID: 114750638187759712}
   - component: {fileID: 58245486717288262}
   - component: {fileID: 50374311676571324}
   m_Layer: 9
@@ -94,6 +94,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.39
+--- !u!114 &114750638187759712
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1115446076801792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4db436529a34f46d6920ad79da1c4936, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravityDistance: 10
+  gravityMagnitude: 5
+  speed: 1
+  acceleration: 0.1
+  isFollowing: 1
+  maxSpeed: 10
+  startColor: {r: 1, g: 0.98039216, b: 0, a: 1}
+  endColor: {r: 0.87058824, g: 0, b: 1, a: 1}
+  shouldChangeColor: 0
+  targetTransform: {fileID: 0}
 --- !u!114 &114814290759779048
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -106,26 +127,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxTrajectory: 0
---- !u!114 &114942081530479378
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1115446076801792}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4db436529a34f46d6920ad79da1c4936, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gravityDistance: 1
-  gravityMagnitude: 5
-  speed: 0
-  acceleration: 0.01
-  isFollowing: 1
-  maxSpeed: 10
-  startColor: {r: 1, g: 0.98113215, b: 0, a: 1}
-  endColor: {r: 0.87058824, g: 0, b: 1, a: 1}
-  shouldChangeColor: 1
 --- !u!212 &212965709376834048
 SpriteRenderer:
   m_ObjectHideFlags: 1

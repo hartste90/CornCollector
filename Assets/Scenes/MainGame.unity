@@ -1905,6 +1905,7 @@ MonoBehaviour:
   gameStageParent: {fileID: 400534355}
   playerStartPositionAnchor: {fileID: 1317330282}
   safeStartPositionAnchor: {fileID: 509337813}
+  uiCoinTargetTransform: {fileID: 429968105}
   uiController: {fileID: 1413301182}
   titleScreenController: {fileID: 1403030592}
   endgameScreenController: {fileID: 1782175045}
@@ -3458,7 +3459,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 792, y: -321.3}
-  m_SizeDelta: {x: 492, y: 268.9}
+  m_SizeDelta: {x: 1168, y: 268.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &554133762
 MonoBehaviour:
@@ -12995,7 +12996,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 792, y: -306.6}
-  m_SizeDelta: {x: 492, y: 369.2}
+  m_SizeDelta: {x: 1227.5, y: 369.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1914486809
 MonoBehaviour:

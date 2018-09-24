@@ -46,6 +46,7 @@ public class RollupController : MonoBehaviour {
                     pinkCoinCountText.text = pinkCoinsCurrent.ToString();
 
                     GameObject pinkCoin = Instantiate(uiRollupCoinPrefab, coinStartTransform);
+                    pinkCoin.GetComponent<GravitateToTarget>().SetTarget(coinEndTransform);
                     pinkCoin.transform.localPosition = Vector3.zero;
                     coinStartTransform.GetComponent<Animator>().SetTrigger("Bump");
                     //Debug.Break();
