@@ -337,12 +337,21 @@ public class  GameController : MonoBehaviour
 
 	public void HandlePlayerDestroyed()
 	{
-        //GameModel.canCollectCoins = false;
+        GameModel.canCollectCoins = false;
+        StopGameCoinsFromGravitating();
         timeController.handlePlayerDestroyed();
         SavePlayerPrefs();
         soundEffectsController.PlayPlayerDeathSound();
 		StartCoroutine (ShowEndgameScreenAfterSeconds (delayBeforeEndGameScreenAppears));
 	}
+
+    private void StopGameCoinsFromGravitating()
+    {
+        foreach (GameObject go in coinList)
+        {
+            go.GetComponent<GravitateToTarget>().SetShouldGravitate(false);
+        }
+    }
 
     private void SavePlayerPrefs()
     {

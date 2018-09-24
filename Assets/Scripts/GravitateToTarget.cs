@@ -19,15 +19,17 @@ public class GravitateToTarget : MonoBehaviour {
     public Transform targetTransform;
     private Rigidbody2D rb;
     private float startDistance;
+    private bool shouldGravitate;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        shouldGravitate = true;
         startDistance = GetDistance();
     }
     void Update () 
     {
-        if (GameModel.canCollectCoins)
+        if (shouldGravitate == true)
         {
             float distance = GetDistance();
             Vector3 direction = GetDirection();
@@ -43,6 +45,15 @@ public class GravitateToTarget : MonoBehaviour {
     public void SetTarget(Transform targetTransform)
     {
         this.targetTransform = targetTransform;
+    }
+
+    public void SetShouldGravitate(bool shouldGravitateSet)
+    {
+        this.shouldGravitate = shouldGravitateSet;
+        if (shouldGravitateSet == false)
+        {
+            this.speed = 1f;
+        }
     }
 
     private void AccellerateTowardsTarget(float distance, Vector3 direction)

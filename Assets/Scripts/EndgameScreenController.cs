@@ -25,6 +25,7 @@ public class EndgameScreenController : MonoBehaviour {
     public AdController adController;
     public RollupController rollupController;
     public HelptextPanelController helpTextController;
+    public JITEndscreenController jitEndScreenController;
     public GameObject gameOverPanel;
     public GameObject storePanel;
     public GameObject goToStorePanel;
@@ -36,6 +37,7 @@ public class EndgameScreenController : MonoBehaviour {
 
     private int continueCoinCost;
     private int bestCoinCount;
+    private int gameplayCoinCount;
 
     private Animator goToStoreButtonAnimator;
     private Animator replayButtonAnimator;
@@ -55,6 +57,7 @@ public class EndgameScreenController : MonoBehaviour {
 	{
         rollupController.Populate(System.Int32.Parse(goldCoinTotalSet), GameModel.GetPinkCoinCount(), this);
         replayButtonIsVisible = false;
+        this.gameplayCoinCount = System.Int32.Parse(goldCoinTotalSet);
         this.bestCoinCount = System.Int32.Parse(bestCoinCountSet);
         this.continueCoinCost = 10;//need to calculate cointinue coin cost   Mathf.Max(200, (System.Int32.Parse(goldCoinTotalSet) / 2) * GameModel.numAttempts/10);
 
@@ -70,6 +73,11 @@ public class EndgameScreenController : MonoBehaviour {
         this.gameOverPanel.SetActive(true);
 
         rollupController.ShowDetails();
+
+        if (this.gameplayCoinCount < 100)
+        {
+            jitEndScreenController.ShowCoinPanel();
+        }
         
         //TODO animate UI on
         if (adController.IsReady())

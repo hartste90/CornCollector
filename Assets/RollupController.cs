@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class RollupController : MonoBehaviour {
 
-    public float coinCountDelayTime = .5f;
+    public float coinCountDelayTime = 1f;
     public int rollupIncrement = 10;
 
 
@@ -35,7 +35,7 @@ public class RollupController : MonoBehaviour {
         //continue animating the coins counting if they havent finished
         if (Time.time > coinCountDelayUntilTime)
         {
-            if (goldCoinCurrent > 0)
+            if (goldCoinCurrent >= 100)
             {
                 goldCoinCurrent -= rollupIncrement;
                 goldCoinsTransferred += rollupIncrement;
