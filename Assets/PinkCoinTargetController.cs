@@ -10,4 +10,12 @@ public class PinkCoinTargetController : CoinTargetController
         Destroy(coin);
     }
 
+    public new void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.tag == "EndscreenCoin")
+        {
+            OnHitCoin(collider.gameObject);
+        }
+    }
+
 }
