@@ -39,7 +39,7 @@ public class SafeController : MonoBehaviour {
 
 	public void HandleAppearAnimationComplete()
 	{
-        //collider.enabled = true;
+        collider.enabled = true;
 	}
 
 	public void OnCollisionEnter2D(Collision2D collision)

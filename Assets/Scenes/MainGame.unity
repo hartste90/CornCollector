@@ -169,7 +169,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &30866965
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1909,7 +1909,7 @@ MonoBehaviour:
   numSafes: 1
   minimumSwipeDistance: 0
   gameSpeed: 2.5
-  numCoinsInSafe: 250
+  numCoinsInSafe: 10
   debugAllowAds: 0
   swipeTooltipObject: {fileID: 268121372}
   playerPrefab: {fileID: 1324097209040142, guid: 68b404f91c2214c91b122bc2c6ec3efc,
@@ -10302,7 +10302,7 @@ Prefab:
     - target: {fileID: 224154491382845398, guid: 2e9760856db1e4342b0068ff791b5927,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 47
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224154491382845398, guid: 2e9760856db1e4342b0068ff791b5927,
         type: 2}
