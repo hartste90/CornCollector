@@ -160,7 +160,7 @@ public class EndgameScreenController : MonoBehaviour {
     public void HandleContinueCoinButtonPressed()
     {
         //if have enough coins already, take away coins and continue game
-        if (PlayerPrefManager.GetPinkCount() > this.continueCoinCost)
+        if (PlayerPrefManager.GetPinkCount() >= this.continueCoinCost)
         {
             gameController.ContinueGame();
             GameModel.numAttempts++;
