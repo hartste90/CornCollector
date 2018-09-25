@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JITEndscreenController : MonoBehaviour {
+public class JITEndscreenController : MonoBehaviour
+{
 
     public GameObject jitCoinPanel;
-
+    public JITSafePanelController jitSafePanelController;
 
     private Animator jitCoinPanelAnimator;
 
@@ -18,6 +19,18 @@ public class JITEndscreenController : MonoBehaviour {
     {
         jitCoinPanelAnimator.SetTrigger("Show");
     }
+
+    public void ShowSafePanel()
+    {
+        jitSafePanelController.gameObject.SetActive(true);
+        jitSafePanelController.Show();
+    }
+
+    public void HideSafePanel(bool shouldHideImmediately)
+    {
+        jitSafePanelController.Hide(shouldHideImmediately);
+    }
+
 
     public void HideCoinPanel (bool shouldHideImmediate)
     {

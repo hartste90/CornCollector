@@ -35,13 +35,13 @@ public class RollupController : MonoBehaviour {
         //continue animating the coins counting if they havent finished
         if (Time.time > coinCountDelayUntilTime)
         {
-            if (goldCoinCurrent >= 100)
+            if (goldCoinCurrent >= 10)
             {
                 goldCoinCurrent -= rollupIncrement;
                 goldCoinsTransferred += rollupIncrement;
-                if (goldCoinsTransferred >= 100)
+                if (goldCoinsTransferred >= 10)
                 {
-                    goldCoinsTransferred -= 100;
+                    goldCoinsTransferred -= 10;
                     pinkCoinsCurrent++;
                     pinkCoinCountText.text = pinkCoinsCurrent.ToString();
 

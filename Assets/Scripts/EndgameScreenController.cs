@@ -72,22 +72,30 @@ public class EndgameScreenController : MonoBehaviour {
         this.storePanel.SetActive(false);
         this.gameOverPanel.SetActive(true);
 
+
         rollupController.ShowDetails();
 
-        if (this.gameplayCoinCount < 100)
+        if (this.gameplayCoinCount < 20)
+        {
+            jitEndScreenController.ShowSafePanel();
+            HideAllContinueButtons();
+        }
+        else if (this.gameplayCoinCount < 100)
         {
             jitEndScreenController.ShowCoinPanel();
         }
-        
-        //TODO animate UI on
-        if (adController.IsReady())
-        {
-            ShowContinueWithAdsOption();
-        }
         else
         {
-            ShowContinueWithCoinsOption(shouldShowImmediately);
+            //TODO animate UI on
+            if (adController.IsReady())
+            {
+                ShowContinueWithAdsOption();
+            }
+            else
+            {
+                ShowContinueWithCoinsOption(shouldShowImmediately);
 
+            }
         }
 
         if (shouldShowImmediately)
@@ -98,6 +106,12 @@ public class EndgameScreenController : MonoBehaviour {
         {
             ShowReplayButtonAfterSeconds(GameModel.timeDelayReplayButton);
         }
+
+    }
+
+    private void HideAllContinueButtons()
+    {
+        goToStoreButtonAnimator.SetTrigger("HideImmediate");
 
     }
 
