@@ -53,9 +53,9 @@ public class EndgameScreenController : MonoBehaviour {
 
 
 
-    public void PopulateEndgameScreenContent(string goldCoinTotalSet, string bestCoinCountSet, string totalCoinCountSet)
+    public void PopulateEndgameScreenContent(string goldCoinTotalSet, string bestCoinCountSet)
 	{
-        rollupController.Populate(System.Int32.Parse(goldCoinTotalSet), GameModel.GetPinkCoinCount(), this);
+        rollupController.Populate(System.Int32.Parse(goldCoinTotalSet), this);
         replayButtonIsVisible = false;
         this.gameplayCoinCount = System.Int32.Parse(goldCoinTotalSet);
         this.bestCoinCount = System.Int32.Parse(bestCoinCountSet);
@@ -160,7 +160,7 @@ public class EndgameScreenController : MonoBehaviour {
     public void HandleContinueCoinButtonPressed()
     {
         //if have enough coins already, take away coins and continue game
-        if (GameModel.GetPinkCoinCount() > this.continueCoinCost)
+        if (PlayerPrefManager.GetPinkCount() > this.continueCoinCost)
         {
             gameController.ContinueGame();
             GameModel.numAttempts++;

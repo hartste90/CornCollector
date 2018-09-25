@@ -6,7 +6,6 @@
     public static int numAttempts;
 
     private static int goldCoinCount;
-    private static int pinkCoinCount;
 
     //gold coin functions
     public static int GetGoldCoinCount()
@@ -26,26 +25,5 @@
     {
         goldCoinCount -= goldSubtract;
         return goldCoinCount;
-    }
-
-
-    //pink coin functions
-    public static int GetPinkCoinCount()
-    {
-        return pinkCoinCount;
-    }
-    public static void SetPinkCoinCount(int pinkSet)
-    {
-        pinkCoinCount = pinkSet;
-    }
-    public static int AddPinkCoins(int pinkAdd)
-    {
-        pinkCoinCount += pinkAdd;
-        return pinkCoinCount;
-    }
-    public static int SubtractPinkCoins(int pinkSubtract)
-    {
-        pinkCoinCount -= pinkSubtract;
-        return pinkCoinCount;
     }
 }

@@ -87,10 +87,15 @@ public class  GameController : MonoBehaviour
     // a test function to trigger custom functionality for debugging
 	public void TestFunc()
 	{
-        PlayerPrefs.DeleteAll();
+        PlayerPrefManager.DeleteAll();
         //GameModel.SetPinkCoinCount(7);
         //soundEffectsController.PlayPlayerDeathSound();
-        currentCoinCount = 920;
+        //currentCoinCount = 900;
+        currentCoinCount = 1000;
+        //currentCoinCount = 100;
+        //currentCoinCount = 101;
+        //currentCoinCount = 99;
+        //currentCoinCount = 0;
         HandlePlayerDestroyed();
 
 
@@ -101,7 +106,6 @@ public class  GameController : MonoBehaviour
 	{
         GameModel.numAttempts = 1;
         GameModel.SetGoldCoinCount(0);
-        LoadPlayerPrefs();
 
         //setup private links
         tooltipController = swipeTooltipObject.GetComponent<TooltipController>();
@@ -118,11 +122,6 @@ public class  GameController : MonoBehaviour
         ShowSwipeTooltip();
         beginGameplay();
 
-    }
-
-    private void LoadPlayerPrefs()
-    {
-        GameModel.SetPinkCoinCount(PlayerPrefs.GetInt("pinkCoinCount", 0));
     }
 
     private void ShowBeginUI()
@@ -355,12 +354,9 @@ public class  GameController : MonoBehaviour
 
     private void SavePlayerPrefs()
     {
-        PlayerPrefs.SetInt("lastScore", currentCoinCount);
-        PlayerPrefs.SetInt("currentCoins", PlayerPrefs.GetInt("currentCoins", 0) + currentCoinCount);
-        PlayerPrefs.SetInt("pinkCoinCount", GameModel.GetPinkCoinCount());
-        if (PlayerPrefs.GetInt("bestScore") < currentCoinCount)
+        if (PlayerPrefManager.GetBestScore() < currentCoinCount)
         {
-            PlayerPrefs.SetInt("bestScore", currentCoinCount);
+            PlayerPrefManager.SetBestScore(currentCoinCount);
         }
     }
 
@@ -370,8 +366,7 @@ public class  GameController : MonoBehaviour
         uiController.HideUI();
         endgameScreenController.PopulateEndgameScreenContent(
             currentCoinCount.ToString(),
-            PlayerPrefs.GetInt("bestScore").ToString(),
-            PlayerPrefs.GetInt("currentCoins").ToString());
+            PlayerPrefManager.GetBestScore().ToString());
         endgameScreenController.gameObject.SetActive (true);
         endgameScreenController.ShowEndGameScreen();
 	}

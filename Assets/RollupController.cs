@@ -25,23 +25,27 @@ public class RollupController : MonoBehaviour {
     private EndgameScreenController endgameScreenController;
     private float coinCountDelayUntilTime;
 
-    // Use this for initialization
-    void Start () {
-		
-	}
 
     private void Update()
     {
         //continue animating the coins counting if they havent finished
         if (Time.time > coinCountDelayUntilTime)
         {
-            if (goldCoinCurrent >= 10)
+            if (goldCoinCurrent > 0)
             {
-                goldCoinCurrent -= rollupIncrement;
-                goldCoinsTransferred += rollupIncrement;
-                if (goldCoinsTransferred >= 10)
+                if (goldCoinCurrent >= rollupIncrement)
                 {
-                    goldCoinsTransferred -= 10;
+                    goldCoinCurrent -= rollupIncrement;
+                    goldCoinsTransferred += rollupIncrement; 
+                }
+                else
+                {
+                    goldCoinsTransferred += goldCoinCurrent;
+                    goldCoinCurrent = 0;
+                }
+                if (goldCoinsTransferred >= 100)
+                {
+                    goldCoinsTransferred -= 100;
                     pinkCoinsCurrent++;
                     pinkCoinCountText.text = pinkCoinsCurrent.ToString();
 
@@ -61,22 +65,21 @@ public class RollupController : MonoBehaviour {
         }
     }
 
-    public void Populate(int goldCoinTotalSet, int pinkCoinBefore, EndgameScreenController endgameScreenControllerSet)
+    public void Populate(int goldCoinTotalSet, EndgameScreenController endgameScreenControllerSet)
     {
         this.endgameScreenController = endgameScreenControllerSet;
-        goldCoinTotal = goldCoinTotalSet;
-        goldCoinCurrent = goldCoinTotal;
+        this.goldCoinTotal = goldCoinTotalSet;
+        this.goldCoinCurrent = goldCoinTotalSet;
 
         //calculate how many pink coins were earned and add to user collection
-        goldCoinTotal = 0;
-        int pinkCoinsEarned = goldCoinTotal / 100;
-        GameModel.AddPinkCoins(pinkCoinsEarned);
+        int pinkCoinsEarned = this.goldCoinTotal / 100;
         //calculate pink coin total
-        this.pinkCoinsTotal = GameModel.GetPinkCoinCount();
-        this.pinkCoinsCurrent = 0;
+        this.pinkCoinsCurrent = PlayerPrefManager.GetPinkCount();
+        PlayerPrefManager.AddPinkCoins(pinkCoinsEarned);
+        this.pinkCoinsTotal = PlayerPrefManager.GetPinkCount();
 
-        this.goldCoinTotalText.text = goldCoinCurrent.ToString();
-        this.pinkCoinCountText.text = 0.ToString();
+        this.goldCoinTotalText.text = this.goldCoinCurrent.ToString();
+        this.pinkCoinCountText.text = this.pinkCoinsCurrent.ToString();
 
     }
 
