@@ -72,21 +72,20 @@ public class EndgameScreenController : MonoBehaviour {
         this.storePanel.SetActive(false);
         this.gameOverPanel.SetActive(true);
 
+        rollupController.ShowDetails();  //TODO: only show rollup if > 100, dont just remove gold coins it doesnt make sense to a new player
 
-        rollupController.ShowDetails();
 
-        if (this.gameplayCoinCount < 20)
+        if (this.gameplayCoinCount <= 20)
         {
             jitEndScreenController.ShowSafePanel();
             HideAllContinueButtons();
         }
-        else if (this.gameplayCoinCount < 100)
-        {
-            jitEndScreenController.ShowCoinPanel();
-        }
         else
         {
-            //TODO animate UI on
+            if (this.gameplayCoinCount < 100)
+            {
+                jitEndScreenController.ShowCoinPanel();
+            }
             if (adController.IsReady())
             {
                 ShowContinueWithAdsOption();
@@ -94,10 +93,8 @@ public class EndgameScreenController : MonoBehaviour {
             else
             {
                 ShowContinueWithCoinsOption(shouldShowImmediately);
-
             }
         }
-
         if (shouldShowImmediately)
         {
             ShowReplayButton(true);
@@ -106,7 +103,6 @@ public class EndgameScreenController : MonoBehaviour {
         {
             ShowReplayButtonAfterSeconds(GameModel.timeDelayReplayButton);
         }
-
     }
 
     private void HideAllContinueButtons()
@@ -142,14 +138,6 @@ public class EndgameScreenController : MonoBehaviour {
         }
 
     }
-
-    //private void ShowBuyCoinOption()
-    //{
-    //    this.goToStorePanel.SetActive(true);
-    //    this.continueCoinsButton.interactable = false;
-    //    this.goToStoreButtonAnimator.SetTrigger("Show");
-    //}
-
 
     public void HandleContinueAdButtonPressed()
     {
