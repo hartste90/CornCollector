@@ -177,11 +177,13 @@ public class EndgameScreenController : MonoBehaviour {
         storePanel.SetActive(true);
         gameOverPanel.SetActive(false);
         helpTextController.ShowHelpText();
+        jitEndScreenController.HideCoinPanel(true);
     }
 
     public void ShowEndgameFromStore()
     {
         ShowEndGameScreen(true);
+        jitEndScreenController.ShowCoinPanel();
 
 
     }

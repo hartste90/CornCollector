@@ -1909,7 +1909,7 @@ MonoBehaviour:
   numSafes: 1
   minimumSwipeDistance: 0
   gameSpeed: 2.5
-  numCoinsInSafe: 500
+  numCoinsInSafe: 20
   debugAllowAds: 0
   swipeTooltipObject: {fileID: 268121372}
   playerPrefab: {fileID: 1324097209040142, guid: 68b404f91c2214c91b122bc2c6ec3efc,
@@ -11335,7 +11335,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Collect over 100 gold glows to turn them into pink glows!
+  m_Text: Collect over 100 <color=#F5FF00>gold glows</color> to turn them into <color=#DE00FF>pink
+    glows</color>!
 --- !u!222 &1654436722
 CanvasRenderer:
   m_ObjectHideFlags: 0
