@@ -95,7 +95,7 @@ public class EndgameScreenController : MonoBehaviour {
                 ShowContinueWithCoinsOption(shouldShowImmediately);
             }
         }
-        if (shouldShowImmediately)
+        if (shouldShowImmediately || this.gameplayCoinCount <= 20)
         {
             ShowReplayButton(true);
         }
@@ -151,6 +151,7 @@ public class EndgameScreenController : MonoBehaviour {
         if (PlayerPrefManager.GetPinkCount() >= this.continueCoinCost)
         {
             gameController.ContinueGame();
+            PlayerPrefManager.SubtractPinkCoins(this.continueCoinCost);
             GameModel.numAttempts++;
         }
         //otherwise show the shop screen to buy those coins

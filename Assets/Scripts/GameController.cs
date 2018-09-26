@@ -88,7 +88,7 @@ public class  GameController : MonoBehaviour
 	public void TestFunc()
 	{
         PlayerPrefManager.DeleteAll();
-        //GameModel.SetPinkCoinCount(7);
+        PlayerPrefManager.AddPinkCoins(17);
         //soundEffectsController.PlayPlayerDeathSound();
         //currentCoinCount = 900;
         currentCoinCount = 1000;
@@ -222,7 +222,8 @@ public class  GameController : MonoBehaviour
         DestroyAllItemsOnscreen();
         //unslow time
         Time.timeScale = 1.0f;
-        //keep coin count & update UI (might change with cost of 
+        //reset coins (since they have already been added up in endscreen)
+        currentCoinCount = 0;
         uiController.SetCoinText(currentCoinCount);
         //replay game start UI tooltip/tutorial
         ShowBeginUI();
