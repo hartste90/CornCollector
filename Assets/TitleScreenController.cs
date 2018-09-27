@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class TitleScreenController : MonoBehaviour {
 
-    public GameObject mine;
+    public GameObject minePrefab;
+    public Transform mineParent;
     public GameObject gameName;
 
-	public void ShowTitleScreen()
+    private GameObject mine;
+
+    private void Awake()
+    {
+        mine = Instantiate(minePrefab, mineParent);
+        mine.transform.localPosition = Vector3.zero;
+    }
+
+    public void ShowTitleScreen()
     {
         mine.SetActive(true);
         gameName.SetActive(true);

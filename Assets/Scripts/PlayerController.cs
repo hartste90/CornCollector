@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour {
             float distance = Vector3.Distance (new Vector3(startSwipePosition.x, startSwipePosition.y, 0), Input.GetTouch (0).position );
             if (distance > 3f)
             {
-                Debug.Log("Detected swipe");
+                //Debug.Log("Detected swipe");
                 Vector3 swipeDirection = GetSwipeDirection(Input.GetTouch(0).position);
                 if (swipeDirection != Vector3.zero && swipeDirection != direction)
                 {
@@ -122,13 +122,13 @@ public class PlayerController : MonoBehaviour {
             {
                 if (deltaPosition.x > 0)
                 {
-                    Debug.Log("Swiping: RIGHT");
+                    //Debug.Log("Swiping: RIGHT");
                     playerDecal.eulerAngles = new Vector3(0, 0, -90);
                     tempDirection = Vector3.right;
                 }
                 else
                 {
-                    Debug.Log("Swiping: LEFT");
+                    //Debug.Log("Swiping: LEFT");
                     tempDirection = Vector3.left;
                     playerDecal.eulerAngles = new Vector3(0, 0, 90);
 
@@ -138,13 +138,13 @@ public class PlayerController : MonoBehaviour {
             {
                 if (deltaPosition.y > 0)
                 {
-                    Debug.Log("Swiping: UP");
+                    //Debug.Log("Swiping: UP");
                     playerDecal.eulerAngles = new Vector3(0, 0, 0);
                     tempDirection = Vector3.up;
                 }
                 else
                 {
-                    Debug.Log("Swiping: DOWN");
+                    //Debug.Log("Swiping: DOWN");
                     playerDecal.eulerAngles = new Vector3(0, 0, 180);
                     tempDirection = Vector3.down;
                 }

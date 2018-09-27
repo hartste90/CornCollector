@@ -113,7 +113,7 @@ public class EndgameScreenController : MonoBehaviour {
 
     public void OnCoinRollupComplete()
     {
-        Debug.Log("Coin rollup animation complete");
+        //Debug.Log("Coin rollup animation complete");
     }
 
     //shows the panel that allows users to continue the game by completing a rewarded ad

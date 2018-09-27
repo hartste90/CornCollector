@@ -39,7 +39,7 @@ public class AdController : MonoBehaviour
                 Debug.Log("The ad was skipped before reaching the end.");
                 break;
             case ShowResult.Failed:
-                Debug.LogError("The ad failed to be shown.");
+                Debug.Log("The ad failed to be shown.");
                 break;
         }
     }
