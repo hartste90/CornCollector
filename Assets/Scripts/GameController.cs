@@ -111,7 +111,6 @@ public class  GameController : MonoBehaviour
         tooltipController = swipeTooltipObject.GetComponent<TooltipController>();
         timeController = GetComponent<TimeController>();
         nextSafeCoinRequirement = 50;
-        ShowBeginUI();
         //screen size calculations
         horizontalBuffer = Tools.screenWidth / 10;
         verticalBuffer = Tools.screenHeight / 10;
@@ -154,6 +153,7 @@ public class  GameController : MonoBehaviour
         tooltipController.Hide();
         backgroundMusicController.playBackgroundMusic();
         titleScreenController.HideTitleScreen();
+        ShowBeginUI();
     }
 
     public void beginGameplay()

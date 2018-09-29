@@ -12,6 +12,7 @@ public class JITEndscreenController : MonoBehaviour
 
     private void Awake()
     {
+        jitCoinPanel.SetActive(true);
         jitCoinPanelAnimator = jitCoinPanel.GetComponent<Animator>();
     }
 
