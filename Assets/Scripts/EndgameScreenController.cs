@@ -49,7 +49,6 @@ public class EndgameScreenController : MonoBehaviour {
     {
         goToStoreButtonAnimator = continueCoinPanel.GetComponent<Animator>();
         replayButtonAnimator = replayButton.GetComponent<Animator>();
-        jitEndScreenController.gameObject.SetActive(true);
     }
 
 

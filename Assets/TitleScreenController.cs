@@ -7,6 +7,7 @@ public class TitleScreenController : MonoBehaviour {
     public GameObject minePrefab;
     public Transform mineParent;
     public GameObject gameName;
+    public GameObject titleScreenUI;
 
     private GameObject mine;
 
@@ -20,11 +21,13 @@ public class TitleScreenController : MonoBehaviour {
     {
         mine.SetActive(true);
         gameName.SetActive(true);
+        titleScreenUI.SetActive(true);
     }
 
     public void HideTitleScreen()
     {
         mine.SetActive(false);
         gameName.SetActive(false);
+        titleScreenUI.SetActive(false);
     }
 }
