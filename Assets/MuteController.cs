@@ -37,6 +37,7 @@ public class MuteController : MonoBehaviour {
             muteText.text = "unmuted";
             muteImage.sprite = unmutedSprite;
         }
+        muteTextAnimator.ResetTrigger("Show");
         muteTextAnimator.SetTrigger("Show");
     }
 

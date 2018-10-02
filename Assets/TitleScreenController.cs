@@ -19,7 +19,7 @@ public class TitleScreenController : MonoBehaviour {
 
     public void ShowTitleScreen()
     {
-        mine.SetActive(true);
+        mine.SetActive(false);
         gameName.SetActive(true);
         titleScreenUI.SetActive(true);
     }

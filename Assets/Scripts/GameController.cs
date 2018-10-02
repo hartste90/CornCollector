@@ -170,6 +170,8 @@ public class  GameController : MonoBehaviour
         GameObject safeObject = Instantiate(safePrefab, gameStageParent);
         safeObject.transform.localPosition = safeStartPositionAnchor.localPosition;
         safeList.Add(safeObject);
+        safeObject.GetComponent<Animator>().SetTrigger("ShowImmediate");
+        safeObject.GetComponent<SafeController>().collider.enabled = true;
         safeObject.GetComponent<SafeController>().Init(this);
         for (int i = 1; i < numSafes; i++)
         {
