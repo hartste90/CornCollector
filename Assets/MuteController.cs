@@ -7,19 +7,21 @@ public class MuteController : MonoBehaviour {
 
     public BackgroundMusicController bgController;
     public SoundEffectsController sfController;
-    public Text muteText;
+    public string muteText;
     public Image muteImage;
+    public Animator[] muteTextAnimatorList;
 
     public Sprite mutedSprite;
     public Sprite unmutedSprite;
 
-    private Animator muteTextAnimator;
+
     private bool isMuted;
 
 
 	// Use this for initialization
 	void Awake () {
-        muteTextAnimator = muteText.gameObject.GetComponent<Animator>();
+        isMuted = false;
+
 	}
 
     public void SetMuted(bool shouldBeMuted)
@@ -29,16 +31,21 @@ public class MuteController : MonoBehaviour {
         sfController.gameObject.GetComponent<AudioSource>().mute = shouldBeMuted;
         if (shouldBeMuted)
         {
-            muteText.text = "muted";
+            muteText = "muted";
             muteImage.sprite = mutedSprite;
         }
         else
         {
-            muteText.text = "unmuted";
+            muteText = "unmuted";
             muteImage.sprite = unmutedSprite;
         }
-        muteTextAnimator.ResetTrigger("Show");
-        muteTextAnimator.SetTrigger("Show");
+        foreach(Animator anim in muteTextAnimatorList)
+        {
+            anim.GetComponent<Text>().text = muteText;
+            anim.ResetTrigger("Show");
+            anim.SetTrigger("Show");
+        }
+
     }
 
     public void ToggleMute()

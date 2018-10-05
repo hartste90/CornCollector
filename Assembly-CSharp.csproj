@@ -64,11 +64,13 @@
     <Compile Include="Assets\AdController.cs" />
     <Compile Include="Assets\BackgroundMusicController.cs" />
     <Compile Include="Assets\CreditsController.cs" />
+    <Compile Include="Assets\FeedbackController.cs" />
     <Compile Include="Assets\HelptextPanelController.cs" />
     <Compile Include="Assets\JITEndscreenController.cs" />
     <Compile Include="Assets\JITSafePanelController.cs" />
     <Compile Include="Assets\MuteController.cs" />
     <Compile Include="Assets\PinkCoinTargetController.cs" />
+    <Compile Include="Assets\RateGameController.cs" />
     <Compile Include="Assets\RollupController.cs" />
     <Compile Include="Assets\Scripts\CoinController.cs" />
     <Compile Include="Assets\Scripts\CoinTargetController.cs" />
@@ -97,6 +99,7 @@
     <Compile Include="Assets\Scripts\UIController.cs" />
     <Compile Include="Assets\Scripts\WrapAroundBehavior.cs" />
     <Compile Include="Assets\Scripts\WrapAroundScreen.cs" />
+    <Compile Include="Assets\SettingsController.cs" />
     <Compile Include="Assets\Simple Scene Fade Load System\Scripts\Fader.cs" />
     <Compile Include="Assets\Simple Scene Fade Load System\Scripts\Initiate.cs" />
     <Compile Include="Assets\SoundEffectsController.cs" />
@@ -346,6 +349,42 @@
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>/Users/steveh/Library/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
     </Reference>
+    <Reference Include="ChannelPurchase">
+      <HintPath>/Users/steveh/Documents/CornCollector/Assets/Plugins/UnityChannel/ChannelPurchase.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityStore">
+      <HintPath>/Users/steveh/Documents/CornCollector/Assets/Plugins/UnityChannel/UnityStore.dll</HintPath>
+    </Reference>
+    <Reference Include="UDP">
+      <HintPath>/Users/steveh/Documents/CornCollector/Assets/Plugins/UDP/UDP.dll</HintPath>
+    </Reference>
+    <Reference Include="AppStoreSettings">
+      <HintPath>/Users/steveh/Documents/CornCollector/Assets/Plugins/UDP/UdpSupport/AppStoreSettings.dll</HintPath>
+    </Reference>
+    <Reference Include="Security">
+      <HintPath>/Users/steveh/Documents/CornCollector/Assets/Plugins/UnityPurchasing/Bin/Security/live/Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Stores">
+      <HintPath>/Users/steveh/Documents/CornCollector/Assets/Plugins/UnityPurchasing/Bin/Stores.dll</HintPath>
+    </Reference>
+    <Reference Include="Editor">
+      <HintPath>/Users/steveh/Documents/CornCollector/Assets/Plugins/UnityPurchasing/Bin/Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Purchasing.Common">
+      <HintPath>/Users/steveh/Documents/CornCollector/Assets/Plugins/UnityPurchasing/Bin/Purchasing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="winrt">
+      <HintPath>/Users/steveh/Documents/CornCollector/Assets/Plugins/UnityPurchasing/winrt/winrt.dll</HintPath>
+    </Reference>
+    <Reference Include="FacebookStore">
+      <HintPath>/Users/steveh/Documents/CornCollector/Assets/Plugins/UnityPurchasing/Bin/Facebook/FacebookStore.dll</HintPath>
+    </Reference>
+    <Reference Include="Apple">
+      <HintPath>/Users/steveh/Documents/CornCollector/Assets/Plugins/UnityPurchasing/Bin/Apple/Apple.dll</HintPath>
+    </Reference>
+    <Reference Include="Tizen">
+      <HintPath>/Users/steveh/Documents/CornCollector/Assets/Plugins/UnityPurchasing/Bin/Tizen/Tizen.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib">
       <HintPath>/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/mscorlib.dll</HintPath>
     </Reference>
@@ -373,6 +412,12 @@
     <Reference Include="Boo.Lang">
       <HintPath>/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/Boo.Lang.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{31F24F1D-2F35-0BDB-FA6B-1B7B54B6D461}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

@@ -187,6 +187,11 @@ public class EndgameScreenController : MonoBehaviour {
         IAPManager.HandleRemoveAdsButtonPressed();
     }
 
+    public void HandlePurchaseErrorReceived()
+    {
+        Debug.LogError("There was an error while purchasing, sent from the app store!");
+    }
+
     public void HandleStartOverButtonPressed()
     {
         gameController.HandleStartOverButtonPressed();
