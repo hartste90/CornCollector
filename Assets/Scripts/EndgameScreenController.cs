@@ -165,11 +165,11 @@ public class EndgameScreenController : MonoBehaviour {
         this.continueCoinPanel.gameObject.SetActive(true);
         if (shouldShowImmediately)
         {
-            this.goToStoreButtonAnimator.SetTrigger("ShowImmediate");
+            this.goToStoreButtonAnimator.SetTrigger("ShowSmallImmediate");
         }
         else
         {
-            this.goToStoreButtonAnimator.SetTrigger("Show");
+            this.goToStoreButtonAnimator.SetTrigger("ShowSmall");
         }
     }
 

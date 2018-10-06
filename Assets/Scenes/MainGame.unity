@@ -1911,11 +1911,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: e4e640557159a416e9ead53232d08705, type: 3}
-    m_FontSize: 22
+    m_FontSize: 80
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_MinSize: 0
+    m_MaxSize: 80
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -3045,7 +3045,7 @@ RectTransform:
   m_GameObject: {fileID: 288128804}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -100.47056}
-  m_LocalScale: {x: 3.5129685, y: 3.5129685, z: 3.5129685}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1973116078}
   m_Father: {fileID: 1201605077}
@@ -3054,7 +3054,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -9, y: -130.99994}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 560, y: 105}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &288128806
 MonoBehaviour:
@@ -3262,7 +3262,7 @@ MonoBehaviour:
   numSafes: 1
   minimumSwipeDistance: 0
   gameSpeed: 2.5
-  numCoinsInSafe: 10
+  numCoinsInSafe: 30
   debugAllowAds: 0
   swipeTooltipObject: {fileID: 21041335}
   playerPrefab: {fileID: 1324097209040142, guid: 68b404f91c2214c91b122bc2c6ec3efc,
@@ -13243,11 +13243,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: e4e640557159a416e9ead53232d08705, type: 3}
-    m_FontSize: 22
+    m_FontSize: 80
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_MinSize: 8
+    m_MaxSize: 97
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -14671,7 +14671,7 @@ RectTransform:
   m_GameObject: {fileID: 1493321019}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -100.47056}
-  m_LocalScale: {x: 3.5129995, y: 3.5129995, z: 3.5129995}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1275599487}
   m_Father: {fileID: 766608592}
@@ -14680,7 +14680,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 308, y: -131}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 560, y: 105}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1493321022
 MonoBehaviour:
@@ -14863,7 +14863,7 @@ RectTransform:
   m_GameObject: {fileID: 1500969308}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -100.47056}
-  m_LocalScale: {x: 3.5129685, y: 3.5129685, z: 3.5129685}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 183469616}
   m_Father: {fileID: 2037037075}
@@ -14872,7 +14872,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -2, y: -130.99994}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 560, y: 105}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1500969310
 MonoBehaviour:
@@ -18258,7 +18258,7 @@ MonoBehaviour:
   rollupController: {fileID: 1750447078}
   helpTextController: {fileID: 1708837356}
   jitEndScreenController: {fileID: 1668514616}
-  rateGameController: {fileID: 0}
+  rateGameController: {fileID: 269885284}
   gameOverPanel: {fileID: 115905775}
   storePanel: {fileID: 818761406}
   goToStorePanel: {fileID: 30866964}
@@ -19982,7 +19982,7 @@ RectTransform:
   m_GameObject: {fileID: 1902716549}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -100.47056}
-  m_LocalScale: {x: 3.5129685, y: 3.5129685, z: 3.5129685}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1917241430}
   m_Father: {fileID: 766608592}
@@ -19991,7 +19991,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -299, y: -130.99994}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 560, y: 105}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1902716551
 MonoBehaviour:
@@ -20390,14 +20390,14 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: e4e640557159a416e9ead53232d08705, type: 3}
-    m_FontSize: 22
+    m_FontSize: 80
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_MinSize: 8
+    m_MaxSize: 80
     m_Alignment: 4
     m_AlignByGeometry: 0
-    m_RichText: 1
+    m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
@@ -21293,11 +21293,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: e4e640557159a416e9ead53232d08705, type: 3}
-    m_FontSize: 22
+    m_FontSize: 80
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_MinSize: 8
+    m_MaxSize: 80
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1

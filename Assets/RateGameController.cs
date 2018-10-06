@@ -14,10 +14,9 @@ public class RateGameController : MonoBehaviour {
     private Animator animator;
     private GameObject nextPanelToShow;
 
-    private void Start()
+    private void Awake()
     {
         animator = GetComponent<Animator>();
-        //ShowPrimaryQuestionPanel();
     }
 
     public void ShowRateGamePanel()
