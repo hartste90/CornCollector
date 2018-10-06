@@ -42,4 +42,16 @@ public class FeedbackController : MonoBehaviour {
         return WWW.EscapeURL(url).Replace("+", "%20");
     }
 
+    public void ShowFeedbackPanel()
+    {
+        GameModel.DisableShipInput();
+        gameObject.SetActive(true);
+    }
+
+    public void HideFeedbackPanel()
+    {
+        GameModel.EnableShipInput();
+        gameObject.SetActive(false);
+    }
+
 }

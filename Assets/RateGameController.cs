@@ -9,7 +9,7 @@ public class RateGameController : MonoBehaviour {
     public GameObject negativeFollowupPanel;
     public GameObject affirmativeConclusionPanel;
     public GameObject negativeConclusionPanel;
-    public GameObject feedbackPanel;
+    public FeedbackController feedbackController;
 
     private Animator animator;
     private GameObject nextPanelToShow;
@@ -17,7 +17,12 @@ public class RateGameController : MonoBehaviour {
     private void Start()
     {
         animator = GetComponent<Animator>();
-        ShowPrimaryQuestionPanel();
+        //ShowPrimaryQuestionPanel();
+    }
+
+    public void ShowRateGamePanel()
+    {
+        animator.SetTrigger("Show");
     }
 
     public void ShowPrimaryQuestionPanel()
@@ -75,12 +80,12 @@ public class RateGameController : MonoBehaviour {
     
     public void ShowFeedbackPanel()
     {
-        feedbackPanel.SetActive(true);
+        feedbackController.ShowFeedbackPanel();
     }
 
     public void HideFeedbackPanel()
     {
-        feedbackPanel.SetActive(false);
+        feedbackController.HideFeedbackPanel();
     }
 
 

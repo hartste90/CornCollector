@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SettingsController : MonoBehaviour {
 
-    public GameObject settingsPanel;
 
     private bool isShowingSettings = false;
     // Use this for initialization
@@ -15,14 +14,16 @@ public class SettingsController : MonoBehaviour {
 
     public void ShowSettingsPanel()
     {
+        GameModel.DisableShipInput();
         isShowingSettings = true;
-        settingsPanel.SetActive(true);
+        gameObject.SetActive(true);
     }
 
     public void HideSettingsPanel()
     {
+        GameModel.EnableShipInput();
         isShowingSettings = false;
-        settingsPanel.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     public void ToggleCreditsPanel()

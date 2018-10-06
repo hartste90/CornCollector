@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CreditsController : MonoBehaviour {
 
-    public GameObject creditsPanel;
-
     private bool isShowingCredits = false;
 	// Use this for initialization
 	void Start () {
@@ -14,14 +12,16 @@ public class CreditsController : MonoBehaviour {
 	
 	public void ShowCreditsPanel()
     {
+        GameModel.DisableShipInput();
         isShowingCredits = true;
-        creditsPanel.SetActive(true);
+        gameObject.SetActive(true);
     }
 
     public void HideCreditsPanel()
     {
+        GameModel.EnableShipInput();
         isShowingCredits = false;
-        creditsPanel.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     public void ToggleCreditsPanel()

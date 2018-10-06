@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class PlayerController : MonoBehaviour {
-   
+public class PlayerController : MonoBehaviour
+{
+
     public bool dropsMines;
     public Transform playerStartPositionAnchor;
 
     public Transform playerDecal;
 
     public GameObject explosionPrefab;
-	public GameObject playerExplosionPrefab;
-	public GameObject minePrefab;
+    public GameObject playerExplosionPrefab;
+    public GameObject minePrefab;
     public GameController gameController;
 
     private CharacterController characterController;
@@ -24,83 +25,77 @@ public class PlayerController : MonoBehaviour {
 
     private bool isMoving = false;
 
-	public void Init(GameController controller)
-	{
+    public void Init(GameController controller)
+    {
         this.gameController = controller;
         transform.localPosition = playerStartPositionAnchor.localPosition;
     }
 
-    void Start () 
+    void Start()
     {
         //dropsMines = true;
         direction = Vector3.zero;
-        rigidbody = GetComponent <Rigidbody2D>();
-        rigidbody.velocity =Vector3.zero;
-        characterController = GetComponent <CharacterController>();
+        rigidbody = GetComponent<Rigidbody2D>();
+        rigidbody.velocity = Vector3.zero;
+        characterController = GetComponent<CharacterController>();
         lastTouchVector = Vector3.zero;
         animator = GetComponent<Animator>();
         isMoving = false;
-	}
+    }
 
     void Update()
     {
+        if (GameModel.IsShipInputAllowed())
+        {
 #if (UNITY_EDITOR || UNITY_STANDALONE)
-        DetermineKeyboardDirection();
+            DetermineKeyboardDirection();
 #else
-        DetermineSwipeDirection();
+            DetermineSwipeDirection();
 #endif
-
+        }
     }
 
     public void DetermineKeyboardDirection()
-	{
+    {
         Vector3 newDirection = Vector3.zero;
 
-		if (Input.GetKeyDown ("left"))
-		{
-            //Debug.Log("left");
-            playerDecal.eulerAngles = new Vector3 (0, 0, 90);
+        if (Input.GetKeyDown("left"))
+        {
             newDirection = Vector3.left;
         }
-		else if (Input.GetKeyDown ("right"))
-		{
-            //Debug.Log("right");
-            playerDecal.eulerAngles = new Vector3(0, 0, -90);
+        else if (Input.GetKeyDown("right"))
+        {
             newDirection = Vector3.right;
         }
-		else if (Input.GetKeyDown ("up"))
-		{
-            //Debug.Log("up");
-            playerDecal.eulerAngles = new Vector3(0, 0, 0);
+        else if (Input.GetKeyDown("up"))
+        {
             newDirection = Vector3.up;
         }
-		else if (Input.GetKeyDown ("down"))
-		{
-            //Debug.Log("down");
-            playerDecal.eulerAngles = new Vector3(0, 0, 180);
+        else if (Input.GetKeyDown("down"))
+        {
             newDirection = Vector3.down;
-		}
+        }
 
         if (newDirection != Vector3.zero && newDirection != direction)
-		{
+        {
             OnChangeDirection(newDirection);
-		}
-		
-	}
+        }
+
+    }
 
 
 
-	public void DetermineSwipeDirection ()
-	{
-		Vector3 tempDirection = direction;
-		if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Began) 
-		{
-			startSwipePosition = Input.GetTouch (0).position;
-		} 
-		else if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Moved)
-		{
+    public void DetermineSwipeDirection()
+    {
+        Vector3 tempDirection = direction;
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            startSwipePosition = Input.GetTouch(0).position;
+        }
+        else if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
+        {
             //determine if the finger has moved enough to count as a swipe
-            float distance = Vector3.Distance (new Vector3(startSwipePosition.x, startSwipePosition.y, 0), Input.GetTouch (0).position );
+            float distance = Vector3.Distance(new Vector3(startSwipePosition.x, startSwipePosition.y, 0), Input.GetTouch(0).position);
             if (distance > 3f)
             {
                 //Debug.Log("Detected swipe");
@@ -110,69 +105,99 @@ public class PlayerController : MonoBehaviour {
                     OnChangeDirection(swipeDirection);
                 }
             }
-		} 
-	}
+        }
+    }
 
-	public Vector3 GetSwipeDirection (Vector3 currentPosition)
-	{
-		Vector3 tempDirection = Vector3.zero;
-		Vector2 deltaPosition = Input.GetTouch (0).position - startSwipePosition;
-		if (deltaPosition.magnitude >= gameController.minimumSwipeDistance) {
+    public Vector3 GetSwipeDirection(Vector3 currentPosition)
+    {
+        Vector3 tempDirection = Vector3.zero;
+        Vector2 deltaPosition = Input.GetTouch(0).position - startSwipePosition;
+        if (deltaPosition.magnitude >= gameController.minimumSwipeDistance)
+        {
             if (Mathf.Abs(deltaPosition.x) > Mathf.Abs(deltaPosition.y))
             {
                 if (deltaPosition.x > 0)
                 {
-                    //Debug.Log("Swiping: RIGHT");
-                    playerDecal.eulerAngles = new Vector3(0, 0, -90);
                     tempDirection = Vector3.right;
                 }
                 else
                 {
-                    //Debug.Log("Swiping: LEFT");
                     tempDirection = Vector3.left;
-                    playerDecal.eulerAngles = new Vector3(0, 0, 90);
-
                 }
             }
             else
             {
                 if (deltaPosition.y > 0)
                 {
-                    //Debug.Log("Swiping: UP");
-                    playerDecal.eulerAngles = new Vector3(0, 0, 0);
                     tempDirection = Vector3.up;
                 }
                 else
                 {
-                    //Debug.Log("Swiping: DOWN");
-                    playerDecal.eulerAngles = new Vector3(0, 0, 180);
                     tempDirection = Vector3.down;
                 }
             }
-		}
-		return tempDirection;
-	}
+        }
+        return tempDirection;
+    }
 
-	public void OnChangeDirection( Vector3 tempDirection)
-	{
+    public void OnChangeDirection(Vector3 tempDirection)
+    {
         if (isMoving == false)
         {
+            //if not on center screen (could be interacting with UI), don't do anything
+            if (!SwipeStartsOnCenterScreen())
+            {
+                return;
+            }
             gameController.OnPlayerBeginsMovement();
             isMoving = true;
         }
 
-		if(dropsMines)
-		{
-			gameController.SpawnGameObjectAtPosition (minePrefab, transform.GetComponent<RectTransform>().anchoredPosition);
-		}
+        if (dropsMines)
+        {
+            gameController.SpawnGameObjectAtPosition(minePrefab, transform.GetComponent<RectTransform>().anchoredPosition);
+        }
         SetDirection(tempDirection);
+    }
+
+    private bool SwipeStartsOnCenterScreen()
+    {
+#if (!(UNITY_EDITOR || UNITY_STANDALONE)) //if mobile
+        if (startSwipePosition.y <= Screen.height * .17)
+            return false;
+#endif
+        return true;
     }
 
     protected void SetDirection (Vector3 tempDirection )
 	{
 		direction = tempDirection;
 		rigidbody.velocity = direction * gameController.gameSpeed;
+        SetSpriteDirection(tempDirection);
+
 	}
+
+
+    private void SetSpriteDirection(Vector3 direction)
+    {
+        if (direction == new Vector3(1, 0, 0))
+        {
+            playerDecal.eulerAngles = new Vector3(0, 0, -90);
+        }
+        else if (direction == new Vector3(-1, 0, 0))
+        {
+            playerDecal.eulerAngles = new Vector3(0, 0, 90);
+        }
+        else if (direction == new Vector3(0, 1, 0))
+        {
+            playerDecal.eulerAngles = new Vector3(0, 0, 0);
+        }
+        else
+        {
+            playerDecal.eulerAngles = new Vector3(0, 0, 180);
+
+        }
+    }
 
 	public void OnHitMine()
 	{

@@ -104,6 +104,14 @@ public class  GameController : MonoBehaviour
 
     void Start()
 	{
+
+        //check/set special session elements
+        PlayerPrefManager.IncrementNumLogins();
+        if ((int)PlayerPrefManager.GetFirstLoginDate()["year"] == 0)
+        {
+            PlayerPrefManager.SetFirstLoginDate(System.DateTime.Now);
+        }
+
         GameModel.numAttempts = 1;
         GameModel.SetGoldCoinCount(0);
 
@@ -177,6 +185,8 @@ public class  GameController : MonoBehaviour
         {
             AddSafe();
         }
+
+        GameModel.EnableShipInput();
     }
 
     private int FindNumSafesToCreate()
@@ -339,6 +349,7 @@ public class  GameController : MonoBehaviour
 
 	public void HandlePlayerDestroyed()
 	{
+        GameModel.DisableShipInput();
         GameModel.canCollectCoins = false;
         StopGameCoinsFromGravitating();
         timeController.handlePlayerDestroyed();

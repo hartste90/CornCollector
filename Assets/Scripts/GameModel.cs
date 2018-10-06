@@ -6,6 +6,7 @@
     public static int numAttempts;
 
     private static int goldCoinCount;
+    private static bool allowSwiping;
 
     //gold coin functions
     public static int GetGoldCoinCount()
@@ -26,4 +27,20 @@
         goldCoinCount -= goldSubtract;
         return goldCoinCount;
     }
+
+    public static void EnableShipInput()
+    {
+        allowSwiping = true;
+    }
+
+    public static void DisableShipInput()
+    {
+        allowSwiping = false;
+    }
+
+    public static bool IsShipInputAllowed()
+    {
+        return allowSwiping;
+    }
+
 }

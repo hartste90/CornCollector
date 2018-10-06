@@ -19,8 +19,12 @@ public class MuteController : MonoBehaviour {
 
 
 	// Use this for initialization
-	void Awake () {
-        isMuted = false;
+	void Start () {
+        isMuted = PlayerPrefManager.GetMuteState();
+        if (isMuted)
+        {
+            SetMuted(true);
+        }
 
 	}
 
@@ -33,11 +37,14 @@ public class MuteController : MonoBehaviour {
         {
             muteText = "muted";
             muteImage.sprite = mutedSprite;
+            PlayerPrefManager.SetMuteState(true);
+
         }
         else
         {
             muteText = "unmuted";
             muteImage.sprite = unmutedSprite;
+            PlayerPrefManager.SetMuteState(false);
         }
         foreach(Animator anim in muteTextAnimatorList)
         {

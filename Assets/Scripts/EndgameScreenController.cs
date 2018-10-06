@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.Advertisements;
 using System.Collections;
-
+using System;
 
 public static class Extensions
 {
@@ -26,6 +26,7 @@ public class EndgameScreenController : MonoBehaviour {
     public RollupController rollupController;
     public HelptextPanelController helpTextController;
     public JITEndscreenController jitEndScreenController;
+    public RateGameController rateGameController;
     public GameObject gameOverPanel;
     public GameObject storePanel;
     public GameObject goToStorePanel;
@@ -92,7 +93,16 @@ public class EndgameScreenController : MonoBehaviour {
             }
             else
             {
-                ShowContinueWithCoinsOption(shouldShowImmediately);
+                if (ShouldAskForRating())
+                {
+                    ShowContinueWithCoinsSmall(shouldShowImmediately);
+                    rateGameController.ShowRateGamePanel();
+                    rateGameController.ShowPrimaryQuestionPanel();
+                }
+                else{
+                    ShowContinueWithCoinsOption(shouldShowImmediately);
+                }
+
             }
         }
         if (shouldShowImmediately || this.gameplayCoinCount <= 20)
@@ -104,6 +114,24 @@ public class EndgameScreenController : MonoBehaviour {
             ShowReplayButtonAfterSeconds(GameModel.timeDelayReplayButton);
         }
     }
+
+    private bool ShouldAskForRating()
+    {
+        return true;
+        DateTime currentDate = DateTime.Now;
+        Hashtable firstLoginDate = PlayerPrefManager.GetFirstLoginDate();
+        if (
+            (PlayerPrefManager.GetNumLogins() > 5) &&
+            ((int)firstLoginDate["year"] < currentDate.Year && (int)firstLoginDate["day"] < currentDate.DayOfYear) &&
+            (bestCoinCount >= 200 || bestCoinCount <= gameplayCoinCount))
+        {
+            Debug.Log("display_rating_panel");
+            return true;
+        }
+        return false;
+    }
+
+
 
     private void HideAllContinueButtons()
     {
@@ -125,18 +153,24 @@ public class EndgameScreenController : MonoBehaviour {
     //shows the panel that allows users to continue by using pink coins, triggers shop if not enough coins currently
     private void ShowContinueWithCoinsOption(bool shouldShowImmediately)
     {
+
+
+    }
+
+    private void ShowContinueWithCoinsSmall(bool shouldShowImmediately)
+    {
         this.goToStorePanel.SetActive(false);
         this.continueCoinsButton.interactable = true;
         this.continueAdButton.gameObject.SetActive(false);
         this.continueCoinPanel.gameObject.SetActive(true);
-        if(shouldShowImmediately)
+        if (shouldShowImmediately)
         {
             this.goToStoreButtonAnimator.SetTrigger("ShowImmediate");
         }
-        else{
+        else
+        {
             this.goToStoreButtonAnimator.SetTrigger("Show");
         }
-
     }
 
     public void HandleContinueAdButtonPressed()
