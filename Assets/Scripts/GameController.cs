@@ -89,14 +89,14 @@ public class  GameController : MonoBehaviour
 	{
         PlayerPrefManager.DeleteAll();
         //PlayerPrefManager.AddPinkCoins(17);
-        //soundEffectsController.PlayPlayerDeathSound();
         //currentCoinCount = 900;
         //currentCoinCount = 1000;
         //currentCoinCount = 100;
         //currentCoinCount = 101;
         //currentCoinCount = 99;
         //currentCoinCount = 0;
-        //HandlePlayerDestroyed();
+        currentCoinCount = 50;
+        HandlePlayerDestroyed();
 
 
     }

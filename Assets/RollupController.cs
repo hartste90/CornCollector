@@ -22,6 +22,7 @@ public class RollupController : MonoBehaviour {
     private int goldCoinCurrent;
     private int goldCoinsTransferred;
 
+    private bool shouldRollUp;
     private EndgameScreenController endgameScreenController;
     private float coinCountDelayUntilTime;
 
@@ -29,7 +30,7 @@ public class RollupController : MonoBehaviour {
     private void Update()
     {
         //continue animating the coins counting if they havent finished
-        if (Time.time > coinCountDelayUntilTime)
+        if (Time.time > coinCountDelayUntilTime && shouldRollUp)
         {
             if (goldCoinCurrent > 0)
             {
@@ -83,10 +84,16 @@ public class RollupController : MonoBehaviour {
 
     }
 
-    public void ShowDetails()
+    public void StartRollup()
     {
+        shouldRollUp = true;
         coinCountDelayUntilTime = Time.time + coinCountDelayTime;
         goldCoinsTransferred = 0;
+    }
+
+    public void Show()
+    {
+        pinkCoinCountText.text = PlayerPrefManager.GetPinkCount().ToString();
     }
 
 }

@@ -22,6 +22,7 @@ public class EndgameScreenController : MonoBehaviour {
 
 
     public GameController gameController;
+    public IAPManager purchaseManager;
     public AdController adController;
     public RollupController rollupController;
     public HelptextPanelController helpTextController;
@@ -73,7 +74,16 @@ public class EndgameScreenController : MonoBehaviour {
         this.storePanel.SetActive(false);
         this.gameOverPanel.SetActive(true);
 
-        rollupController.ShowDetails();  //TODO: only show rollup if > 100, dont just remove gold coins it doesnt make sense to a new player
+        if (ShouldRollup())
+        {
+            rollupController.StartRollup();  //TODO: only show rollup if > 100, dont just remove gold coins it doesnt make sense to a new player
+        }
+        else
+        {
+            rollupController.Show();   
+        }
+
+
 
 
         if (this.gameplayCoinCount <= 20)
@@ -115,9 +125,13 @@ public class EndgameScreenController : MonoBehaviour {
         }
     }
 
+    private bool ShouldRollup()
+    {
+        return gameplayCoinCount >= 100 ? true : false;
+    }
+
     private bool ShouldAskForRating()
     {
-        return true;
         DateTime currentDate = DateTime.Now;
         Hashtable firstLoginDate = PlayerPrefManager.GetFirstLoginDate();
         if (
@@ -153,7 +167,18 @@ public class EndgameScreenController : MonoBehaviour {
     //shows the panel that allows users to continue by using pink coins, triggers shop if not enough coins currently
     private void ShowContinueWithCoinsOption(bool shouldShowImmediately)
     {
-
+        this.goToStorePanel.SetActive(false);
+        this.continueCoinsButton.interactable = true;
+        this.continueAdButton.gameObject.SetActive(false);
+        this.continueCoinPanel.gameObject.SetActive(true);
+        if (shouldShowImmediately)
+        {
+            this.goToStoreButtonAnimator.SetTrigger("ShowImmediate");
+        }
+        else
+        {
+            this.goToStoreButtonAnimator.SetTrigger("Show");
+        }
 
     }
 
@@ -171,6 +196,7 @@ public class EndgameScreenController : MonoBehaviour {
         {
             this.goToStoreButtonAnimator.SetTrigger("ShowSmall");
         }
+
     }
 
     public void HandleContinueAdButtonPressed()
@@ -184,9 +210,10 @@ public class EndgameScreenController : MonoBehaviour {
         //if have enough coins already, take away coins and continue game
         if (PlayerPrefManager.GetPinkCount() >= this.continueCoinCost)
         {
-            gameController.ContinueGame();
             PlayerPrefManager.SubtractPinkCoins(this.continueCoinCost);
+            Debug.Log("New pink coin count: " + PlayerPrefManager.GetPinkCount());
             GameModel.numAttempts++;
+            gameController.ContinueGame();
         }
         //otherwise show the shop screen to buy those coins
         else
@@ -207,18 +234,16 @@ public class EndgameScreenController : MonoBehaviour {
     {
         ShowEndGameScreen(true);
         jitEndScreenController.ShowCoinPanel();
-
-
     }
 
     public void HandleBuyCoinButtonPressed(int packageId)
     {
-        IAPManager.PurchasePackage(packageId);
+        purchaseManager.PurchasePackage(packageId);
     }
 
     public void HandleRemoveAdsButtonPressed()
     {
-        IAPManager.HandleRemoveAdsButtonPressed();
+        purchaseManager.HandleRemoveAdsButtonPressed();
     }
 
     public void HandlePurchaseErrorReceived()
@@ -255,6 +280,7 @@ public class EndgameScreenController : MonoBehaviour {
 
     private void ShowReplayButton(bool shouldShowImmediately = false)
     {
+        replayButton.gameObject.SetActive(true);
         if (shouldShowImmediately)
         {
             replayButtonAnimator.SetTrigger("ShowImmediate");
