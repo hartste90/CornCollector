@@ -2,27 +2,9 @@
 
 public class IAPManager : MonoBehaviour
 {
-    public void PurchasePackage (int packageId)
+    public void PurchasePackage (int numCoins)
     {
-        Debug.Log("STUB: purchase package: " + packageId);
-        switch(packageId)
-        {
-            case 0: 
-                AddPinkCoins(20);
-                break;
-            case 1:
-                AddPinkCoins(100);
-                break;
-            case 2:
-                AddPinkCoins(400);
-                break;
-            case 3:
-                AddPinkCoins(1000);
-                break;
-            default:
-                Debug.LogError("Purchaes Package Error: ID does not exist: " + packageId);
-                break;
-        }
+        AddPinkCoins(numCoins);
     }
 
     public void HandleRemoveAdsButtonPressed ()

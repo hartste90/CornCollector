@@ -20,7 +20,8 @@ public class EndgameScreenController : MonoBehaviour {
     public Text continueCoinCostText;
     public Text numContinuesText;
 
-
+    public GameOverPanelController gameOverPanelController;
+    
     public GameController gameController;
     public IAPManager purchaseManager;
     public AdController adController;
@@ -31,6 +32,8 @@ public class EndgameScreenController : MonoBehaviour {
     public GameObject gameOverPanel;
     public GameObject storePanel;
     public GameObject goToStorePanel;
+    public Transform purchasedCoinTransform;
+    public GameObject purchasedCoinPrefab;
 
     public Button replayButton;
     public Button continueAdButton;
@@ -71,8 +74,7 @@ public class EndgameScreenController : MonoBehaviour {
     public void ShowEndGameScreen(bool shouldShowImmediately = false)
     {
         Time.timeScale = 1f;
-        this.storePanel.SetActive(false);
-        this.gameOverPanel.SetActive(true);
+        this.gameOverPanel.GetComponent<Animator>().SetTrigger("Show");
 
         if (ShouldRollup())
         {
@@ -224,21 +226,56 @@ public class EndgameScreenController : MonoBehaviour {
 
     public void ShowStoreFromEndgame()
     {
-        storePanel.SetActive(true);
-        gameOverPanel.SetActive(false);
+        this.storePanel.GetComponent<Animator>().SetTrigger("Show");
+
+        //storePanel.SetActive(true);
+        this.gameOverPanel.GetComponent<Animator>().SetTrigger("Hide");
         helpTextController.ShowHelpText();
         jitEndScreenController.HideCoinPanel(true);
     }
 
     public void ShowEndgameFromStore()
     {
+        this.storePanel.GetComponent<Animator>().SetTrigger("Hide");
         ShowEndGameScreen(true);
         jitEndScreenController.ShowCoinPanel();
     }
 
+    //successfully purchased coins
     public void HandleBuyCoinButtonPressed(int packageId)
     {
-        purchaseManager.PurchasePackage(packageId);
+        int numCoinsPurchased = 0;
+        switch (packageId)
+        {
+            case 0:
+                numCoinsPurchased = 20;
+                break;
+            case 1:
+                numCoinsPurchased = 100;
+                break;
+            case 2:
+                numCoinsPurchased = 400;
+                break;
+            case 3:
+                numCoinsPurchased = 1000;
+                break;
+            default:
+                Debug.LogError("Error: ID does not exist: " + packageId);
+                break;
+        }
+        purchaseManager.PurchasePackage(numCoinsPurchased);
+        if (numCoinsPurchased > 0)
+        {
+            StartCoinPurchasedAnimation(numCoinsPurchased);
+        }
+    }
+
+    public void StartCoinPurchasedAnimation(int numCoins)
+    {
+        //create purchased coin prefab
+        GameObject purchasedCoinPackage = Instantiate(purchasedCoinPrefab, purchasedCoinTransform);
+        purchasedCoinPackage.transform.localPosition = Vector3.zero;
+        ShowEndgameFromStore();
     }
 
     public void HandleRemoveAdsButtonPressed()
