@@ -10072,7 +10072,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.4, y: 0.01}
-  m_AnchoredPosition: {x: 789, y: 622.0002}
+  m_AnchoredPosition: {x: 789, y: 622.0001}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &986204411
@@ -11467,7 +11467,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.02752778, y: 0.74}
   m_AnchorMax: {x: 0.94722223, y: 1}
-  m_AnchoredPosition: {x: 14, y: -1495}
+  m_AnchoredPosition: {x: 14, y: -1495.0001}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1141392225
@@ -18321,8 +18321,9 @@ MonoBehaviour:
   gameOverPanel: {fileID: 115905775}
   storePanel: {fileID: 818761406}
   goToStorePanel: {fileID: 30866964}
+  pinkCoinTransform: {fileID: 1104993733}
   purchasedCoinTransform: {fileID: 655681282}
-  purchasedCoinPrefab: {fileID: 1115446076801792, guid: 0f41e181b36df4ac08beee8f4a629bf2,
+  purchasedCoinPrefab: {fileID: 1977402075515620, guid: 87ea16182aa274f3ca7f516a85255508,
     type: 2}
   replayButton: {fileID: 703169589}
   continueAdButton: {fileID: 1863523976}
@@ -18492,7 +18493,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.4, y: 0.01}
-  m_AnchoredPosition: {x: 0, y: 622.0002}
+  m_AnchoredPosition: {x: 0, y: 622.0001}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1815758858
@@ -20624,7 +20625,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.187}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -2517}
+  m_AnchoredPosition: {x: 0, y: -2517.0002}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &1945741522

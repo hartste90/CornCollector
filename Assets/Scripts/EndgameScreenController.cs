@@ -32,6 +32,7 @@ public class EndgameScreenController : MonoBehaviour {
     public GameObject gameOverPanel;
     public GameObject storePanel;
     public GameObject goToStorePanel;
+    public Transform pinkCoinTransform;
     public Transform purchasedCoinTransform;
     public GameObject purchasedCoinPrefab;
 
@@ -275,6 +276,7 @@ public class EndgameScreenController : MonoBehaviour {
         //create purchased coin prefab
         GameObject purchasedCoinPackage = Instantiate(purchasedCoinPrefab, purchasedCoinTransform);
         purchasedCoinPackage.transform.localPosition = Vector3.zero;
+        purchasedCoinPackage.GetComponent<PurchasedCoinController>().coinEndTransform = pinkCoinTransform;
         ShowEndgameFromStore();
     }
 

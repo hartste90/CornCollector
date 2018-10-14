@@ -40,7 +40,7 @@ public class PurchasedCoinController : MonoBehaviour {
             pinkCoin.GetComponent<GravitateToTarget>().SetTarget(coinEndTransform);
             pinkCoin.transform.localPosition = Vector3.zero;
         }
-        //Debug.Break();
+        Debug.Break();
         //destroy main coin
         Destroy(coinImage);
     }
