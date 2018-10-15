@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StorePanelController : MonoBehaviour {
 
-    public CanvasGroup canvasGroup;
+    private CanvasGroup canvasGroup;
 
     void Awake()
     {

@@ -242,6 +242,17 @@ public class EndgameScreenController : MonoBehaviour {
         jitEndScreenController.ShowCoinPanel();
     }
 
+    private void ShowEndgameWithPurchase()
+    {
+        this.storePanel.GetComponent<Animator>().SetTrigger("Hide");
+        this.gameOverPanelController.ShowWithPurchase();
+    }
+
+    private void ShowEndGameScreenAfterPurchase()
+    {
+        this.gameOverPanelController.ShowAfterPurchase();
+    }
+
     //successfully purchased coins
     public void HandleBuyCoinButtonPressed(int packageId)
     {
@@ -276,8 +287,13 @@ public class EndgameScreenController : MonoBehaviour {
         //create purchased coin prefab
         GameObject purchasedCoinPackage = Instantiate(purchasedCoinPrefab, purchasedCoinTransform);
         purchasedCoinPackage.transform.localPosition = Vector3.zero;
-        purchasedCoinPackage.GetComponent<PurchasedCoinController>().coinEndTransform = pinkCoinTransform;
-        ShowEndgameFromStore();
+        purchasedCoinPackage.GetComponent<PurchasedCoinController>().Populate(pinkCoinTransform, numCoins);
+        ShowEndgameWithPurchase();
+    }
+
+    public void OnPurchaseAnimationOver()
+    {
+        ShowEndGameScreenAfterPurchase();
     }
 
     public void HandleRemoveAdsButtonPressed()

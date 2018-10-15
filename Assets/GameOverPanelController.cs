@@ -7,7 +7,10 @@ using UnityEngine.UI;
 
 public class GameOverPanelController : MonoBehaviour {
 
-    public CanvasGroup canvasGroup;
+
+    public RollupController rollupController;
+    public OptionsPanelController optionsPanelController;
+    private CanvasGroup canvasGroup;
 
     void Awake()
     {
@@ -24,6 +27,23 @@ public class GameOverPanelController : MonoBehaviour {
     {
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
+
+    }
+
+    //just shows the pink coin, without the options panel
+    public void ShowWithPurchase()
+    {
+        rollupController.HidePanelsForPurchase();
+        optionsPanelController.HidePanelsForPurchase();
+        GetComponent<Animator>().SetTrigger("Show");
+    }
+
+    public void ShowAfterPurchase()
+    {
+        //Debug.Break();
+        rollupController.ShowPanelsForPurchase();
+        optionsPanelController.ShowPanelsForPurchase();
+        GetComponent<Animator>().SetTrigger("Show");
 
     }
 }

@@ -16,6 +16,10 @@ public class RollupController : MonoBehaviour {
     public Text goldCoinTotalText;
     public Text pinkCoinCountText;
 
+    public GameObject goldPanel;
+    public GameObject totalPanel;
+    public GameObject bestPanel;
+
     private int pinkCoinsTotal;
     private int pinkCoinsCurrent;
     private int goldCoinTotal;
@@ -25,7 +29,6 @@ public class RollupController : MonoBehaviour {
     private bool shouldRollUp;
     private EndgameScreenController endgameScreenController;
     private float coinCountDelayUntilTime;
-
 
     private void Update()
     {
@@ -96,4 +99,23 @@ public class RollupController : MonoBehaviour {
         pinkCoinCountText.text = PlayerPrefManager.GetPinkCount().ToString();
     }
 
+    public void HidePanelsForPurchase()
+    {
+        goldPanel.SetActive(false);
+        totalPanel.SetActive(false);
+        bestPanel.SetActive(false);
+    }
+
+    public void ShowPanelsForPurchase()
+    {
+        goldPanel.SetActive(true);
+        totalPanel.SetActive(true);
+        bestPanel.SetActive(true);
+    }
+
+    public void OnCollectPurchaseCoin()
+    {
+        pinkCoinsCurrent++;
+        this.pinkCoinCountText.text = this.pinkCoinsCurrent.ToString();
+    }
 }

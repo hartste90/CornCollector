@@ -11,7 +11,7 @@ public class PurchasedCoinController : MonoBehaviour {
     public Transform coinEndTransform;
 
     private Animator animator;
-    private int numCoinsToCreate = 100;
+    private int numCoinsToCreate;
 
 
 
@@ -24,7 +24,7 @@ public class PurchasedCoinController : MonoBehaviour {
 	}
 
     //send the # coins and where you want them to go when you create this gameObject
-    public void Populate(Transform endTransform, int numCoins = 100)
+    public void Populate(Transform endTransform, int numCoins)
     {
         numCoinsToCreate = numCoins;
         coinEndTransform = endTransform;
@@ -39,8 +39,8 @@ public class PurchasedCoinController : MonoBehaviour {
             GameObject pinkCoin = Instantiate(uiRollupCoinPrefab, coinStartTransform);
             pinkCoin.GetComponent<GravitateToTarget>().SetTarget(coinEndTransform);
             pinkCoin.transform.localPosition = Vector3.zero;
+            coinEndTransform.GetComponent<PinkCoinTargetController>().coinList.Add(pinkCoin);
         }
-        Debug.Break();
         //destroy main coin
         Destroy(coinImage);
     }

@@ -1527,7 +1527,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77023cb51787347caae533e2dcb04e21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasGroup: {fileID: 0}
+  rollupController: {fileID: 1750447078}
+  optionsPanelController: {fileID: 1921159095}
 --- !u!1 &121604756
 GameObject:
   m_ObjectHideFlags: 0
@@ -6539,7 +6540,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1750447076}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8050,7 +8051,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acdc33c0ef3dd439cbc36b1a8060e13d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasGroup: {fileID: 0}
 --- !u!1 &821103199
 GameObject:
   m_ObjectHideFlags: 0
@@ -11132,6 +11132,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameController: {fileID: 306352827}
   animator: {fileID: 0}
+  endScreenController: {fileID: 1782175045}
+  rollupController: {fileID: 1750447078}
+  coinList: []
 --- !u!1 &1116276928
 GameObject:
   m_ObjectHideFlags: 0
@@ -16870,7 +16873,7 @@ RectTransform:
   m_Children:
   - {fileID: 554133761}
   m_Father: {fileID: 1750447076}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.35841668}
   m_AnchorMax: {x: 1, y: 0.7595834}
@@ -17802,9 +17805,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1623182086}
   - {fileID: 655681282}
   - {fileID: 1826067035}
+  - {fileID: 1623182086}
   - {fileID: 1093014135}
   - {fileID: 438053672}
   m_Father: {fileID: 115905776}
@@ -17841,6 +17844,9 @@ MonoBehaviour:
   coinEndTransform: {fileID: 1104993733}
   goldCoinTotalText: {fileID: 554133762}
   pinkCoinCountText: {fileID: 1914486809}
+  goldPanel: {fileID: 1623182085}
+  totalPanel: {fileID: 1093014134}
+  bestPanel: {fileID: 438053671}
 --- !u!1 &1754032370
 GameObject:
   m_ObjectHideFlags: 0
@@ -18310,7 +18316,7 @@ MonoBehaviour:
   bestCoinCountText: {fileID: 246709809}
   continueCoinCostText: {fileID: 845649868}
   numContinuesText: {fileID: 0}
-  gameOverPanelController: {fileID: 0}
+  gameOverPanelController: {fileID: 115905782}
   gameController: {fileID: 306352827}
   purchaseManager: {fileID: 731366329}
   adController: {fileID: 1239062790}
@@ -18632,7 +18638,7 @@ RectTransform:
   m_Children:
   - {fileID: 1914486808}
   m_Father: {fileID: 1750447076}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.35841668}
   m_AnchorMax: {x: 1, y: 0.7595834}
@@ -20377,6 +20383,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1921159093}
   - component: {fileID: 1921159094}
+  - component: {fileID: 1921159095}
   m_Layer: 0
   m_Name: Options Panel
   m_TagString: Untagged
@@ -20413,6 +20420,21 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1921159092}
   m_CullTransparentMesh: 0
+--- !u!114 &1921159095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1921159092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74a697ce93940459daf7ef5aff461550, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  continueAdButton: {fileID: 1863523974}
+  continueCoinButtonAnimator: {fileID: 30866968}
+  replayButtonAnimator: {fileID: 703169591}
+  rateGamePanelAnimator: {fileID: 269885281}
 --- !u!1 &1922957465
 GameObject:
   m_ObjectHideFlags: 0
