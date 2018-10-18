@@ -3234,7 +3234,7 @@ MonoBehaviour:
   minimumSwipeDistance: 0
   gameSpeed: 2.5
   numCoinsInSafe: 30
-  debugAllowAds: 1
+  debugAllowAds: 0
   swipeTooltipObject: {fileID: 21041335}
   playerPrefab: {fileID: 1324097209040142, guid: 68b404f91c2214c91b122bc2c6ec3efc,
     type: 2}
@@ -3341,7 +3341,7 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: e4e640557159a416e9ead53232d08705, type: 3}
     m_FontSize: 71
     m_FontStyle: 0
-    m_BestFit: 1
+    m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 135
     m_Alignment: 4
@@ -20849,7 +20849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74a697ce93940459daf7ef5aff461550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  continueAdButtonAnimator: {fileID: 0}
+  continueAdButtonAnimator: {fileID: 1863523978}
   continueCoinButtonAnimator: {fileID: 30866968}
   replayButtonAnimator: {fileID: 703169591}
   rateGamePanelAnimator: {fileID: 269885281}

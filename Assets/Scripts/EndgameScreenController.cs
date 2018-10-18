@@ -49,6 +49,7 @@ public class EndgameScreenController : MonoBehaviour {
     private Animator goToStoreButtonAnimator;
     private Animator replayButtonAnimator;
 
+    private GameObject purchasedCoinPackage;
 
     private bool replayButtonIsVisible = false;
 
@@ -254,7 +255,7 @@ public class EndgameScreenController : MonoBehaviour {
         this.storePanel.GetComponent<Animator>().SetTrigger("Hide");
         yield return new WaitForSeconds(time);
         //create purchased coin prefab
-        GameObject purchasedCoinPackage = Instantiate(purchasedCoinPrefab, purchasedCoinTransform);
+        purchasedCoinPackage = Instantiate(purchasedCoinPrefab, purchasedCoinTransform);
         purchasedCoinPackage.transform.localPosition = Vector3.zero;
         purchasedCoinPackage.GetComponent<PurchasedCoinController>().Populate(pinkCoinTransform, numCoins);
         this.gameOverPanelController.ShowWithPurchase();
@@ -282,6 +283,7 @@ public class EndgameScreenController : MonoBehaviour {
     public void OnPurchaseAnimationOver()
     {
         ShowEndGameScreenAfterPurchase();
+        Destroy(purchasedCoinPackage);
     }
 
     public void HandleRemoveAdsButtonPressed()
