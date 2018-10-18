@@ -31,6 +31,7 @@ public class PinkCoinTargetController : CoinTargetController
         {
             endScreenController.OnPurchaseAnimationOver();
         }
+
     
     }
 

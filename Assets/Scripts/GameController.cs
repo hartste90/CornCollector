@@ -111,7 +111,7 @@ public class  GameController : MonoBehaviour
         {
             PlayerPrefManager.SetFirstLoginDate(System.DateTime.Now);
         }
-
+        GameModel.ResetSafes();
         GameModel.numAttempts = 1;
         GameModel.SetGoldCoinCount(0);
 
@@ -172,7 +172,7 @@ public class  GameController : MonoBehaviour
         playerController.playerStartPositionAnchor = playerStartPositionAnchor;
         playerController.Init(this);
         //create safes for number of coins
-        numSafes = FindNumSafesToCreate();
+        numSafes = GameModel.numSafes;
         //create first safe
         GameObject safeObject = Instantiate(safePrefab, gameStageParent);
         safeObject.transform.localPosition = safeStartPositionAnchor.localPosition;
@@ -304,6 +304,7 @@ public class  GameController : MonoBehaviour
             if (safeList.Count < shouldHave)
             {
                 AddSafe();
+                GameModel.AddSafe();
             }
         }
 

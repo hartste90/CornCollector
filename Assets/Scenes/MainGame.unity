@@ -3233,7 +3233,7 @@ MonoBehaviour:
   numSafes: 1
   minimumSwipeDistance: 0
   gameSpeed: 2.5
-  numCoinsInSafe: 30
+  numCoinsInSafe: 10
   debugAllowAds: 0
   swipeTooltipObject: {fileID: 21041335}
   playerPrefab: {fileID: 1324097209040142, guid: 68b404f91c2214c91b122bc2c6ec3efc,

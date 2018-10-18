@@ -4,6 +4,7 @@
 
     public static bool canCollectCoins;
     public static int numAttempts;
+    public static int numSafes;
 
     private static int goldCoinCount;
     private static bool allowSwiping;
@@ -42,5 +43,16 @@
     {
         return allowSwiping;
     }
+
+    public static void AddSafe()
+    {
+        numSafes++;
+    }
+
+    public static void ResetSafes()
+    {
+        numSafes = 1;
+    }
+
 
 }
