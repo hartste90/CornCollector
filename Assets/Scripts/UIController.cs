@@ -16,6 +16,7 @@ public class UIController : MonoBehaviour {
 
 	public void ResetUI()
 	{
+        HideUI();
         SetCoinText(0);
     }
 

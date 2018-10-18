@@ -45,6 +45,7 @@ public class EndgameScreenController : MonoBehaviour {
     private int bestCoinCount;
     private int gameplayCoinCount;
 
+    private Animator continueAdButtonAnimator;
     private Animator goToStoreButtonAnimator;
     private Animator replayButtonAnimator;
 
@@ -53,6 +54,7 @@ public class EndgameScreenController : MonoBehaviour {
 
     void Awake()
     {
+        continueAdButtonAnimator = continueAdButton.GetComponent<Animator>();
         goToStoreButtonAnimator = continueCoinPanel.GetComponent<Animator>();
         replayButtonAnimator = replayButton.GetComponent<Animator>();
     }
@@ -164,15 +166,13 @@ public class EndgameScreenController : MonoBehaviour {
     //shows the panel that allows users to continue the game by completing a rewarded ad
     private void ShowContinueWithAdsOption()
     {
-        this.continueAdButton.gameObject.SetActive(true);
-        this.continueCoinPanel.gameObject.SetActive(false);
+        this.continueAdButtonAnimator.SetTrigger("Show");
     }
     //shows the panel that allows users to continue by using pink coins, triggers shop if not enough coins currently
     private void ShowContinueWithCoinsOption(bool shouldShowImmediately)
     {
         this.goToStorePanel.SetActive(false);
         this.continueCoinsButton.interactable = true;
-        this.continueAdButton.gameObject.SetActive(false);
         this.continueCoinPanel.gameObject.SetActive(true);
         if (shouldShowImmediately)
         {
@@ -233,6 +233,12 @@ public class EndgameScreenController : MonoBehaviour {
         this.gameOverPanel.GetComponent<Animator>().SetTrigger("Hide");
         helpTextController.ShowHelpText();
         jitEndScreenController.HideCoinPanel(true);
+        HideCoinJIT();
+    }
+
+    public void HideCoinJIT()
+    {
+        jitEndScreenController.HideCoinPanel(true);
     }
 
     public void ShowEndgameFromStore()
@@ -242,9 +248,15 @@ public class EndgameScreenController : MonoBehaviour {
         jitEndScreenController.ShowCoinPanel();
     }
 
-    private void ShowEndgameWithPurchase()
+
+    private IEnumerator ShowEndgameWithPurchase(float time, int numCoins)
     {
         this.storePanel.GetComponent<Animator>().SetTrigger("Hide");
+        yield return new WaitForSeconds(time);
+        //create purchased coin prefab
+        GameObject purchasedCoinPackage = Instantiate(purchasedCoinPrefab, purchasedCoinTransform);
+        purchasedCoinPackage.transform.localPosition = Vector3.zero;
+        purchasedCoinPackage.GetComponent<PurchasedCoinController>().Populate(pinkCoinTransform, numCoins);
         this.gameOverPanelController.ShowWithPurchase();
     }
 
@@ -254,28 +266,8 @@ public class EndgameScreenController : MonoBehaviour {
     }
 
     //successfully purchased coins
-    public void HandleBuyCoinButtonPressed(int packageId)
+    public void HandleBuyCoinButtonPressed(int numCoinsPurchased)
     {
-        int numCoinsPurchased = 0;
-        switch (packageId)
-        {
-            case 0:
-                numCoinsPurchased = 20;
-                break;
-            case 1:
-                numCoinsPurchased = 100;
-                break;
-            case 2:
-                numCoinsPurchased = 400;
-                break;
-            case 3:
-                numCoinsPurchased = 1000;
-                break;
-            default:
-                Debug.LogError("Error: ID does not exist: " + packageId);
-                break;
-        }
-        purchaseManager.PurchasePackage(numCoinsPurchased);
         if (numCoinsPurchased > 0)
         {
             StartCoinPurchasedAnimation(numCoinsPurchased);
@@ -284,11 +276,7 @@ public class EndgameScreenController : MonoBehaviour {
 
     public void StartCoinPurchasedAnimation(int numCoins)
     {
-        //create purchased coin prefab
-        GameObject purchasedCoinPackage = Instantiate(purchasedCoinPrefab, purchasedCoinTransform);
-        purchasedCoinPackage.transform.localPosition = Vector3.zero;
-        purchasedCoinPackage.GetComponent<PurchasedCoinController>().Populate(pinkCoinTransform, numCoins);
-        ShowEndgameWithPurchase();
+       StartCoroutine(ShowEndgameWithPurchase(0.75f, numCoins));
     }
 
     public void OnPurchaseAnimationOver()
@@ -298,7 +286,7 @@ public class EndgameScreenController : MonoBehaviour {
 
     public void HandleRemoveAdsButtonPressed()
     {
-        purchaseManager.HandleRemoveAdsButtonPressed();
+        //purchaseManager.HandleRemoveAdsButtonPressed();
     }
 
     public void HandlePurchaseErrorReceived()

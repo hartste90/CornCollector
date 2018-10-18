@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class OptionsPanelController : MonoBehaviour {
 
-    public GameObject continueAdButton;
+    public Animator continueAdButtonAnimator;
     public Animator continueCoinButtonAnimator;
     public Animator replayButtonAnimator;
     public Animator rateGamePanelAnimator;
@@ -12,7 +12,7 @@ public class OptionsPanelController : MonoBehaviour {
 
     public void HidePanelsForPurchase()
     {
-        continueAdButton.SetActive(false);
+        continueAdButtonAnimator.SetTrigger("HideImmediate");
         continueCoinButtonAnimator.SetTrigger("HideImmediate");
         replayButtonAnimator.SetTrigger("HideImmediate");
         rateGamePanelAnimator.SetTrigger("HideImmediate");
@@ -20,7 +20,7 @@ public class OptionsPanelController : MonoBehaviour {
 
     public void ShowPanelsForPurchase()
     {
-        //continueAdButton.SetActive(true);
+        //continueAdButtonAnimator.SetActive(true);
         continueCoinButtonAnimator.SetTrigger("Show");
         replayButtonAnimator.SetTrigger("Show");
         //rateGamePanelAnimator.SetTrigger("Show");

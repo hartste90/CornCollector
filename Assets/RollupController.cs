@@ -17,7 +17,6 @@ public class RollupController : MonoBehaviour {
     public Text pinkCoinCountText;
 
     public GameObject goldPanel;
-    public GameObject totalPanel;
     public GameObject bestPanel;
 
     private int pinkCoinsTotal;
@@ -102,14 +101,12 @@ public class RollupController : MonoBehaviour {
     public void HidePanelsForPurchase()
     {
         goldPanel.SetActive(false);
-        totalPanel.SetActive(false);
         bestPanel.SetActive(false);
     }
 
     public void ShowPanelsForPurchase()
     {
         goldPanel.SetActive(true);
-        totalPanel.SetActive(true);
         bestPanel.SetActive(true);
     }
 

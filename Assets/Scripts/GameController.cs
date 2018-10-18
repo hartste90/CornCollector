@@ -34,7 +34,7 @@ public class  GameController : MonoBehaviour
     public CountdownController countdownController;
     public BackgroundMusicController backgroundMusicController;
     public SoundEffectsController soundEffectsController;
-
+    public JITEndscreenController jITEndscreenController;
     //private links
     private TimeController timeController;
     private TooltipController tooltipController;
@@ -134,7 +134,6 @@ public class  GameController : MonoBehaviour
     private void ShowBeginUI()
     {
         //hide the end game screen if it's been shown
-        endgameScreenController.gameObject.SetActive(false);
         uiController.ShowUI();
         //countdownController.ShowCountdown();
 
@@ -229,16 +228,16 @@ public class  GameController : MonoBehaviour
 
     public void ContinueGame()
     {
-
         //destroy all objects currently on stage
         DestroyAllItemsOnscreen();
         //unslow time
         Time.timeScale = 1.0f;
         //reset coins (since they have already been added up in endscreen)
         currentCoinCount = 0;
-        uiController.SetCoinText(currentCoinCount);
+        uiController.ResetUI();
+        jITEndscreenController.HideCoinPanel(true);
         //replay game start UI tooltip/tutorial
-        ShowBeginUI();
+        endgameScreenController.gameObject.SetActive(false);
         beginGameplay();
     }
 
