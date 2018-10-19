@@ -6,7 +6,8 @@ public class HelptextPanelController : MonoBehaviour {
 
     private Animator animator;
 	// Use this for initialization
-	void Awake () {
+	void Awake () 
+    {
         animator = GetComponent<Animator>();
 	}
 

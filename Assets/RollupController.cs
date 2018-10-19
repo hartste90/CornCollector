@@ -15,6 +15,7 @@ public class RollupController : MonoBehaviour {
     public Transform coinEndTransform;
     public Text goldCoinTotalText;
     public Text pinkCoinCountText;
+    public Text bestGoldText;
 
     public GameObject goldPanel;
     public GameObject bestPanel;
@@ -68,8 +69,11 @@ public class RollupController : MonoBehaviour {
         }
     }
 
-    public void Populate(int goldCoinTotalSet, EndgameScreenController endgameScreenControllerSet)
+    public void Populate(int goldCoinTotalSet, string bestCoinCountSet, EndgameScreenController endgameScreenControllerSet)
     {
+
+        this.bestGoldText.text = bestCoinCountSet;
+
         this.endgameScreenController = endgameScreenControllerSet;
         this.goldCoinTotal = goldCoinTotalSet;
         this.goldCoinCurrent = goldCoinTotalSet;

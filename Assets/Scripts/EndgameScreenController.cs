@@ -37,25 +37,19 @@ public class EndgameScreenController : MonoBehaviour {
     public GameObject purchasedCoinPrefab;
 
     public Button replayButton;
-    public Button continueAdButton;
     public Button continueCoinsButton;
     public GameObject continueCoinPanel;
 
-    private int continueCoinCost;
-    private int bestCoinCount;
     private int gameplayCoinCount;
 
-    private Animator continueAdButtonAnimator;
     private Animator goToStoreButtonAnimator;
     private Animator replayButtonAnimator;
 
     private GameObject purchasedCoinPackage;
 
-    private bool replayButtonIsVisible = false;
 
     void Awake()
     {
-        continueAdButtonAnimator = continueAdButton.GetComponent<Animator>();
         goToStoreButtonAnimator = continueCoinPanel.GetComponent<Animator>();
         replayButtonAnimator = replayButton.GetComponent<Animator>();
     }
@@ -64,15 +58,8 @@ public class EndgameScreenController : MonoBehaviour {
 
     public void PopulateEndgameScreenContent(string goldCoinTotalSet, string bestCoinCountSet)
 	{
-        rollupController.Populate(System.Int32.Parse(goldCoinTotalSet), this);
-        replayButtonIsVisible = false;
+        this.gameOverPanelController.Populate(goldCoinTotalSet, bestCoinCountSet, this);
         this.gameplayCoinCount = System.Int32.Parse(goldCoinTotalSet);
-        this.bestCoinCount = System.Int32.Parse(bestCoinCountSet);
-        this.continueCoinCost = 10;//need to calculate cointinue coin cost   Mathf.Max(200, (System.Int32.Parse(goldCoinTotalSet) / 2) * GameModel.numAttempts/10);
-
-        this.bestCoinCountText.text = bestCoinCountSet;
-        this.continueCoinCostText.text = this.continueCoinCost.ToString();
-
     }
 
     public void ShowEndGameScreen(bool shouldShowImmediately = false)
@@ -115,7 +102,8 @@ public class EndgameScreenController : MonoBehaviour {
                     rateGameController.ShowRateGamePanel();
                     rateGameController.ShowPrimaryQuestionPanel();
                 }
-                else{
+                else
+                {
                     ShowContinueWithCoinsOption(shouldShowImmediately);
                 }
 
@@ -143,7 +131,7 @@ public class EndgameScreenController : MonoBehaviour {
         if (
             (PlayerPrefManager.GetNumLogins() > 5) &&
             ((int)firstLoginDate["year"] < currentDate.Year && (int)firstLoginDate["day"] < currentDate.DayOfYear) &&
-            (bestCoinCount >= 200 || bestCoinCount <= gameplayCoinCount))
+            (PlayerPrefManager.GetBestScore() >= 200 || PlayerPrefManager.GetBestScore() <= gameplayCoinCount))
         {
             Debug.Log("display_rating_panel");
             return true;
@@ -167,40 +155,17 @@ public class EndgameScreenController : MonoBehaviour {
     //shows the panel that allows users to continue the game by completing a rewarded ad
     private void ShowContinueWithAdsOption()
     {
-        this.continueAdButtonAnimator.SetTrigger("Show");
+        this.gameOverPanelController.ShowContinueWithAdsOption();
     }
     //shows the panel that allows users to continue by using pink coins, triggers shop if not enough coins currently
     private void ShowContinueWithCoinsOption(bool shouldShowImmediately)
     {
-        this.goToStorePanel.SetActive(false);
-        this.continueCoinsButton.interactable = true;
-        this.continueCoinPanel.gameObject.SetActive(true);
-        if (shouldShowImmediately)
-        {
-            this.goToStoreButtonAnimator.SetTrigger("ShowImmediate");
-        }
-        else
-        {
-            this.goToStoreButtonAnimator.SetTrigger("Show");
-        }
-
+        this.gameOverPanelController.ShowContinueWithCoinsOption(shouldShowImmediately);
     }
 
     private void ShowContinueWithCoinsSmall(bool shouldShowImmediately)
     {
-        this.goToStorePanel.SetActive(false);
-        this.continueCoinsButton.interactable = true;
-        this.continueAdButton.gameObject.SetActive(false);
-        this.continueCoinPanel.gameObject.SetActive(true);
-        if (shouldShowImmediately)
-        {
-            this.goToStoreButtonAnimator.SetTrigger("ShowSmallImmediate");
-        }
-        else
-        {
-            this.goToStoreButtonAnimator.SetTrigger("ShowSmall");
-        }
-
+        this.gameOverPanelController.ShowContinueWithCoinsSmall(shouldShowImmediately);
     }
 
     public void HandleContinueAdButtonPressed()
@@ -211,19 +176,7 @@ public class EndgameScreenController : MonoBehaviour {
 
     public void HandleContinueCoinButtonPressed()
     {
-        //if have enough coins already, take away coins and continue game
-        if (PlayerPrefManager.GetPinkCount() >= this.continueCoinCost)
-        {
-            PlayerPrefManager.SubtractPinkCoins(this.continueCoinCost);
-            Debug.Log("New pink coin count: " + PlayerPrefManager.GetPinkCount());
-            GameModel.numAttempts++;
-            gameController.ContinueGame();
-        }
-        //otherwise show the shop screen to buy those coins
-        else
-        {
-            ShowStoreFromEndgame();
-        }
+
     }
 
     public void ShowStoreFromEndgame()
@@ -310,31 +263,17 @@ public class EndgameScreenController : MonoBehaviour {
 
     public void ShowReplayButtonAfterSeconds(float seconds)
     {
-        StartCoroutine(ShowReplayButtonAfterTime(seconds));
-    }
-
-    public IEnumerator ShowReplayButtonAfterTime(float time)
-    {
-
-        if (replayButtonIsVisible == false)
-        {
-            yield return new WaitForSeconds(time);
-            ShowReplayButton();
-        }
+        this.gameOverPanelController.ShowReplayButtonAfterSeconds(seconds);
     }
 
     private void ShowReplayButton(bool shouldShowImmediately = false)
     {
-        replayButton.gameObject.SetActive(true);
-        if (shouldShowImmediately)
-        {
-            replayButtonAnimator.SetTrigger("ShowImmediate");
-        }
-        else
-        {
-            replayButtonAnimator.SetTrigger("Show");
-        }
-        replayButtonIsVisible = true;
+        this.gameOverPanelController.ShowReplayButton(shouldShowImmediately);
+    }
+
+    public void OnContinueGame()
+    {
+        gameController.ContinueGame();
     }
 
 }

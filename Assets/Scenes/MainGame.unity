@@ -394,6 +394,7 @@ GameObject:
   - component: {fileID: 30866967}
   - component: {fileID: 30866966}
   - component: {fileID: 30866968}
+  - component: {fileID: 30866969}
   m_Layer: 0
   m_Name: Continue Coins Button
   m_TagString: Untagged
@@ -463,7 +464,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1782175045}
+      - m_Target: {fileID: 30866969}
         m_MethodName: HandleContinueCoinButtonPressed
         m_Mode: 1
         m_Arguments:
@@ -502,6 +503,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &30866969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 30866964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98bc60df051344aabadd46d54ae29231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  optionsController: {fileID: 1921159095}
+  continueCoinCost: 0
+  costText: {fileID: 845649868}
 --- !u!1 &33221532
 GameObject:
   m_ObjectHideFlags: 0
@@ -1527,6 +1542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77023cb51787347caae533e2dcb04e21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  endgameScreenController: {fileID: 1782175045}
   rollupController: {fileID: 1750447078}
   optionsPanelController: {fileID: 1921159095}
 --- !u!1 &121604756
@@ -3233,7 +3249,7 @@ MonoBehaviour:
   numSafes: 1
   minimumSwipeDistance: 0
   gameSpeed: 2.5
-  numCoinsInSafe: 10
+  numCoinsInSafe: 101
   debugAllowAds: 0
   swipeTooltipObject: {fileID: 21041335}
   playerPrefab: {fileID: 1324097209040142, guid: 68b404f91c2214c91b122bc2c6ec3efc,
@@ -8407,7 +8423,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &818761407
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18143,6 +18159,7 @@ MonoBehaviour:
   coinEndTransform: {fileID: 1104993733}
   goldCoinTotalText: {fileID: 554133762}
   pinkCoinCountText: {fileID: 1914486809}
+  bestGoldText: {fileID: 246709809}
   goldPanel: {fileID: 1623182085}
   bestPanel: {fileID: 438053671}
 --- !u!1 &1754032370
@@ -18630,7 +18647,6 @@ MonoBehaviour:
   purchasedCoinPrefab: {fileID: 1977402075515620, guid: 87ea16182aa274f3ca7f516a85255508,
     type: 2}
   replayButton: {fileID: 703169589}
-  continueAdButton: {fileID: 1863523976}
   continueCoinsButton: {fileID: 30866966}
   continueCoinPanel: {fileID: 30866964}
 --- !u!1001 &1791383740
@@ -20849,10 +20865,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74a697ce93940459daf7ef5aff461550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameOverController: {fileID: 115905782}
+  continueButtonController: {fileID: 30866969}
   continueAdButtonAnimator: {fileID: 1863523978}
   continueCoinButtonAnimator: {fileID: 30866968}
   replayButtonAnimator: {fileID: 703169591}
   rateGamePanelAnimator: {fileID: 269885281}
+  continueCoinPanel: {fileID: 30866964}
+  continueCoinButton: {fileID: 30866966}
+  continueAdButton: {fileID: 1863523976}
+  replayButton: {fileID: 703169589}
 --- !u!1 &1922957465
 GameObject:
   m_ObjectHideFlags: 0
