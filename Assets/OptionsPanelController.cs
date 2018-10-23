@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class OptionsPanelController : MonoBehaviour {
 
     public GameOverPanelController gameOverController;
+    public StoreButtonController storeButtonController;
     public ContinueButtonController continueButtonController;
     public RateGameController rateGameController;
     public ReplayPanelController replayPanelController;
@@ -25,6 +26,7 @@ public class OptionsPanelController : MonoBehaviour {
 
     public void HidePanelsForPurchase()
     {
+        storeButtonController.HideImmediate();
         continueButtonController.HideImmediate();
         replayPanelController.HideImmediate();
         rateGameController.HideImmediate();
@@ -32,6 +34,7 @@ public class OptionsPanelController : MonoBehaviour {
 
     public void ShowPanelsForPurchase()
     {
+        storeButtonController.Show();
         continueButtonController.Show();
         replayPanelController.Show();
     }
@@ -120,6 +123,7 @@ public class OptionsPanelController : MonoBehaviour {
         }
         else
         {
+            storeButtonController.Show();
             if (adController.IsReady())
             {
                 ShowContinueWithAdsOption();
@@ -162,5 +166,10 @@ public class OptionsPanelController : MonoBehaviour {
             return true;
         }
         return false;
+    }
+
+    public void ShowStoreJIT()
+    {
+        gameOverController.ShowStoreJIT();
     }
 }

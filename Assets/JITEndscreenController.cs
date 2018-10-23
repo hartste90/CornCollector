@@ -6,6 +6,7 @@ public class JITEndscreenController : MonoBehaviour
 {
 
     public GameObject jitCoinPanel;
+    public JITStorePanelController jitStorePanelController;
     public JITSafePanelController jitSafePanelController;
 
     private Animator jitCoinPanelAnimator;
@@ -27,6 +28,22 @@ public class JITEndscreenController : MonoBehaviour
         jitSafePanelController.Show();
     }
 
+    public void ShowStorePanel()
+    {
+        jitStorePanelController.Show();
+    }
+
+    public void HideStorePanel(bool shouldHideImmediately)
+    {
+        if (shouldHideImmediately)
+        {
+            jitStorePanelController.HideImmediate();
+        }
+        else
+        {
+            jitStorePanelController.Hide();
+        }
+    }
     public void HideSafePanel(bool shouldHideImmediately)
     {
         jitSafePanelController.Hide(shouldHideImmediately);

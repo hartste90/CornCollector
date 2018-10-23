@@ -102,7 +102,8 @@ public class ContinueButtonController : MonoBehaviour {
         //otherwise show the shop screen to buy those coins
         else
         {
-            optionsController.OnShowStoreFromEndgame();
+            //TODO: should point to store button and say 'not enough glows'
+            optionsController.ShowStoreJIT();
         }
     }
 

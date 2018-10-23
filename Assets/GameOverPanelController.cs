@@ -125,4 +125,9 @@ public class GameOverPanelController : MonoBehaviour
         animator.SetTrigger("Hide");
     }
 
+    public void ShowStoreJIT()
+    {
+        jitEndScreenController.ShowStorePanel();
+    }
+
 }

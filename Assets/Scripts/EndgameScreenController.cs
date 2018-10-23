@@ -14,27 +14,21 @@ public static class Extensions
 
 public class EndgameScreenController : MonoBehaviour {
 
-    public GameOverPanelController gameOverPanelController;
-    
+
     public GameController gameController;
+    public GameOverPanelController gameOverPanelController;
     public HelptextPanelController helpTextController;
     public JITEndscreenController jitEndScreenController;
     public StorePanelController storeController;
 
+    //TODO: move to purchase controller?
     //endgame purchase animation
     public Transform pinkCoinTransform;
     public Transform purchasedCoinTransform;
     public GameObject purchasedCoinPrefab;
-
-    //options
-    public Button replayButton;
-    public Button continueCoinsButton;
+    private GameObject purchasedCoinPackage;
 
     private int gameplayCoinCount;
-
-    public Animator goToStoreButtonAnimator;
-
-    private GameObject purchasedCoinPackage;
 
     public void PopulateEndgameScreenContent(string goldCoinTotalSet, string bestCoinCountSet)
 	{
@@ -47,22 +41,11 @@ public class EndgameScreenController : MonoBehaviour {
         gameOverPanelController.ShowEndGameScreen(shouldShowImmediately);
     }
 
-    private void HideAllContinueButtons()
-    {
-        goToStoreButtonAnimator.SetTrigger("HideImmediate");
-
-    }
-
     public void OnCoinRollupComplete()
     {
-        //Debug.Log("Coin rollup animation complete");
+        Debug.Log("Coin rollup animation complete");
     }
 
-    //shows the panel that allows users to continue the game by completing a rewarded ad
-    private void ShowContinueWithAdsOption()
-    {
-        this.gameOverPanelController.ShowContinueWithAdsOption();
-    }
     //shows the panel that allows users to continue by using pink coins, triggers shop if not enough coins currently
     private void ShowContinueWithCoinsOption(bool shouldShowImmediately)
     {
@@ -79,12 +62,6 @@ public class EndgameScreenController : MonoBehaviour {
         storeController.Show();
         gameOverPanelController.Hide();
         helpTextController.ShowHelpText();
-        jitEndScreenController.HideCoinPanel(true);
-        HideCoinJIT();
-    }
-
-    public void HideCoinJIT()
-    {
         jitEndScreenController.HideCoinPanel(true);
     }
 

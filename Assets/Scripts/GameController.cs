@@ -127,6 +127,7 @@ public class  GameController : MonoBehaviour
         halfheight = Tools.screenHeight / 2;
         titleScreenController.gameObject.SetActive(true);
         titleScreenController.ShowTitleScreen();
+        uiController.HideUI();
         ShowSwipeTooltip();
         beginGameplay();
 
@@ -380,10 +381,10 @@ public class  GameController : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         Time.timeScale = 1f;
         uiController.HideUI();
+        endgameScreenController.gameObject.SetActive(true);
         endgameScreenController.PopulateEndgameScreenContent(
             currentCoinCount.ToString(),
             PlayerPrefManager.GetBestScore().ToString());
-        endgameScreenController.gameObject.SetActive (true);
         endgameScreenController.ShowEndGameScreen();
 	}
 

@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour {
 
     public GameObject uiView;
+
+    //public Image background;
+    public SpriteRenderer coin;
 	public Text coinCountUILabel;
 
 	// Use this for initialization
@@ -27,10 +30,14 @@ public class UIController : MonoBehaviour {
 
     public void ShowUI()
     {
-        uiView.SetActive(true);
+        //background.enabled = true;
+        coin.enabled = true;
+        coinCountUILabel.enabled = true;
     }
     public void HideUI()
     {
-        uiView.SetActive(false);
+        //background.enabled = false;
+        coin.enabled = false;
+        coinCountUILabel.enabled = false;
     }
 }

@@ -10,4 +10,5 @@ public class CoinController : MonoBehaviour {
 			Vector2 randomDirection = new Vector2(Random.Range(-maxTrajectory, maxTrajectory), Random.Range(-maxTrajectory, maxTrajectory));
 			GetComponent<Rigidbody2D>().AddForce(randomDirection, ForceMode2D.Impulse);
 	}
+
 }
