@@ -19,6 +19,7 @@ public class AdController : MonoBehaviour
     {
         if (IsReady())
         {
+            GameModel.numAttempts++;
             var options = new ShowOptions { resultCallback = HandleShowResult };
             Advertisement.Show("rewardedVideo", options);
         }

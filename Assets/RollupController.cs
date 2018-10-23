@@ -8,8 +8,6 @@ public class RollupController : MonoBehaviour {
     public float coinCountDelayTime = 1f;
     public int rollupIncrement = 10;
 
-
-
     public GameObject uiRollupCoinPrefab;
     public Transform coinStartTransform;
     public Transform coinEndTransform;
@@ -90,6 +88,11 @@ public class RollupController : MonoBehaviour {
 
     }
 
+    public int GetGoldForRound()
+    {
+        return goldCoinTotal;
+    }
+
     public void StartRollup()
     {
         shouldRollUp = true;
@@ -97,9 +100,27 @@ public class RollupController : MonoBehaviour {
         goldCoinsTransferred = 0;
     }
 
-    public void Show()
+    public void ShowImmediate()
     {
         pinkCoinCountText.text = PlayerPrefManager.GetPinkCount().ToString();
+    }
+
+
+    public void Show(int goldForRound)
+    {
+        if (ShouldRollup(goldForRound))
+        {
+            StartRollup();
+        }
+        else
+        {
+            ShowImmediate();
+        }
+    }
+
+    public bool ShouldRollup(int goldForRound)
+    {
+        return goldForRound >= 100 ? true : false;
     }
 
     public void HidePanelsForPurchase()

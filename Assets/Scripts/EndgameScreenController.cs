@@ -14,47 +14,27 @@ public static class Extensions
 
 public class EndgameScreenController : MonoBehaviour {
 
-
-
-    public Text bestCoinCountText;
-    public Text continueCoinCostText;
-    public Text numContinuesText;
-
     public GameOverPanelController gameOverPanelController;
     
     public GameController gameController;
-    public IAPManager purchaseManager;
-    public AdController adController;
-    public RollupController rollupController;
     public HelptextPanelController helpTextController;
     public JITEndscreenController jitEndScreenController;
-    public RateGameController rateGameController;
-    public GameObject gameOverPanel;
-    public GameObject storePanel;
-    public GameObject goToStorePanel;
+    public StorePanelController storeController;
+
+    //endgame purchase animation
     public Transform pinkCoinTransform;
     public Transform purchasedCoinTransform;
     public GameObject purchasedCoinPrefab;
 
+    //options
     public Button replayButton;
     public Button continueCoinsButton;
-    public GameObject continueCoinPanel;
 
     private int gameplayCoinCount;
 
-    private Animator goToStoreButtonAnimator;
-    private Animator replayButtonAnimator;
+    public Animator goToStoreButtonAnimator;
 
     private GameObject purchasedCoinPackage;
-
-
-    void Awake()
-    {
-        goToStoreButtonAnimator = continueCoinPanel.GetComponent<Animator>();
-        replayButtonAnimator = replayButton.GetComponent<Animator>();
-    }
-
-
 
     public void PopulateEndgameScreenContent(string goldCoinTotalSet, string bestCoinCountSet)
 	{
@@ -64,82 +44,8 @@ public class EndgameScreenController : MonoBehaviour {
 
     public void ShowEndGameScreen(bool shouldShowImmediately = false)
     {
-        Time.timeScale = 1f;
-        this.gameOverPanel.GetComponent<Animator>().SetTrigger("Show");
-
-        if (ShouldRollup())
-        {
-            rollupController.StartRollup();  //TODO: only show rollup if > 100, dont just remove gold coins it doesnt make sense to a new player
-        }
-        else
-        {
-            rollupController.Show();   
-        }
-
-
-
-
-        if (this.gameplayCoinCount <= 20)
-        {
-            jitEndScreenController.ShowSafePanel();
-            HideAllContinueButtons();
-        }
-        else
-        {
-            if (this.gameplayCoinCount < 100)
-            {
-                jitEndScreenController.ShowCoinPanel();
-            }
-            if (adController.IsReady())
-            {
-                ShowContinueWithAdsOption();
-            }
-            else
-            {
-                if (ShouldAskForRating())
-                {
-                    ShowContinueWithCoinsSmall(shouldShowImmediately);
-                    rateGameController.ShowRateGamePanel();
-                    rateGameController.ShowPrimaryQuestionPanel();
-                }
-                else
-                {
-                    ShowContinueWithCoinsOption(shouldShowImmediately);
-                }
-
-            }
-        }
-        if (shouldShowImmediately || this.gameplayCoinCount <= 20)
-        {
-            ShowReplayButton(true);
-        }
-        else
-        {
-            ShowReplayButtonAfterSeconds(GameModel.timeDelayReplayButton);
-        }
+        gameOverPanelController.ShowEndGameScreen(shouldShowImmediately);
     }
-
-    private bool ShouldRollup()
-    {
-        return gameplayCoinCount >= 100 ? true : false;
-    }
-
-    private bool ShouldAskForRating()
-    {
-        DateTime currentDate = DateTime.Now;
-        Hashtable firstLoginDate = PlayerPrefManager.GetFirstLoginDate();
-        if (
-            (PlayerPrefManager.GetNumLogins() > 5) &&
-            ((int)firstLoginDate["year"] < currentDate.Year && (int)firstLoginDate["day"] < currentDate.DayOfYear) &&
-            (PlayerPrefManager.GetBestScore() >= 200 || PlayerPrefManager.GetBestScore() <= gameplayCoinCount))
-        {
-            Debug.Log("display_rating_panel");
-            return true;
-        }
-        return false;
-    }
-
-
 
     private void HideAllContinueButtons()
     {
@@ -168,23 +74,10 @@ public class EndgameScreenController : MonoBehaviour {
         this.gameOverPanelController.ShowContinueWithCoinsSmall(shouldShowImmediately);
     }
 
-    public void HandleContinueAdButtonPressed()
-    {
-        adController.ShowRewardedAd();
-        GameModel.numAttempts++;
-    }
-
-    public void HandleContinueCoinButtonPressed()
-    {
-
-    }
-
     public void ShowStoreFromEndgame()
     {
-        this.storePanel.GetComponent<Animator>().SetTrigger("Show");
-
-        //storePanel.SetActive(true);
-        this.gameOverPanel.GetComponent<Animator>().SetTrigger("Hide");
+        storeController.Show();
+        gameOverPanelController.Hide();
         helpTextController.ShowHelpText();
         jitEndScreenController.HideCoinPanel(true);
         HideCoinJIT();
@@ -197,7 +90,7 @@ public class EndgameScreenController : MonoBehaviour {
 
     public void ShowEndgameFromStore()
     {
-        this.storePanel.GetComponent<Animator>().SetTrigger("Hide");
+        storeController.Hide();
         ShowEndGameScreen(true);
         jitEndScreenController.ShowCoinPanel();
     }
@@ -205,7 +98,7 @@ public class EndgameScreenController : MonoBehaviour {
 
     private IEnumerator ShowEndgameWithPurchase(float time, int numCoins)
     {
-        this.storePanel.GetComponent<Animator>().SetTrigger("Hide");
+        storeController.Hide();
         yield return new WaitForSeconds(time);
         //create purchased coin prefab
         purchasedCoinPackage = Instantiate(purchasedCoinPrefab, purchasedCoinTransform);

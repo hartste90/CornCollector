@@ -1,5 +1,6 @@
 ﻿
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,11 +12,16 @@ public class GameOverPanelController : MonoBehaviour
     public EndgameScreenController endgameScreenController;
     public RollupController rollupController;
     public OptionsPanelController optionsPanelController;
+    public RateGameController rateGameController;
+    public JITEndscreenController jitEndScreenController;
+
     private CanvasGroup canvasGroup;
+    private Animator animator;
 
     void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
+        animator = GetComponent<Animator>();
     }
 
     public void EnablePanelInput()
@@ -90,4 +96,33 @@ public class GameOverPanelController : MonoBehaviour
     {
         endgameScreenController.ShowStoreFromEndgame();
     }
+
+    public void ShowEndGameScreen(bool shouldShowImmediately)
+    {
+        int goldForRound = rollupController.GetGoldForRound();
+        GetComponent<Animator>().SetTrigger("Show");
+
+        rollupController.Show(goldForRound);
+
+        optionsPanelController.Show(goldForRound, shouldShowImmediately);
+
+
+        if (goldForRound <= 20)
+        {
+            jitEndScreenController.ShowSafePanel();
+        }
+        else
+        {
+            if (goldForRound < 100)
+            {
+                jitEndScreenController.ShowCoinPanel();
+            }
+        }
+    }
+
+    public void Hide()
+    {
+        animator.SetTrigger("Hide");
+    }
+
 }

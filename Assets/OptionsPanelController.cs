@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,74 +8,71 @@ public class OptionsPanelController : MonoBehaviour {
 
     public GameOverPanelController gameOverController;
     public ContinueButtonController continueButtonController;
-
-    public Animator continueAdButtonAnimator;
-    public Animator continueCoinButtonAnimator;
-    public Animator replayButtonAnimator;
-    public Animator rateGamePanelAnimator;
-
-    public GameObject continueCoinPanel;
-    public Button continueCoinButton;
-    public Button continueAdButton;
-    public Button replayButton;
-
-
-
-    private bool replayButtonIsVisible = false;
+    public RateGameController rateGameController;
+    public ReplayPanelController replayPanelController;
+    public AdController adController;
 
 
     public void Populate(int continueCoinCostSet)
     {
-        this.replayButtonIsVisible = false;
         this.continueButtonController.SetCoinCost(continueCoinCostSet);
     }
+
+    public void HandleAdButtonPressed()
+    {
+        adController.ShowRewardedAd();
+    }
+
     public void HidePanelsForPurchase()
     {
-        continueAdButtonAnimator.SetTrigger("HideImmediate");
-        continueCoinButtonAnimator.SetTrigger("HideImmediate");
-        replayButtonAnimator.SetTrigger("HideImmediate");
-        rateGamePanelAnimator.SetTrigger("HideImmediate");
+        continueButtonController.HideImmediate();
+        replayPanelController.HideImmediate();
+        rateGameController.HideImmediate();
     }
 
     public void ShowPanelsForPurchase()
     {
-        continueCoinButtonAnimator.SetTrigger("Show");
-        replayButtonAnimator.SetTrigger("Show");
+        continueButtonController.Show();
+        replayPanelController.Show();
+    }
+
+    public void ShowContinueWithCoinsOption(bool shouldShowImmediately)
+    {
+        continueButtonController.ShowAsCoin();
+        if (shouldShowImmediately)
+        {
+            continueButtonController.ShowImmediate();
+        }
+        else
+        {
+            continueButtonController.Show();
+        }
     }
 
     public void ShowContinueWithCoinsSmall(bool shouldShowImmediately)
     {
+        continueButtonController.ShowAsCoin();
+        this.continueButtonController.ShowSmall(shouldShowImmediately);
 
-        this.continueCoinButtonAnimator.gameObject.SetActive(false);
-        this.continueCoinButton.interactable = true;
-        this.continueAdButton.gameObject.SetActive(false);
-        this.continueCoinPanel.gameObject.SetActive(true);
-        if (shouldShowImmediately)
-        {
-            this.continueCoinButtonAnimator.SetTrigger("ShowSmallImmediate");
-        }
-        else
-        {
-            this.continueCoinButtonAnimator.SetTrigger("ShowSmall");
-        }
     }
+
 
     public void ShowContinueWithAdsOption()
     {
-        this.continueAdButtonAnimator.SetTrigger("Show");
+        continueButtonController.ShowAsAd();
+        this.continueButtonController.Show();
     }
 
     public void ShowReplayButton(bool shouldShowImmediately = false)
     {
         if (shouldShowImmediately)
         {
-            replayButtonAnimator.SetTrigger("ShowImmediate");
+            replayPanelController.ShowImmediate();
         }
         else
         {
-            replayButtonAnimator.SetTrigger("Show");
+            replayPanelController.Show();
         }
-        replayButtonIsVisible = true;
     }
 
     public void ShowReplayButtonAfterSeconds(float seconds)
@@ -84,26 +82,11 @@ public class OptionsPanelController : MonoBehaviour {
 
     public IEnumerator ShowReplayButtonAfterTime(float time)
     {
-
-        if (replayButtonIsVisible == false)
-        {
             yield return new WaitForSeconds(time);
             ShowReplayButton();
-        }
     }
 
-    public void ShowContinueWithCoinsOption(bool shouldShowImmediately)
-    {
-        this.continueCoinButton.interactable = true;
-        if (shouldShowImmediately)
-        {
-            this.continueCoinButtonAnimator.SetTrigger("ShowImmediate");
-        }
-        else
-        {
-            this.continueCoinButtonAnimator.SetTrigger("Show");
-        }
-    }
+
 
     public void OnContinueGame()
     {
@@ -113,5 +96,71 @@ public class OptionsPanelController : MonoBehaviour {
     public void OnShowStoreFromEndgame()
     {
         gameOverController.OnShowStoreFromEndgame();
+    }
+
+    public void HideContinueButton(bool shouldHideImmediately)
+    {
+        continueButtonController.SetInteractable(false);
+        if (shouldHideImmediately)
+        {
+            continueButtonController.HideImmediate();
+        }
+        else
+        {
+            continueButtonController.Hide();
+        }
+
+    }
+
+    public void Show(int goldForRound, bool shouldShowImmediately)
+    {
+        if (goldForRound <= 20)
+        {
+            HideContinueButton(true);
+        }
+        else
+        {
+            if (adController.IsReady())
+            {
+                ShowContinueWithAdsOption();
+            }
+            else
+            {
+                if (ShouldAskForRating(goldForRound))
+                {
+                    ShowContinueWithCoinsSmall(shouldShowImmediately);
+                    rateGameController.ShowRateGamePanel();
+                    rateGameController.ShowPrimaryQuestionPanel();
+                }
+                else
+                {
+                    ShowContinueWithCoinsOption(shouldShowImmediately);
+                }
+
+            }
+        }
+        if (shouldShowImmediately || goldForRound <= 20)
+        {
+            ShowReplayButton(true);
+        }
+        else
+        {
+            ShowReplayButtonAfterSeconds(GameModel.timeDelayReplayButton);
+        }
+    }
+
+    private bool ShouldAskForRating(int goldForRound)
+    {
+        DateTime currentDate = DateTime.Now;
+        Hashtable firstLoginDate = PlayerPrefManager.GetFirstLoginDate();
+        if (
+            (PlayerPrefManager.GetNumLogins() > 5) &&
+            ((int)firstLoginDate["year"] < currentDate.Year && (int)firstLoginDate["day"] < currentDate.DayOfYear) &&
+            (PlayerPrefManager.GetBestScore() >= 200 || PlayerPrefManager.GetBestScore() <= goldForRound))
+        {
+            Debug.Log("display_rating_panel");
+            return true;
+        }
+        return false;
     }
 }

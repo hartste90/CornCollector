@@ -24,6 +24,16 @@ public class RateGameController : MonoBehaviour {
         animator.SetTrigger("Show");
     }
 
+    public void Hide()
+    {
+        animator.SetTrigger("Hide");
+    }
+
+    public void HideImmediate()
+    {
+        animator.SetTrigger("HideImmediate");
+    }
+
     public void ShowPrimaryQuestionPanel()
     {
         //hide other panels

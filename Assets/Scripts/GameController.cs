@@ -378,6 +378,7 @@ public class  GameController : MonoBehaviour
 	IEnumerator ShowEndgameScreenAfterSeconds (float waitTime) 
 	{
         yield return new WaitForSeconds(waitTime);
+        Time.timeScale = 1f;
         uiController.HideUI();
         endgameScreenController.PopulateEndgameScreenContent(
             currentCoinCount.ToString(),
