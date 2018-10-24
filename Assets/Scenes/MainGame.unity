@@ -3867,7 +3867,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: You need more <color=#DE00FF>pink glows</color> to continue.  Purchase them
-    at the store or earn them by collecting <color=#F5FF00>gold glows</color>
+    at the store or earn them by collecting 100 <color=#F5FF00>gold glows</color>
 --- !u!222 &355635218
 CanvasRenderer:
   m_ObjectHideFlags: 0
