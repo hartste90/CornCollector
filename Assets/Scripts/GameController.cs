@@ -127,17 +127,9 @@ public class  GameController : MonoBehaviour
         halfheight = Tools.screenHeight / 2;
         titleScreenController.gameObject.SetActive(true);
         titleScreenController.ShowTitleScreen();
-        uiController.HideUI();
+        uiController.HideGameUI();
         ShowSwipeTooltip();
         beginGameplay();
-
-    }
-
-    private void ShowBeginUI()
-    {
-        //hide the end game screen if it's been shown
-        uiController.ShowUI();
-        //countdownController.ShowCountdown();
 
     }
 
@@ -162,7 +154,7 @@ public class  GameController : MonoBehaviour
         tooltipController.Hide();
         backgroundMusicController.playBackgroundMusic();
         titleScreenController.HideTitleScreen();
-        ShowBeginUI();
+        uiController.ShowGameUI();
     }
 
     public void beginGameplay()
@@ -380,7 +372,7 @@ public class  GameController : MonoBehaviour
 	{
         yield return new WaitForSeconds(waitTime);
         Time.timeScale = 1f;
-        uiController.HideUI();
+        uiController.HideGameUI();
         endgameScreenController.gameObject.SetActive(true);
         endgameScreenController.PopulateEndgameScreenContent(
             currentCoinCount.ToString(),

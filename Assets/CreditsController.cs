@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class CreditsController : MonoBehaviour {
 
+    public UIController uiController;
+
     private bool isShowingCredits = false;
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
+
+
 	public void ShowCreditsPanel()
     {
         GameModel.DisableShipInput();
         isShowingCredits = true;
+        uiController.HideTitleUI();
         gameObject.SetActive(true);
     }
 
@@ -21,6 +21,7 @@ public class CreditsController : MonoBehaviour {
     {
         GameModel.EnableShipInput();
         isShowingCredits = false;
+        uiController.ShowTitleUI();
         gameObject.SetActive(false);
     }
 

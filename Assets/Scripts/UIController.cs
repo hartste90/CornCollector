@@ -11,6 +11,8 @@ public class UIController : MonoBehaviour {
     public SpriteRenderer coin;
 	public Text coinCountUILabel;
 
+    public GameObject titleUI;
+
 	// Use this for initialization
 	void Start () 
     {
@@ -19,7 +21,7 @@ public class UIController : MonoBehaviour {
 
 	public void ResetUI()
 	{
-        HideUI();
+        HideGameUI();
         SetCoinText(0);
     }
 
@@ -28,16 +30,24 @@ public class UIController : MonoBehaviour {
         coinCountUILabel.text = numCoins + "";
 	}
 
-    public void ShowUI()
+    public void ShowGameUI()
     {
-        //background.enabled = true;
         coin.enabled = true;
         coinCountUILabel.enabled = true;
     }
-    public void HideUI()
+    public void HideGameUI()
     {
-        //background.enabled = false;
         coin.enabled = false;
         coinCountUILabel.enabled = false;
+    }
+
+    public void ShowTitleUI()
+    {
+        titleUI.SetActive(true);
+    }
+
+    public void HideTitleUI()
+    {
+        titleUI.SetActive(false);
     }
 }

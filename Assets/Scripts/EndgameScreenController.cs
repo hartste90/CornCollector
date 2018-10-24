@@ -20,6 +20,7 @@ public class EndgameScreenController : MonoBehaviour {
     public HelptextPanelController helpTextController;
     public JITEndscreenController jitEndScreenController;
     public StorePanelController storeController;
+    public ContinueCelebrationController celebrationController;
 
     //TODO: move to purchase controller?
     //endgame purchase animation
@@ -42,7 +43,8 @@ public class EndgameScreenController : MonoBehaviour {
 
     public void ShowEndGameScreen(bool shouldShowImmediately = false)
     {
-        gameOverPanelController.ShowEndGameScreen(shouldShowImmediately);
+        celebrationController.Celebrate();
+        //gameOverPanelController.ShowEndGameScreen(shouldShowImmediately);
     }
 
     public void OnCoinRollupComplete()

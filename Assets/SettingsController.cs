@@ -26,7 +26,7 @@ public class SettingsController : MonoBehaviour {
         gameObject.SetActive(false);
     }
 
-    public void ToggleCreditsPanel()
+    public void ToggleSettingsPanel()
     {
         if (isShowingSettings)
         {
