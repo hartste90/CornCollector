@@ -30,6 +30,10 @@ public class EndgameScreenController : MonoBehaviour {
 
     private int gameplayCoinCount;
 
+    public void Start()
+    {
+        gameObject.SetActive(false);
+    }
     public void PopulateEndgameScreenContent(string goldCoinTotalSet, string bestCoinCountSet)
 	{
         this.gameOverPanelController.Populate(goldCoinTotalSet, bestCoinCountSet, this);
