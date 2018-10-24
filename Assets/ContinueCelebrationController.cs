@@ -29,7 +29,7 @@ public class ContinueCelebrationController : MonoBehaviour {
 
     public void OnCelebrationAnimationFinished()
     {
-        endgameScreenController.OnContinueGame();
+        //endgameScreenController.OnContinueGame();
     }
 
         
