@@ -5,6 +5,7 @@ using UnityEngine;
 public class ContinueCelebrationController : MonoBehaviour {
 
     public EndgameScreenController endgameScreenController;
+    public CelebrationImageController celebrationImageController;
     private Animator animator;
 
 	// Use this for initialization
@@ -12,14 +13,10 @@ public class ContinueCelebrationController : MonoBehaviour {
         animator = GetComponent<Animator>();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     public void Celebrate()
     {
         animator.SetTrigger("Free-Celebrate");
+        celebrationImageController.PlayEnter();
     }
 
     public void HideImmediate()
@@ -30,6 +27,7 @@ public class ContinueCelebrationController : MonoBehaviour {
     public void OnCelebrationAnimationFinished()
     {
         //endgameScreenController.OnContinueGame();
+        celebrationImageController.PlayBounce();
     }
 
         

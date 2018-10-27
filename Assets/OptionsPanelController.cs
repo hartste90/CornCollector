@@ -24,7 +24,7 @@ public class OptionsPanelController : MonoBehaviour {
         adController.ShowRewardedAd();
     }
 
-    public void HidePanelsForPurchase()
+    public void Hide()
     {
         storeButtonController.HideImmediate();
         continueButtonController.HideImmediate();
@@ -93,6 +93,7 @@ public class OptionsPanelController : MonoBehaviour {
 
     public void OnContinueGame()
     {
+        
         gameOverController.OnContinueGame();
     }
 

@@ -15,8 +15,9 @@ public class RollupController : MonoBehaviour {
     public Text pinkCoinCountText;
     public Text bestGoldText;
 
-    public GameObject goldPanel;
-    public GameObject bestPanel;
+    public Animator pinkPanelAnimator;
+    public Animator goldPanelAnimator;
+    public Animator bestPanelAnimator;
 
     private int pinkCoinsTotal;
     private int pinkCoinsCurrent;
@@ -108,6 +109,7 @@ public class RollupController : MonoBehaviour {
 
     public void Show(int goldForRound)
     {
+        ShowAllPanels();
         if (ShouldRollup(goldForRound))
         {
             StartRollup();
@@ -123,16 +125,18 @@ public class RollupController : MonoBehaviour {
         return goldForRound >= 100 ? true : false;
     }
 
-    public void HidePanelsForPurchase()
+    public void Hide()
     {
-        goldPanel.SetActive(false);
-        bestPanel.SetActive(false);
+        pinkPanelAnimator.SetTrigger("Hide");
+        goldPanelAnimator.SetTrigger("Hide");
+        bestPanelAnimator.SetTrigger("Hide");
     }
 
-    public void ShowPanelsForPurchase()
+    public void ShowAllPanels()
     {
-        goldPanel.SetActive(true);
-        bestPanel.SetActive(true);
+        pinkPanelAnimator.SetTrigger("Show");
+        goldPanelAnimator.SetTrigger("Show");
+        bestPanelAnimator.SetTrigger("Show");
     }
 
     public void OnCollectPurchaseCoin()

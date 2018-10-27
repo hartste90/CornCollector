@@ -16,6 +16,7 @@ public class EndgameScreenController : MonoBehaviour {
 
 
     public GameController gameController;
+    public BackgroundOverlayController backgroundOverlayController;
     public GameOverPanelController gameOverPanelController;
     public HelptextPanelController helpTextController;
     public JITEndscreenController jitEndScreenController;
@@ -33,7 +34,8 @@ public class EndgameScreenController : MonoBehaviour {
 
     public void Start()
     {
-        gameObject.SetActive(false);
+        backgroundOverlayController.HideImmediate();
+        //gameObject.SetActive(false);
     }
     public void PopulateEndgameScreenContent(string goldCoinTotalSet, string bestCoinCountSet)
 	{
@@ -43,8 +45,9 @@ public class EndgameScreenController : MonoBehaviour {
 
     public void ShowEndGameScreen(bool shouldShowImmediately = false)
     {
-        celebrationController.Celebrate();
-        //gameOverPanelController.ShowEndGameScreen(shouldShowImmediately);
+        //celebrationController.Celebrate();
+        backgroundOverlayController.FadeIn();
+        gameOverPanelController.ShowEndGameScreen(shouldShowImmediately);
     }
 
     public void OnCoinRollupComplete()

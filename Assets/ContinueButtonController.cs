@@ -8,6 +8,7 @@ public class ContinueButtonController : MonoBehaviour {
     public OptionsPanelController optionsController;
     public ContinueAdController continueAdController;
     public ContinueCoinController continueCoinController;
+    public StoreButtonController storeButtonController;
 
     private Animator animator;
     private Button button;

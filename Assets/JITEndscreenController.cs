@@ -33,7 +33,7 @@ public class JITEndscreenController : MonoBehaviour
         jitStorePanelController.Show();
     }
 
-    public void HideStorePanel(bool shouldHideImmediately)
+    public void HideStorePanel(bool shouldHideImmediately = false)
     {
         if (shouldHideImmediately)
         {
@@ -44,13 +44,13 @@ public class JITEndscreenController : MonoBehaviour
             jitStorePanelController.Hide();
         }
     }
-    public void HideSafePanel(bool shouldHideImmediately)
+    public void HideSafePanel(bool shouldHideImmediately = false)
     {
         jitSafePanelController.Hide(shouldHideImmediately);
     }
 
 
-    public void HideCoinPanel (bool shouldHideImmediate)
+    public void HideCoinPanel (bool shouldHideImmediate = false)
     {
         if (shouldHideImmediate)
         {
