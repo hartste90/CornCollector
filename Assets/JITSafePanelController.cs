@@ -18,14 +18,18 @@ public class JITSafePanelController : MonoBehaviour {
 
     public void Hide (bool shouldHideImmediately = false)
     {
-        if (shouldHideImmediately)
+        if (animator)
         {
-            animator.SetTrigger("HideImmediate");
+            if (shouldHideImmediately)
+            {
+                animator.SetTrigger("HideImmediate");
+            }
+            else
+            {
+                animator.SetTrigger("Hide");
+            }
         }
-        else
-        {
-            animator.SetTrigger("Hide");
-        }
+
     }
 
 

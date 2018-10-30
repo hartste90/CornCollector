@@ -46,7 +46,10 @@ public class EndgameScreenController : MonoBehaviour {
     public void ShowEndGameScreen(bool shouldShowImmediately = false)
     {
         //celebrationController.Celebrate();
-        backgroundOverlayController.FadeIn();
+        if (!shouldShowImmediately)
+        {
+            backgroundOverlayController.FadeIn();
+        }
         gameOverPanelController.ShowEndGameScreen(shouldShowImmediately);
     }
 
@@ -72,6 +75,13 @@ public class EndgameScreenController : MonoBehaviour {
         gameOverPanelController.Hide();
         helpTextController.ShowHelpText();
         jitEndScreenController.HideCoinPanel(true);
+    }
+
+    public void Hide()
+    {
+        backgroundOverlayController.FadeOut();
+        gameOverPanelController.Hide();
+        storeController.Hide();
     }
 
     public void ShowEndgameFromStore()

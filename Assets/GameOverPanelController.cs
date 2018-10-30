@@ -40,18 +40,16 @@ public class GameOverPanelController : MonoBehaviour
     //just shows the pink coin, without the options panel
     public void ShowWithPurchase()
     {
-        rollupController.Hide();
+        //rollupController.Hide();
         optionsPanelController.Hide();
         GetComponent<Animator>().SetTrigger("Show");
     }
 
     public void ShowAfterPurchase()
     {
-        //Debug.Break();
         rollupController.ShowAllPanels();
         optionsPanelController.ShowPanelsForPurchase();
-        GetComponent<Animator>().SetTrigger("Show");
-
+        //GetComponent<Animator>().SetTrigger("Show");
     }
 
     public void ShowContinueWithCoinsSmall(bool shouldShowImmediately)

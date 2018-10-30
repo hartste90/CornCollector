@@ -97,7 +97,7 @@ public class  GameController : MonoBehaviour
         //currentCoinCount = 99;
         //currentCoinCount = 0;
         currentCoinCount = 530;
-        HandlePlayerDestroyed();
+        playerController.OnHitMine();
 
 
     }
@@ -217,7 +217,14 @@ public class  GameController : MonoBehaviour
     public void ResetScene()
     {
         Time.timeScale = 1.0f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        DestroyAllItemsOnscreen();
+        currentCoinCount = 0;
+        uiController.ResetUI();
+        jITEndscreenController.HideCoinPanel(true);
+        GameModel.numSafes = 1;
+        endgameScreenController.Hide();
+        beginGameplay();
     }
 
     public void ContinueGame()
