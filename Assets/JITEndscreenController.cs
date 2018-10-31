@@ -10,6 +10,9 @@ public class JITEndscreenController : MonoBehaviour
     public JITSafePanelController jitSafePanelController;
 
     private Animator jitCoinPanelAnimator;
+    private bool isShowingSafeJIT;
+    private bool isShowingStoreJIT;
+    private bool isShowingCoinJIT;
 
     private void Awake()
     {
@@ -19,46 +22,75 @@ public class JITEndscreenController : MonoBehaviour
 
     public void ShowCoinPanel()
     {
-        jitCoinPanelAnimator.SetTrigger("Show");
+        if (!isShowingCoinJIT)
+        {
+            isShowingCoinJIT = true;
+            jitCoinPanelAnimator.SetTrigger("Show");
+        }
+
     }
 
     public void ShowSafePanel()
     {
-        jitSafePanelController.gameObject.SetActive(true);
-        jitSafePanelController.Show();
+        if (!isShowingSafeJIT)
+        {
+            isShowingSafeJIT = true;
+            jitSafePanelController.gameObject.SetActive(true);
+            jitSafePanelController.Show();
+        }
     }
 
     public void ShowStorePanel()
     {
-        jitStorePanelController.Show();
+        if (!isShowingStoreJIT) 
+        {
+            isShowingStoreJIT = true;
+            jitStorePanelController.Show();
+        }
+
     }
 
     public void HideStorePanel(bool shouldHideImmediately = false)
     {
-        if (shouldHideImmediately)
+        if (isShowingStoreJIT)
         {
-            jitStorePanelController.HideImmediate();
+            if (shouldHideImmediately)
+            {
+                jitStorePanelController.HideImmediate();
+            }
+            else
+            {
+                jitStorePanelController.Hide();
+            }
+            isShowingStoreJIT = false;
         }
-        else
-        {
-            jitStorePanelController.Hide();
-        }
+       
     }
     public void HideSafePanel(bool shouldHideImmediately = false)
     {
-        jitSafePanelController.Hide(shouldHideImmediately);
+        if (isShowingSafeJIT)
+        {
+            jitSafePanelController.Hide(shouldHideImmediately);
+            isShowingSafeJIT = false;
+        }
+
     }
 
 
     public void HideCoinPanel (bool shouldHideImmediate = false)
     {
-        if (shouldHideImmediate)
+        if (isShowingCoinJIT)
         {
-            jitCoinPanelAnimator.SetTrigger("HideImmediate");
+            if (shouldHideImmediate)
+            {
+                jitCoinPanelAnimator.SetTrigger("HideImmediate");
+            }
+            else
+            {
+                jitCoinPanelAnimator.SetTrigger("Hide");
+            }
+            isShowingCoinJIT = false;
         }
-        else
-        {
-            jitCoinPanelAnimator.SetTrigger("Hide");
-        }
+
     }
 }

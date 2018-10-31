@@ -30,6 +30,10 @@ public class EndgameScreenController : MonoBehaviour {
     public GameObject purchasedCoinPrefab;
     private GameObject purchasedCoinPackage;
 
+
+    public delegate void EndScreenExitCallback();
+    public EndScreenExitCallback endScreenExitCallback;
+
     private int gameplayCoinCount;
 
     public void Start()
@@ -82,6 +86,16 @@ public class EndgameScreenController : MonoBehaviour {
         backgroundOverlayController.FadeOut();
         gameOverPanelController.Hide();
         storeController.Hide();
+    }
+
+    public void HandleEndScreenOffAnimationComplete()
+    {
+        if (endScreenExitCallback != null)
+        {
+            endScreenExitCallback();
+            endScreenExitCallback = null;
+        }
+
     }
 
     public void ShowEndgameFromStore()

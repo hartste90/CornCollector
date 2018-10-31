@@ -2134,7 +2134,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.07, y: 0.43800002}
   m_AnchorMax: {x: 0.93, y: 1}
-  m_AnchoredPosition: {x: 518, y: 640.0001}
+  m_AnchoredPosition: {x: 518, y: 640.00037}
   m_SizeDelta: {x: -999.6, y: -735.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &184186030
@@ -11172,7 +11172,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.4, y: 0.01}
-  m_AnchoredPosition: {x: 789, y: 622.00024}
+  m_AnchoredPosition: {x: 789, y: 622.00037}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &986204411
@@ -11547,7 +11547,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.35841668}
   m_AnchorMax: {x: 1, y: 0.7595834}
-  m_AnchoredPosition: {x: 0, y: -295.99994}
+  m_AnchoredPosition: {x: 0, y: -295.9999}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1050072766
@@ -19053,6 +19053,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coinCountDelayTime: 0.75
   rollupIncrement: 20
+  pinkCoinPanelController: {fileID: 1826067037}
   uiRollupCoinPrefab: {fileID: 1115446076801792, guid: 710f5a95b14ec4e8db8a04f26c4b94d1,
     type: 2}
   coinStartTransform: {fileID: 1133628864}
@@ -19635,7 +19636,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.4, y: 0.01}
-  m_AnchoredPosition: {x: 0, y: 622.00024}
+  m_AnchoredPosition: {x: 0, y: 622.00037}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1815758858
@@ -19755,6 +19756,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1826067035}
   - component: {fileID: 1826067036}
+  - component: {fileID: 1826067037}
   m_Layer: 0
   m_Name: Pink Coin Panel
   m_TagString: Untagged
@@ -19791,7 +19793,7 @@ Animator:
   m_GameObject: {fileID: 1826067034}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3255bd62eac9e458a8bbe365a246e99d, type: 2}
+  m_Controller: {fileID: 9100000, guid: 277ec56bda15945c799cbb7214f3fd57, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -19800,6 +19802,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1826067037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1826067034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7843ab3d9a982413e94e75b0de1cec7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1828996801
 GameObject:
   m_ObjectHideFlags: 0

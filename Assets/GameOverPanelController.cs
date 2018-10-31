@@ -92,11 +92,15 @@ public class GameOverPanelController : MonoBehaviour
         jitEndScreenController.HideStorePanel();
         jitEndScreenController.HideSafePanel();
         jitEndScreenController.HideCoinPanel();
-        endgameScreenController.OnContinueGame();
+
+        rollupController.hideStatsPanelAnimationCompleteCallback = endgameScreenController.OnContinueGame;
+        //should be callback from rollup finish
+        //endgameScreenController.OnContinueGame();
     }
 
     public void OnShowStoreFromEndgame()
     {
+        jitEndScreenController.HideStorePanel();
         endgameScreenController.ShowStoreFromEndgame();
     }
 
@@ -126,6 +130,11 @@ public class GameOverPanelController : MonoBehaviour
     public void Hide()
     {
         animator.SetTrigger("Hide");
+    }
+
+    public void HandleEndScreenOffAnimationComplete()
+    {
+        endgameScreenController.HandleEndScreenOffAnimationComplete();
     }
 
     public void ShowStoreJIT()

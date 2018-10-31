@@ -44,7 +44,7 @@ public class OptionsPanelController : MonoBehaviour {
         continueButtonController.ShowAsCoin();
         if (shouldShowImmediately)
         {
-            continueButtonController.ShowImmediate();
+            continueButtonController.Show();
         }
         else
         {
@@ -70,7 +70,7 @@ public class OptionsPanelController : MonoBehaviour {
     {
         if (shouldShowImmediately)
         {
-            replayPanelController.ShowImmediate();
+            replayPanelController.Show();
         }
         else
         {
@@ -93,7 +93,6 @@ public class OptionsPanelController : MonoBehaviour {
 
     public void OnContinueGame()
     {
-        
         gameOverController.OnContinueGame();
     }
 

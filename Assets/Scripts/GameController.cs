@@ -71,6 +71,8 @@ public class  GameController : MonoBehaviour
     private static float halfwidth;
     private static float halfheight;
 
+
+
     public void Awake()
     {
         isVerbose = verbose;
@@ -125,11 +127,9 @@ public class  GameController : MonoBehaviour
         verticalBuffer = Tools.screenHeight / 10;
         halfwidth = Tools.screenWidth / 2;
         halfheight = Tools.screenHeight / 2;
-        titleScreenController.gameObject.SetActive(true);
-        titleScreenController.ShowTitleScreen();
         uiController.HideGameUI();
         ShowSwipeTooltip();
-        beginGameplay();
+        SetupGameStart();
 
     }
 
@@ -223,7 +223,15 @@ public class  GameController : MonoBehaviour
         uiController.ResetUI();
         jITEndscreenController.HideCoinPanel(true);
         GameModel.numSafes = 1;
+        endgameScreenController.endScreenExitCallback = SetupGameStart;
         endgameScreenController.Hide();
+
+    }
+
+    public void SetupGameStart()
+    {
+        titleScreenController.gameObject.SetActive(true);
+        titleScreenController.ShowTitleScreen();
         beginGameplay();
     }
 
@@ -238,9 +246,12 @@ public class  GameController : MonoBehaviour
         uiController.ResetUI();
         jITEndscreenController.HideCoinPanel(true);
         //replay game start UI tooltip/tutorial
-        endgameScreenController.gameObject.SetActive(false);
-        beginGameplay();
+        endgameScreenController.endScreenExitCallback = beginGameplay;
+        endgameScreenController.Hide();
+        //should be callback for when endgame screen is gone
+        //beginGameplay();
     }
+
 
     public GameObject SpawnGameObjectAtRandomPosition(GameObject gameObject)
     {
@@ -380,7 +391,6 @@ public class  GameController : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         Time.timeScale = 1f;
         uiController.HideGameUI();
-        endgameScreenController.gameObject.SetActive(true);
         endgameScreenController.PopulateEndgameScreenContent(
             currentCoinCount.ToString(),
             PlayerPrefManager.GetBestScore().ToString());

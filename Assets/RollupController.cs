@@ -8,6 +8,8 @@ public class RollupController : MonoBehaviour {
     public float coinCountDelayTime = 1f;
     public int rollupIncrement = 10;
 
+
+    public PinkCoinPanelController pinkCoinPanelController;
     public GameObject uiRollupCoinPrefab;
     public Transform coinStartTransform;
     public Transform coinEndTransform;
@@ -28,6 +30,9 @@ public class RollupController : MonoBehaviour {
     private bool shouldRollUp;
     private EndgameScreenController endgameScreenController;
     private float coinCountDelayUntilTime;
+
+    public delegate void HideStatsPanelAnimationCompleteCallback();
+    public HideStatsPanelAnimationCompleteCallback hideStatsPanelAnimationCompleteCallback;
 
     private void Update()
     {
@@ -127,6 +132,7 @@ public class RollupController : MonoBehaviour {
 
     public void Hide()
     {
+        pinkCoinPanelController.hideCompleteCallback = HandleHideAnimationComplete;
         pinkPanelAnimator.SetTrigger("Hide");
         goldPanelAnimator.SetTrigger("Hide");
         bestPanelAnimator.SetTrigger("Hide");
@@ -143,5 +149,15 @@ public class RollupController : MonoBehaviour {
     {
         pinkCoinsCurrent++;
         this.pinkCoinCountText.text = this.pinkCoinsCurrent.ToString();
+    }
+
+    public void HandleHideAnimationComplete()
+    {
+        if (hideStatsPanelAnimationCompleteCallback != null)
+        {
+            hideStatsPanelAnimationCompleteCallback();
+            hideStatsPanelAnimationCompleteCallback = null;
+        }
+
     }
 }
