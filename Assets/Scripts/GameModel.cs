@@ -1,6 +1,6 @@
 ﻿public static class GameModel
 {
-    public static float timeDelayReplayButton = .5f;
+    public static float timeDelayReplayButton = 2f;
 
     public static bool canCollectCoins;
     public static int numAttempts;

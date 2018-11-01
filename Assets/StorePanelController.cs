@@ -26,14 +26,20 @@ public class StorePanelController : MonoBehaviour {
 
     }
 
-    public void Show()
+    public void EnterRight()
     {
-        animator.SetTrigger("Show");
-
+        animator.SetTrigger("EnterRight");
     }
-
-    public void Hide()
+    public void ExitRight()
     {
-        animator.SetTrigger("Hide");
+        animator.SetTrigger("ExitRight");
+    }
+    public void HideImmediate()
+    {
+        animator.SetTrigger("HideImmediate");
+    }
+    public void ShowImmediate()
+    {
+        animator.SetTrigger("ShowImmediate");
     }
 }

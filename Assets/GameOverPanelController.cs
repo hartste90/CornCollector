@@ -42,7 +42,7 @@ public class GameOverPanelController : MonoBehaviour
     {
         //rollupController.Hide();
         optionsPanelController.Hide();
-        GetComponent<Animator>().SetTrigger("Show");
+        EnterLeft();
     }
 
     public void ShowAfterPurchase()
@@ -94,8 +94,7 @@ public class GameOverPanelController : MonoBehaviour
         jitEndScreenController.HideCoinPanel();
 
         rollupController.hideStatsPanelAnimationCompleteCallback = endgameScreenController.OnContinueGame;
-        //should be callback from rollup finish
-        //endgameScreenController.OnContinueGame();
+
     }
 
     public void OnShowStoreFromEndgame()
@@ -104,14 +103,26 @@ public class GameOverPanelController : MonoBehaviour
         endgameScreenController.ShowStoreFromEndgame();
     }
 
-    public void ShowEndGameScreen(bool shouldShowImmediately)
+    public void ShowEndGameScreen(bool shouldRollup)
     {
+        EnterRight();
+    }
+
+    public void OnEndScreenEnterLeftAnimationComplete()
+    {
+        EnablePanelInput();
+        optionsPanelController.Show(rollupController.GetGoldForRound(), true);
+        rollupController.Show(rollupController.GetGoldForRound());
+    }
+
+    public void OnEndScreenEnterRightAnimationComplete()
+    {
+        EnablePanelInput();
         int goldForRound = rollupController.GetGoldForRound();
-        GetComponent<Animator>().SetTrigger("Show");
 
         rollupController.Show(goldForRound);
 
-        optionsPanelController.Show(goldForRound, shouldShowImmediately);
+        optionsPanelController.Show(goldForRound, false);
 
 
         if (goldForRound <= 20)
@@ -127,14 +138,34 @@ public class GameOverPanelController : MonoBehaviour
         }
     }
 
-    public void Hide()
+    public void OnEndScreenExitAnimationComplete()
     {
-        animator.SetTrigger("Hide");
+        DisablePanelInput();
+        endgameScreenController.HandleEndScreenOffAnimationComplete();
+
     }
 
-    public void HandleEndScreenOffAnimationComplete()
+    public void HideImmediate()
     {
-        endgameScreenController.HandleEndScreenOffAnimationComplete();
+        animator.SetTrigger("HideImmediate");
+    }
+    public void EnterRight()
+    {
+        animator.SetTrigger("EnterRight");
+    }
+    public void EnterLeft()
+    {
+        animator.SetTrigger("EnterLeft");
+    }
+    public void ExitRight()
+    {
+        optionsPanelController.Hide();
+        animator.SetTrigger("ExitRight");
+    }
+    public void ExitLeft()
+    {
+        optionsPanelController.Hide();
+        animator.SetTrigger("ExitLeft");
     }
 
     public void ShowStoreJIT()

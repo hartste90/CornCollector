@@ -27,9 +27,9 @@ public class RollupController : MonoBehaviour {
     private int goldCoinCurrent;
     private int goldCoinsTransferred;
 
-    private bool shouldRollUp;
     private EndgameScreenController endgameScreenController;
     private float coinCountDelayUntilTime;
+    private bool shouldRollUp = false;
 
     public delegate void HideStatsPanelAnimationCompleteCallback();
     public HideStatsPanelAnimationCompleteCallback hideStatsPanelAnimationCompleteCallback;
@@ -66,6 +66,7 @@ public class RollupController : MonoBehaviour {
                 if (goldCoinCurrent <= 0)
                 {
                     goldCoinCurrent = 0;
+                    shouldRollUp = false;
                     endgameScreenController.OnCoinRollupComplete();
                 }
                 goldCoinTotalText.text = goldCoinCurrent.ToString();

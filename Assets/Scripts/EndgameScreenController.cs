@@ -75,8 +75,8 @@ public class EndgameScreenController : MonoBehaviour {
 
     public void ShowStoreFromEndgame()
     {
-        storeController.Show();
-        gameOverPanelController.Hide();
+        storeController.EnterRight();
+        gameOverPanelController.ExitLeft();
         helpTextController.ShowHelpText();
         jitEndScreenController.HideCoinPanel(true);
     }
@@ -84,8 +84,8 @@ public class EndgameScreenController : MonoBehaviour {
     public void Hide()
     {
         backgroundOverlayController.FadeOut();
-        gameOverPanelController.Hide();
-        storeController.Hide();
+        gameOverPanelController.ExitRight();
+        //storeController.ExitRight();
     }
 
     public void HandleEndScreenOffAnimationComplete()
@@ -100,15 +100,16 @@ public class EndgameScreenController : MonoBehaviour {
 
     public void ShowEndgameFromStore()
     {
-        storeController.Hide();
-        ShowEndGameScreen(true);
+        storeController.ExitRight();
+        gameOverPanelController.EnterLeft();
+        //ShowEndGameScreen(true);
         jitEndScreenController.ShowCoinPanel();
     }
 
 
     private IEnumerator ShowEndgameWithPurchase(float time, int numCoins)
     {
-        storeController.Hide();
+        storeController.ExitRight();
         yield return new WaitForSeconds(time);
         //create purchased coin prefab
         purchasedCoinPackage = Instantiate(purchasedCoinPrefab, purchasedCoinTransform);
@@ -161,7 +162,7 @@ public class EndgameScreenController : MonoBehaviour {
     public void HandleBackButtonPressed()
     {
         ShowEndgameFromStore();
-        ShowReplayButton(true);
+        //ShowReplayButton(true);
     }
 
     public void ShowReplayButtonAfterSeconds(float seconds)
