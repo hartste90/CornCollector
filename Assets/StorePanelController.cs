@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class StorePanelController : MonoBehaviour {
 
+
+    public RemoveAdsButtonController removeAdsController;
+
     private CanvasGroup canvasGroup;
     private Animator animator;
 
@@ -11,6 +14,11 @@ public class StorePanelController : MonoBehaviour {
     {
         canvasGroup = GetComponent<CanvasGroup>();
         animator = GetComponent<Animator>();
+    }
+
+    public void HandleRemoveAdsPurchased()
+    {
+        removeAdsController.RemoveAdsPurchased();
     }
 
     public void EnablePanelInput()

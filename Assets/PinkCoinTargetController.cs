@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PinkCoinTargetController : CoinTargetController
 {
-    public EndgameScreenController endScreenController;
+    public GameOverPanelController gameOverPanelController;
     public RollupController rollupController;
 
     public List<GameObject> coinList;
@@ -29,7 +29,7 @@ public class PinkCoinTargetController : CoinTargetController
         coinList.Remove(coin);
         if (coinList.Count == 0)
         {
-            endScreenController.OnPurchaseAnimationOver();
+            gameOverPanelController.OnPurchaseAnimationOver();
         }
 
     

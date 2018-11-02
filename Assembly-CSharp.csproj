@@ -84,6 +84,7 @@
     <Compile Include="Assets\PurchaseConfirmationPanelController.cs" />
     <Compile Include="Assets\PurchasedCoinController.cs" />
     <Compile Include="Assets\RateGameController.cs" />
+    <Compile Include="Assets\RemoveAdsButtonController.cs" />
     <Compile Include="Assets\ReplayPanelController.cs" />
     <Compile Include="Assets\RollupController.cs" />
     <Compile Include="Assets\Scripts\CoinController.cs" />

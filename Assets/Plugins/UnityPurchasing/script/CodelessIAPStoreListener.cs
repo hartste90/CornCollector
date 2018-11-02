@@ -23,6 +23,9 @@ namespace UnityEngine.Purchasing
         // Allows outside sources to know whether the full initialization has taken place.
         public static bool initializationComplete;
 
+        public delegate void InitializationCompleteCallback();
+        public InitializationCompleteCallback initializationCompleteCallback;
+
         [RuntimeInitializeOnLoadMethod]
         static void InitializeCodelessPurchasingOnLoad() {
             ProductCatalog catalog = ProductCatalog.LoadDefaultCatalog();
@@ -149,6 +152,7 @@ namespace UnityEngine.Purchasing
 
         public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
         {
+            Debug.Log("Initialized");
             initializationComplete = true;
             this.controller = controller;
             this.extensions = extensions;
@@ -157,6 +161,7 @@ namespace UnityEngine.Purchasing
             {
                 button.UpdateText();
             }
+            initializationCompleteCallback();
         }
 
         public void OnInitializeFailed(InitializationFailureReason error)

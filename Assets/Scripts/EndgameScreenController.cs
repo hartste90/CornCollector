@@ -23,14 +23,6 @@ public class EndgameScreenController : MonoBehaviour {
     public StorePanelController storeController;
     public ContinueCelebrationController celebrationController;
 
-    //TODO: move to purchase controller?
-    //endgame purchase animation
-    public Transform pinkCoinTransform;
-    public Transform purchasedCoinTransform;
-    public GameObject purchasedCoinPrefab;
-    private GameObject purchasedCoinPackage;
-
-
     public delegate void EndScreenExitCallback();
     public EndScreenExitCallback endScreenExitCallback;
 
@@ -111,16 +103,7 @@ public class EndgameScreenController : MonoBehaviour {
     {
         storeController.ExitRight();
         yield return new WaitForSeconds(time);
-        //create purchased coin prefab
-        purchasedCoinPackage = Instantiate(purchasedCoinPrefab, purchasedCoinTransform);
-        purchasedCoinPackage.transform.localPosition = Vector3.zero;
-        purchasedCoinPackage.GetComponent<PurchasedCoinController>().Populate(pinkCoinTransform, numCoins);
-        this.gameOverPanelController.ShowWithPurchase();
-    }
-
-    private void ShowEndGameScreenAfterPurchase()
-    {
-        this.gameOverPanelController.ShowAfterPurchase();
+        this.gameOverPanelController.ShowWithPurchase(numCoins);
     }
 
     //successfully purchased coins
@@ -134,18 +117,12 @@ public class EndgameScreenController : MonoBehaviour {
 
     public void StartCoinPurchasedAnimation(int numCoins)
     {
-       StartCoroutine(ShowEndgameWithPurchase(0.75f, numCoins));
-    }
-
-    public void OnPurchaseAnimationOver()
-    {
-        ShowEndGameScreenAfterPurchase();
-        Destroy(purchasedCoinPackage);
+       StartCoroutine(ShowEndgameWithPurchase(0.0f, numCoins));
     }
 
     public void HandleRemoveAdsButtonPressed()
     {
-        //purchaseManager.HandleRemoveAdsButtonPressed();
+        storeController.HandleRemoveAdsPurchased();
     }
 
     public void HandlePurchaseErrorReceived()

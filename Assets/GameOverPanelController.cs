@@ -15,8 +15,15 @@ public class GameOverPanelController : MonoBehaviour
     public RateGameController rateGameController;
     public JITEndscreenController jitEndScreenController;
 
+    public Transform pinkCoinTransform;
+    public Transform purchasedCoinTransform;
+    public GameObject purchasedCoinPrefab;
+    private GameObject purchasedCoinPackage;
+
     private CanvasGroup canvasGroup;
     private Animator animator;
+
+    private bool isShowingPurchaseAnimation = false;
 
     void Awake()
     {
@@ -38,16 +45,32 @@ public class GameOverPanelController : MonoBehaviour
     }
 
     //just shows the pink coin, without the options panel
-    public void ShowWithPurchase()
+    public void ShowWithPurchase(int numCoins)
     {
-        //rollupController.Hide();
+        rollupController.Hide();
         optionsPanelController.Hide();
         EnterLeft();
+        ShowCoinPurchaseAnimation(numCoins);
+    }
+
+    private void ShowCoinPurchaseAnimation(int numCoins)
+    {
+        //create purchased coin prefab
+        purchasedCoinPackage = Instantiate(purchasedCoinPrefab, purchasedCoinTransform);
+        purchasedCoinPackage.transform.localPosition = Vector3.zero;
+        purchasedCoinPackage.GetComponent<PurchasedCoinController>().Populate(pinkCoinTransform, numCoins);
+    }
+
+    public void OnPurchaseAnimationOver()
+    {
+        ShowAfterPurchase();
+        Destroy(purchasedCoinPackage);
+        purchasedCoinPackage = null;
     }
 
     public void ShowAfterPurchase()
     {
-        rollupController.ShowAllPanels();
+        //rollupController.ShowAllPanels();
         optionsPanelController.ShowPanelsForPurchase();
         //GetComponent<Animator>().SetTrigger("Show");
     }
@@ -111,7 +134,10 @@ public class GameOverPanelController : MonoBehaviour
     public void OnEndScreenEnterLeftAnimationComplete()
     {
         EnablePanelInput();
-        optionsPanelController.Show(rollupController.GetGoldForRound(), true);
+        if (purchasedCoinPackage == null) //pressed the back button
+        {
+            optionsPanelController.Show(rollupController.GetGoldForRound(), true);
+        }
         rollupController.Show(rollupController.GetGoldForRound());
     }
 

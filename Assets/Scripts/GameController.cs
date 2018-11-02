@@ -35,6 +35,7 @@ public class  GameController : MonoBehaviour
     public BackgroundMusicController backgroundMusicController;
     public SoundEffectsController soundEffectsController;
     public JITEndscreenController jITEndscreenController;
+    public IAPManager iAPManager;
     //private links
     private TimeController timeController;
     private TooltipController tooltipController;
