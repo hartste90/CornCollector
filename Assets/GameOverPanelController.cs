@@ -164,6 +164,16 @@ public class GameOverPanelController : MonoBehaviour
         }
     }
 
+    //public void OnEndScreenExitLeftAnimationComplete()
+    //{
+    //    OnEndScreenExitAnimationComplete();
+    //}
+    public void OnEndScreenExitRightAnimationComplete()
+    {
+        OnEndScreenExitAnimationComplete();
+        jitEndScreenController.HideSafePanel();
+    }
+
     public void OnEndScreenExitAnimationComplete()
     {
         DisablePanelInput();
