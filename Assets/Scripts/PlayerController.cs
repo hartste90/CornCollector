@@ -253,4 +253,9 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
+
+    public void AnimateIntro()
+    {
+        animator.SetTrigger("Intro");
+    }
 }
