@@ -26,13 +26,16 @@ public class  GameController : MonoBehaviour
     public Transform gameStageParent;
     public Transform playerStartPositionAnchor;
     public Transform safeStartPositionAnchor;
+    public Transform uiCoinTargetTransform;
     public UIController uiController;
     public TitleScreenController titleScreenController;
 	public EndgameScreenController endgameScreenController;
 	public ContinueScreenController continueScreenController;
     public CountdownController countdownController;
     public BackgroundMusicController backgroundMusicController;
-
+    public SoundEffectsController soundEffectsController;
+    public JITEndscreenController jITEndscreenController;
+    public IAPManager iAPManager;
     //private links
     private TimeController timeController;
     private TooltipController tooltipController;
@@ -69,6 +72,8 @@ public class  GameController : MonoBehaviour
     private static float halfwidth;
     private static float halfheight;
 
+
+
     public void Awake()
     {
         isVerbose = verbose;
@@ -85,37 +90,47 @@ public class  GameController : MonoBehaviour
     // a test function to trigger custom functionality for debugging
 	public void TestFunc()
 	{
-        PlayerPrefs.DeleteAll();
+        PlayerPrefManager.DeleteAll();
+        PlayerPrefManager.SetPinkCount(4);
+        //PlayerPrefManager.AddPinkCoins(17);
+        //currentCoinCount = 900;
+        //currentCoinCount = 1000;
+        //currentCoinCount = 100;
+        //currentCoinCount = 101;
+        //currentCoinCount = 99;
+        //currentCoinCount = 0;
+        currentCoinCount = 530;
+        playerController.OnHitMine();
+
+
     }
 
 
     void Start()
 	{
+
+        //check/set special session elements
+        PlayerPrefManager.IncrementNumLogins();
+        if ((int)PlayerPrefManager.GetFirstLoginDate()["year"] == 0)
+        {
+            PlayerPrefManager.SetFirstLoginDate(System.DateTime.Now);
+        }
+        GameModel.ResetSafes();
         GameModel.numAttempts = 1;
+        GameModel.SetGoldCoinCount(0);
 
         //setup private links
         tooltipController = swipeTooltipObject.GetComponent<TooltipController>();
         timeController = GetComponent<TimeController>();
         nextSafeCoinRequirement = 50;
-        ShowBeginUI();
         //screen size calculations
         horizontalBuffer = Tools.screenWidth / 10;
         verticalBuffer = Tools.screenHeight / 10;
         halfwidth = Tools.screenWidth / 2;
         halfheight = Tools.screenHeight / 2;
-        titleScreenController.gameObject.SetActive(true);
-        titleScreenController.ShowTitleScreen();
+        uiController.HideGameUI();
         ShowSwipeTooltip();
-        beginGameplay();
-
-    }
-
-    private void ShowBeginUI()
-    {
-        //hide the end game screen if it's been shown
-        endgameScreenController.gameObject.SetActive(false);
-        uiController.ShowUI();
-        //countdownController.ShowCountdown();
+        SetupGameStart();
 
     }
 
@@ -140,6 +155,7 @@ public class  GameController : MonoBehaviour
         tooltipController.Hide();
         backgroundMusicController.playBackgroundMusic();
         titleScreenController.HideTitleScreen();
+        uiController.ShowGameUI();
     }
 
     public void beginGameplay()
@@ -151,16 +167,20 @@ public class  GameController : MonoBehaviour
         playerController.playerStartPositionAnchor = playerStartPositionAnchor;
         playerController.Init(this);
         //create safes for number of coins
-        numSafes = FindNumSafesToCreate();
+        numSafes = GameModel.numSafes;
         //create first safe
         GameObject safeObject = Instantiate(safePrefab, gameStageParent);
         safeObject.transform.localPosition = safeStartPositionAnchor.localPosition;
         safeList.Add(safeObject);
+        safeObject.GetComponent<Animator>().SetTrigger("ShowImmediate");
+        safeObject.GetComponent<SafeController>().collider.enabled = true;
         safeObject.GetComponent<SafeController>().Init(this);
         for (int i = 1; i < numSafes; i++)
         {
             AddSafe();
         }
+
+        GameModel.EnableShipInput();
     }
 
     private int FindNumSafesToCreate()
@@ -195,39 +215,44 @@ public class  GameController : MonoBehaviour
 		}
 	}
 
-	public void ResetScene()
-	{
-		Time.timeScale = 1.0f;
-		SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
-	}
-
-
-    public void HandleContinueFromAd()
+    public void ResetScene()
     {
-        ContinueGame(0);
+        Time.timeScale = 1.0f;
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        DestroyAllItemsOnscreen();
+        currentCoinCount = 0;
+        uiController.ResetUI();
+        jITEndscreenController.HideCoinPanel(true);
+        GameModel.numSafes = 1;
+        endgameScreenController.endScreenExitCallback = SetupGameStart;
+        endgameScreenController.Hide();
+
     }
 
-    public void HandleContinueFromCoins()
+    public void SetupGameStart()
     {
-        ContinueGame(200);
+        titleScreenController.gameObject.SetActive(true);
+        titleScreenController.ShowTitleScreen();
+        beginGameplay();
     }
 
-    public void ContinueGame(int coinCost)
+    public void ContinueGame()
     {
-        //pay continue cost if applicable
-        if (coinCost != 0)
-        {
-            currentCoinCount -= coinCost;
-        }
         //destroy all objects currently on stage
         DestroyAllItemsOnscreen();
         //unslow time
         Time.timeScale = 1.0f;
-        //keep coin count & update UI (might change with cost of 
-        uiController.SetCoinText(currentCoinCount);
+        //reset coins (since they have already been added up in endscreen)
+        currentCoinCount = 0;
+        uiController.ResetUI();
+        jITEndscreenController.HideCoinPanel(true);
         //replay game start UI tooltip/tutorial
-        ShowBeginUI();
+        endgameScreenController.endScreenExitCallback = beginGameplay;
+        endgameScreenController.Hide();
+        //should be callback for when endgame screen is gone
+        //beginGameplay();
     }
+
 
     public GameObject SpawnGameObjectAtRandomPosition(GameObject gameObject)
     {
@@ -242,14 +267,11 @@ public class  GameController : MonoBehaviour
         obj.transform.localPosition = pos3;
         RectTransform rect = obj.GetComponent<RectTransform>();
         rect.anchoredPosition = position;
-        //if (gameObject.tag != "Safe")
-        //{
-        //    obj.transform.localScale = new Vector3(3, 3, 1);
-        //    Debug.LogError("WHAT IS THIS OBJECT");
-        //}
+
         if (gameObject == coinPrefab)
         {
             obj.transform.localScale = new Vector3(30, 30, 1);
+            obj.GetComponent<GravitateToTarget>().SetTarget(uiCoinTargetTransform);
             coinList.Add(obj);
         }
         else if (gameObject == minePrefab)
@@ -295,6 +317,7 @@ public class  GameController : MonoBehaviour
             if (safeList.Count < shouldHave)
             {
                 AddSafe();
+                GameModel.AddSafe();
             }
         }
 
@@ -339,31 +362,39 @@ public class  GameController : MonoBehaviour
 
 	public void HandlePlayerDestroyed()
 	{
+        GameModel.DisableShipInput();
         GameModel.canCollectCoins = false;
+        StopGameCoinsFromGravitating();
         timeController.handlePlayerDestroyed();
         SavePlayerPrefs();
+        soundEffectsController.PlayPlayerDeathSound();
 		StartCoroutine (ShowEndgameScreenAfterSeconds (delayBeforeEndGameScreenAppears));
 	}
 
+    private void StopGameCoinsFromGravitating()
+    {
+        foreach (GameObject go in coinList)
+        {
+            go.GetComponent<GravitateToTarget>().SetShouldGravitate(false);
+        }
+    }
+
     private void SavePlayerPrefs()
     {
-        PlayerPrefs.SetInt("lastScore", currentCoinCount);
-        PlayerPrefs.SetInt("currentCoins", PlayerPrefs.GetInt("currentCoins", 0) + currentCoinCount);
-        if (PlayerPrefs.GetInt("bestScore") < currentCoinCount)
+        if (PlayerPrefManager.GetBestScore() < currentCoinCount)
         {
-            PlayerPrefs.SetInt("bestScore", currentCoinCount);
+            PlayerPrefManager.SetBestScore(currentCoinCount);
         }
     }
 
 	IEnumerator ShowEndgameScreenAfterSeconds (float waitTime) 
 	{
         yield return new WaitForSeconds(waitTime);
-        uiController.HideUI();
+        Time.timeScale = 1f;
+        uiController.HideGameUI();
         endgameScreenController.PopulateEndgameScreenContent(
             currentCoinCount.ToString(),
-            PlayerPrefs.GetInt("bestScore").ToString(),
-            PlayerPrefs.GetInt("currentCoins").ToString());
-        endgameScreenController.gameObject.SetActive (true);
+            PlayerPrefManager.GetBestScore().ToString());
         endgameScreenController.ShowEndGameScreen();
 	}
 

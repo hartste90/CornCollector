@@ -7,15 +7,13 @@ using UnityEngine.UI;
 public class MenuController : MonoBehaviour {
 
 	public Text bestScoreText;
-	public Text lastScoreText;
     public Rigidbody2D playerrb;
     public float playerSpeed = 2.5f;
 
 
 	// Use this for initialization
 	void Start () {
-		bestScoreText.text = PlayerPrefs.GetInt ("bestScore", 0).ToString ();
-		lastScoreText.text = PlayerPrefs.GetInt ("lastScore", 0).ToString ();
+        bestScoreText.text = PlayerPrefManager.GetBestScore().ToString ();
         playerrb.velocity = Vector3.right * playerSpeed;
 	}
 

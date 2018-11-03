@@ -6,7 +6,6 @@ public class SafeController : MonoBehaviour {
 
     private int startingHealth = 1;
 
-    public GameObject coinPrefab;
     public Image healthBarImage;
     public BoxCollider2D collider;
 

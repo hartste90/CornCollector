@@ -93,7 +93,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.12
+  m_Radius: 0.39
 --- !u!114 &114814290759779048
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -105,11 +105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c626442fff1a94d6db833e72f77f54d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLerping: 0
-  timeSinceStartedLerp: 0
-  timeToLerp: 0
-  lerpStartPosition: {x: 0, y: 0, z: 0}
-  lerpTargetPosition: {x: 0, y: 0, z: 0}
   maxTrajectory: 0.5
 --- !u!114 &114942081530479378
 MonoBehaviour:

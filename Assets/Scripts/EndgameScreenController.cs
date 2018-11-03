@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.Advertisements;
 using System.Collections;
-
+using System;
 
 public static class Extensions
 {
@@ -14,128 +14,120 @@ public static class Extensions
 
 public class EndgameScreenController : MonoBehaviour {
 
-	public Text recentCoinCountText;
-    public Text bestCoinCountText;
-    public Text totalCoinCountText;
-    public Text continueCoinCostText;
-    public Text coinsNeededText;
-    public Text numContinuesText;
-
 
     public GameController gameController;
-    public AdController adController;
-    public GameObject gameOverPanel;
-    public GameObject storePanel;
-    public GameObject goToStorePanel;
+    public BackgroundOverlayController backgroundOverlayController;
+    public GameOverPanelController gameOverPanelController;
+    public HelptextPanelController helpTextController;
+    public JITEndscreenController jitEndScreenController;
+    public StorePanelController storeController;
+    public ContinueCelebrationController celebrationController;
 
-    public Button replayButton;
-    public Button continueAdButton;
-    public Button continueCoinsButton;
-    public GameObject continueCoinPanel;
+    public delegate void EndScreenExitCallback();
+    public EndScreenExitCallback endScreenExitCallback;
 
-    private int continueCoinCost;
-    private int recentCoinCount;
-    private int bestCoinCount;
-    private int totalCoinCount;
+    private int gameplayCoinCount;
 
-    private Animator goToStoreButtonAnimator;
-    private Animator replayButtonAnimator;
-
-    void Awake()
+    public void Start()
     {
-        goToStoreButtonAnimator = continueCoinPanel.GetComponent<Animator>();
-        replayButtonAnimator = replayButton.GetComponent<Animator>(); 
-
+        backgroundOverlayController.HideImmediate();
+        //gameObject.SetActive(false);
     }
-
-    public void PopulateEndgameScreenContent(string recentCoinCountSet, string bestCoinCountSet, string totalCoinCountSet)
+    public void PopulateEndgameScreenContent(string goldCoinTotalSet, string bestCoinCountSet)
 	{
-        this.recentCoinCount = System.Int32.Parse(recentCoinCountSet); ;
-        this.bestCoinCount = System.Int32.Parse(bestCoinCountSet); ;
-        this.totalCoinCount = System.Int32.Parse(totalCoinCountSet);
-        this.recentCoinCountText.text = recentCoinCountSet;
-        this.bestCoinCountText.text = bestCoinCountSet;
-        this.totalCoinCountText.text = totalCoinCountSet;
-        this.continueCoinCost = Mathf.Max(200, (System.Int32.Parse(recentCoinCountSet) / 2) * GameModel.numAttempts/10);
-        if (GameController.verbose)
+        this.gameOverPanelController.Populate(goldCoinTotalSet, bestCoinCountSet, this);
+        this.gameplayCoinCount = System.Int32.Parse(goldCoinTotalSet);
+    }
+
+    public void ShowEndGameScreen(bool shouldShowImmediately = false)
+    {
+        //celebrationController.Celebrate();
+        if (!shouldShowImmediately)
         {
-            Debug.Log(string.Format("Cost to continue is {0} = RecentCoins ({1}) / 2 ) / 10 * 10) * numAttempts ({2} / 10)", continueCoinCost, recentCoinCount, GameModel.numAttempts));
+            backgroundOverlayController.FadeIn();
         }
-        this.continueCoinCostText.text = "-"+this.continueCoinCost.ToString();
-        //this.numContinuesText.text = GameModel.numAttempts > 1 ? GameModel.numAttempts.ToString() : "";
-        this.coinsNeededText.text = (this.continueCoinCost - this.recentCoinCount).ToString();
-
+        gameOverPanelController.ShowEndGameScreen(shouldShowImmediately);
     }
 
-    public void ShowEndGameScreen()
+    public void OnCoinRollupComplete()
     {
-        this.storePanel.SetActive(false);
-        this.gameOverPanel.SetActive(true);
-        
-        
-        //TODO animate UI on
-        if (adController.IsReady())
+        Debug.Log("Coin rollup animation complete");
+    }
+
+    //shows the panel that allows users to continue by using pink coins, triggers shop if not enough coins currently
+    private void ShowContinueWithCoinsOption(bool shouldShowImmediately)
+    {
+        this.gameOverPanelController.ShowContinueWithCoinsOption(shouldShowImmediately);
+    }
+
+    private void ShowContinueWithCoinsSmall(bool shouldShowImmediately)
+    {
+        this.gameOverPanelController.ShowContinueWithCoinsSmall(shouldShowImmediately);
+    }
+
+    public void ShowStoreFromEndgame()
+    {
+        storeController.EnterRight();
+        gameOverPanelController.ExitLeft();
+        helpTextController.ShowHelpText();
+        jitEndScreenController.HideCoinPanel(true);
+    }
+
+    public void Hide()
+    {
+        backgroundOverlayController.FadeOut();
+        gameOverPanelController.ExitRight();
+        //storeController.ExitRight();
+    }
+
+    public void HandleEndScreenOffAnimationComplete()
+    {
+        if (endScreenExitCallback != null)
         {
-            ShowContinueWithCoinsOption();
+            endScreenExitCallback();
+            endScreenExitCallback = null;
         }
-        else if (this.continueCoinCost > this.recentCoinCount)
+
+    }
+
+    public void ShowEndgameFromStore()
+    {
+        storeController.ExitRight();
+        gameOverPanelController.EnterLeft();
+        //ShowEndGameScreen(true);
+        jitEndScreenController.ShowCoinPanel();
+    }
+
+
+    private IEnumerator ShowEndgameWithPurchase(float time, int numCoins)
+    {
+        storeController.ExitRight();
+        yield return new WaitForSeconds(time);
+        this.gameOverPanelController.ShowWithPurchase(numCoins);
+    }
+
+    //successfully purchased coins
+    public void HandleBuyCoinButtonPressed(int numCoinsPurchased)
+    {
+        if (numCoinsPurchased > 0)
         {
-            ShowBuyCoinOption();
+            StartCoinPurchasedAnimation(numCoinsPurchased);
         }
-        else
-        {
-            ShowContinueWithCoinsOption();
-
-        }
-
-        ShowReplayButtonAfterSeconds(GameModel.timeDelayReplayButton);
     }
 
-    private void ShowCointinueWithAdsOption()
+    public void StartCoinPurchasedAnimation(int numCoins)
     {
-        this.continueAdButton.gameObject.SetActive(true);
-        this.continueCoinPanel.gameObject.SetActive(false);
+       StartCoroutine(ShowEndgameWithPurchase(0.0f, numCoins));
     }
 
-    private void ShowContinueWithCoinsOption()
+    public void HandleRemoveAdsButtonPressed()
     {
-        this.goToStorePanel.SetActive(false);
-        this.continueCoinsButton.interactable = true;
-        this.continueAdButton.gameObject.SetActive(false);
-        this.continueCoinPanel.gameObject.SetActive(true);
-        this.goToStoreButtonAnimator.SetTrigger("Show");
+        storeController.HandleRemoveAdsPurchased();
     }
 
-    private void ShowBuyCoinOption()
+    public void HandlePurchaseErrorReceived()
     {
-        this.goToStorePanel.SetActive(true);
-        this.continueCoinsButton.interactable = false;
-        this.goToStoreButtonAnimator.SetTrigger("Show");
-    }
-
-
-    public void HandleContinueAdButtonPressed()
-    {
-        adController.ShowRewardedAd();
-        GameModel.numAttempts++;
-    }
-
-    public void HandleContinueCoinButtonPressed()
-    {
-        gameController.ContinueGame(this.continueCoinCost);
-        GameModel.numAttempts++;
-
-    }
-
-    public void HandleGetCoinButtonPressed()
-    {
-        storePanel.SetActive(true);
-        gameOverPanel.SetActive(false);
-    }
-
-    public void HandleBuyCoinButtonPressed(int packageId)
-    {
-        IAPManager.PurchasePackage(packageId);
+        Debug.LogError("There was an error while purchasing, sent from the app store!");
     }
 
     public void HandleStartOverButtonPressed()
@@ -144,17 +136,25 @@ public class EndgameScreenController : MonoBehaviour {
         GameModel.numAttempts = 1;
     }
 
-    public void ShowReplayButtonAfterSeconds(float seconds)
+    public void HandleBackButtonPressed()
     {
-        StartCoroutine(ExecuteAfterTime(seconds));
+        ShowEndgameFromStore();
+        //ShowReplayButton(true);
     }
 
-    public IEnumerator ExecuteAfterTime(float time)
+    public void ShowReplayButtonAfterSeconds(float seconds)
     {
-        yield return new WaitForSeconds(time);
+        this.gameOverPanelController.ShowReplayButtonAfterSeconds(seconds);
+    }
 
-        // Code to execute after the delay
-        replayButtonAnimator.SetTrigger("Show");
+    private void ShowReplayButton(bool shouldShowImmediately = false)
+    {
+        this.gameOverPanelController.ShowReplayButton(shouldShowImmediately);
+    }
+
+    public void OnContinueGame()
+    {
+        gameController.ContinueGame();
     }
 
 }

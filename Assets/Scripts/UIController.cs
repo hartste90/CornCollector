@@ -6,7 +6,12 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour {
 
     public GameObject uiView;
+
+    //public Image background;
+    public SpriteRenderer coin;
 	public Text coinCountUILabel;
+
+    public GameObject titleUI;
 
 	// Use this for initialization
 	void Start () 
@@ -16,6 +21,7 @@ public class UIController : MonoBehaviour {
 
 	public void ResetUI()
 	{
+        HideGameUI();
         SetCoinText(0);
     }
 
@@ -24,12 +30,24 @@ public class UIController : MonoBehaviour {
         coinCountUILabel.text = numCoins + "";
 	}
 
-    public void ShowUI()
+    public void ShowGameUI()
     {
-        uiView.SetActive(true);
+        coin.enabled = true;
+        coinCountUILabel.enabled = true;
     }
-    public void HideUI()
+    public void HideGameUI()
     {
-        uiView.SetActive(false);
+        coin.enabled = false;
+        coinCountUILabel.enabled = false;
+    }
+
+    public void ShowTitleUI()
+    {
+        titleUI.SetActive(true);
+    }
+
+    public void HideTitleUI()
+    {
+        titleUI.SetActive(false);
     }
 }

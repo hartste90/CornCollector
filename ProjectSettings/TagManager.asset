@@ -10,6 +10,8 @@ TagManager:
   - Explosion
   - Safe
   - CoinTarget
+  - EndscreenCoin
+  - PurchaseCoin
   layers:
   - Default
   - TransparentFX

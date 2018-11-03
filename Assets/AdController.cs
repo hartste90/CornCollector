@@ -19,6 +19,7 @@ public class AdController : MonoBehaviour
     {
         if (IsReady())
         {
+            GameModel.numAttempts++;
             var options = new ShowOptions { resultCallback = HandleShowResult };
             Advertisement.Show("rewardedVideo", options);
         }
@@ -30,7 +31,7 @@ public class AdController : MonoBehaviour
         {
             case ShowResult.Finished:
                 Debug.Log("The ad was successfully shown.");
-                gameController.HandleContinueFromAd();
+                gameController.ContinueGame();
                 //
                 // YOUR CODE TO REWARD THE GAMER
                 // Give coins etc.
@@ -39,7 +40,7 @@ public class AdController : MonoBehaviour
                 Debug.Log("The ad was skipped before reaching the end.");
                 break;
             case ShowResult.Failed:
-                Debug.LogError("The ad failed to be shown.");
+                Debug.Log("The ad failed to be shown.");
                 break;
         }
     }
