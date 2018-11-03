@@ -37,6 +37,7 @@ public class WrapAroundBehavior : MonoBehaviour {
 	        ghosts[i] = Instantiate(transform, Vector3.zero, Quaternion.identity, GetComponent <PlayerController>().gameController.gameStageParent) as Transform;
 	        ghosts[i].GetComponent<CircleCollider2D>().enabled = false;
 	        ghosts[i].GetComponent<PlayerController>().dropsMines = doGhostsDropMines;
+            ghosts[i].GetComponent<PlayerController>().playerImage.SetActive(true);
             Destroy(ghosts[i].GetComponent<WrapAroundBehavior>());
 	    }
         doGhostsExist = true;

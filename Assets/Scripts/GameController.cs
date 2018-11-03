@@ -118,6 +118,8 @@ public class  GameController : MonoBehaviour
         GameModel.ResetSafes();
         GameModel.numAttempts = 1;
         GameModel.SetGoldCoinCount(0);
+        GameModel.DisableShipInput();
+
 
         //setup private links
         tooltipController = swipeTooltipObject.GetComponent<TooltipController>();
@@ -178,8 +180,6 @@ public class  GameController : MonoBehaviour
         {
             AddSafe();
         }
-
-        GameModel.EnableShipInput();
     }
 
     private int FindNumSafesToCreate()

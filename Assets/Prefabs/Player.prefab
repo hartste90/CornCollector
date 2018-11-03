@@ -75,7 +75,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1324097209040142
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,6 +347,7 @@ MonoBehaviour:
   dropsMines: 1
   playerStartPositionAnchor: {fileID: 0}
   playerDecal: {fileID: 4776203095254450}
+  playerImage: {fileID: 1192484770518798}
   explosionPrefab: {fileID: 1199903913866718, guid: 4e58d5a12017541a7a70c3dd3f8b0db8,
     type: 2}
   playerExplosionPrefab: {fileID: 1199903913866718, guid: d26f4743a8eb64158af657152437de0b,

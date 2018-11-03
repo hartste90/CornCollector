@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 
     public Transform playerDecal;
 
+    public GameObject playerImage;
     public GameObject explosionPrefab;
     public GameObject playerExplosionPrefab;
     public GameObject minePrefab;
@@ -262,6 +263,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnIntroAnimationComplete()
     {
+        GameModel.EnableShipInput();
         GetComponent<WrapAroundBehavior>().CreateGhostShips();
         BeginDropExhaust();
     }
