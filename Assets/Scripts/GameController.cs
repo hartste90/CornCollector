@@ -129,7 +129,6 @@ public class  GameController : MonoBehaviour
         halfwidth = Tools.screenWidth / 2;
         halfheight = Tools.screenHeight / 2;
         uiController.HideGameUI();
-        ShowSwipeTooltip();
         SetupGameStart();
 
     }
@@ -145,7 +144,6 @@ public class  GameController : MonoBehaviour
 
     private void ShowSwipeTooltip()
     {
-        swipeTooltipObject.SetActive(true);
         //enable the tooltip and play its into animation
         tooltipController.Show();
     }
@@ -234,6 +232,7 @@ public class  GameController : MonoBehaviour
     {
         titleScreenController.gameObject.SetActive(true);
         titleScreenController.ShowTitleScreen();
+        ShowSwipeTooltip();
         beginGameplay();
     }
 
