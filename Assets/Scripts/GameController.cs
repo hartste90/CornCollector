@@ -91,7 +91,7 @@ public class  GameController : MonoBehaviour
 	public void TestFunc()
 	{
         PlayerPrefManager.DeleteAll();
-        PlayerPrefManager.SetPinkCount(4);
+        PlayerPrefManager.SetPinkCount(21);
         //PlayerPrefManager.AddPinkCoins(17);
         //currentCoinCount = 900;
         //currentCoinCount = 1000;
