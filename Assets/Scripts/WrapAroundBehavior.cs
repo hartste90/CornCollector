@@ -37,7 +37,6 @@ public class WrapAroundBehavior : MonoBehaviour {
 	        ghosts[i] = Instantiate(transform, Vector3.zero, Quaternion.identity, GetComponent <PlayerController>().gameController.gameStageParent) as Transform;
 	        ghosts[i].GetComponent<CircleCollider2D>().enabled = false;
 	        ghosts[i].GetComponent<PlayerController>().dropsMines = doGhostsDropMines;
-            ghosts[i].GetComponent<TrailLeaver>().dropExhaust = false;
             Destroy(ghosts[i].GetComponent<WrapAroundBehavior>());
 	    }
         doGhostsExist = true;
@@ -86,7 +85,7 @@ public class WrapAroundBehavior : MonoBehaviour {
             if (ghost.position.x < screenWidth/2 && ghost.position.x > -screenWidth/2 & ghost.position.y < screenHeight/2 && ghost.position.y > -screenHeight/2)
             {
                 transform.position = ghost.position;
-                PositionGhostShips();
+                //PositionGhostShips();
                 break;
             }
         }

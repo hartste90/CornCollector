@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public GameObject playerExplosionPrefab;
     public GameObject minePrefab;
     public GameController gameController;
+    public TrailLeaver trailLeaverController;
 
     private CharacterController characterController;
     private Vector2 startSwipePosition;
@@ -262,5 +263,11 @@ public class PlayerController : MonoBehaviour
     public void OnIntroAnimationComplete()
     {
         GetComponent<WrapAroundBehavior>().CreateGhostShips();
+        BeginDropExhaust();
+    }
+
+    public void BeginDropExhaust()
+    {
+        trailLeaverController.isDroppingExhaust = true;
     }
 }
