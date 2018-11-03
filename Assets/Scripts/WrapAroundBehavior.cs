@@ -8,8 +8,10 @@ public class WrapAroundBehavior : MonoBehaviour {
     float screenWidth;
 	float screenHeight;
 	Transform[] ghosts = new Transform[4];
+    private bool doGhostsExist;
 
-	void Start () 
+
+    void Start () 
 	{
 		var cam = Camera.main;
  
@@ -17,17 +19,18 @@ public class WrapAroundBehavior : MonoBehaviour {
 		var screenTopRight = cam.ViewportToWorldPoint(new Vector3(1, 1, transform.position.z));
 		screenWidth = screenTopRight.x - screenBottomLeft.x;
 		screenHeight = screenTopRight.y - screenBottomLeft.y;
-
-        CreateGhostShips();
-		PositionGhostShips ();
-	}
-
+   	}
+    
 	void Update()
 	{
-		SwapShips ();
+        if (doGhostsExist)
+        {
+            SwapShips();
+        }
+		
 	}
 
-	void CreateGhostShips()
+	public void CreateGhostShips()
 	{
 	    for(int i = 0; i < 4; i++)
 	    {
@@ -35,11 +38,13 @@ public class WrapAroundBehavior : MonoBehaviour {
 	        ghosts[i].GetComponent<CircleCollider2D>().enabled = false;
 	        ghosts[i].GetComponent<PlayerController>().dropsMines = doGhostsDropMines;
             ghosts[i].GetComponent<TrailLeaver>().dropExhaust = false;
-            DestroyImmediate(ghosts[i].GetComponent<WrapAroundBehavior>());
+            Destroy(ghosts[i].GetComponent<WrapAroundBehavior>());
 	    }
-	}
+        doGhostsExist = true;
+        PositionGhostShips();
+    }
 
-	void PositionGhostShips()
+    void PositionGhostShips()
 	{
 	    // All ghost positions will be relative to the ships (this) transform,
 	    // so let's star with that.
@@ -94,5 +99,6 @@ public class WrapAroundBehavior : MonoBehaviour {
         {
             Destroy(ghost.gameObject);
         }
+        doGhostsExist = false;
     }
 }

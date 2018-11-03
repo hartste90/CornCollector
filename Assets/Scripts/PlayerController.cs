@@ -258,4 +258,9 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetTrigger("Intro");
     }
+
+    public void OnIntroAnimationComplete()
+    {
+        GetComponent<WrapAroundBehavior>().CreateGhostShips();
+    }
 }
