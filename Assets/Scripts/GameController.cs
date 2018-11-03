@@ -166,6 +166,7 @@ public class  GameController : MonoBehaviour
         playerController = playerObject.GetComponent<PlayerController>();
         playerController.playerStartPositionAnchor = playerStartPositionAnchor;
         playerController.Init(this);
+        playerController.AnimateIntro();
         //create safes for number of coins
         numSafes = GameModel.numSafes;
         //create first safe

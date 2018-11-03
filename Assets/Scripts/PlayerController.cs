@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
         transform.localPosition = playerStartPositionAnchor.localPosition;
     }
 
-    void Start()
+    void Awake()
     {
         //dropsMines = true;
         direction = Vector3.zero;

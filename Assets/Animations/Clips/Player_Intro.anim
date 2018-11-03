@@ -21,27 +21,27 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -836
-        inSlope: 3437.0242
-        outSlope: 3437.0242
-        tangentMode: 0
-        weightedMode: 0
+        value: -3.48
+        inSlope: 0
+        outSlope: 31.299751
+        tangentMode: 1
+        weightedMode: 3
         inWeight: 0.33333334
-        outWeight: 0.07214241
+        outWeight: 0.20159192
       - serializedVersion: 3
         time: 0.5
         value: 0
-        inSlope: -756.8135
-        outSlope: -756.8135
+        inSlope: 0.17270772
+        outSlope: 0.17270772
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.17791998
+        inWeight: 0.08107686
         outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_AnchoredPosition.x
-    path: 
+    attribute: m_AnchoredPosition.y
+    path: PlayerImage
     classID: 224
     script: {fileID: 0}
   m_PPtrCurves: []
@@ -53,8 +53,8 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 0
-      attribute: 1460864421
+      path: 2103411876
+      attribute: 538195251
       script: {fileID: 0}
       typeID: 224
       customType: 28
@@ -86,27 +86,27 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -836
-        inSlope: 3437.0242
-        outSlope: 3437.0242
-        tangentMode: 0
-        weightedMode: 0
+        value: -3.48
+        inSlope: 0
+        outSlope: 31.299751
+        tangentMode: 1
+        weightedMode: 3
         inWeight: 0.33333334
-        outWeight: 0.07214241
+        outWeight: 0.20159192
       - serializedVersion: 3
         time: 0.5
         value: 0
-        inSlope: -756.8135
-        outSlope: -756.8135
+        inSlope: 0.17270772
+        outSlope: 0.17270772
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.17791998
+        inWeight: 0.08107686
         outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_AnchoredPosition.x
-    path: 
+    attribute: m_AnchoredPosition.y
+    path: PlayerImage
     classID: 224
     script: {fileID: 0}
   m_EulerEditorCurves: []
