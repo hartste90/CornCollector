@@ -20,6 +20,6 @@ public class TooltipController : MonoBehaviour {
 
 	public void DisableTooltipObject()
 	{
-        gameObject.SetActive (false);
+        Hide();
 	}
 }
