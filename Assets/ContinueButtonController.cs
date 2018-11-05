@@ -7,6 +7,7 @@ public class ContinueButtonController : MonoBehaviour {
 
     public OptionsPanelController optionsController;
     public ContinueAdController continueAdController;
+    public ContinueFreeController continueFreeController;
     public ContinueCoinController continueCoinController;
     public StoreButtonController storeButtonController;
 
@@ -74,12 +75,23 @@ public class ContinueButtonController : MonoBehaviour {
     {
         continueAdController.Show();
         continueCoinController.Hide();
+        continueFreeController.Hide();
         continueButtonCallback = HandleContinueAd;
     }
+
+    public void ShowAsFree()
+    {
+        continueAdController.Hide();
+        continueCoinController.Hide();
+        continueFreeController.Show();
+        continueButtonCallback = HandleContinueFree;
+    }
+
     public void ShowAsCoin()
     {
         continueAdController.Hide();
         continueCoinController.Show();
+        continueFreeController.Hide();
         continueButtonCallback = HandleContinueCoinButtonPressed;
     }
 
@@ -90,13 +102,18 @@ public class ContinueButtonController : MonoBehaviour {
         Debug.Log("Continueing as ad");
     }
 
+    public void HandleContinueFree()
+    {
+        GameModel.numAttempts++;
+        optionsController.OnContinueGame();
+    }
+
     public void HandleContinueCoinButtonPressed()
     {
         //if have enough coins already, take away coins and continue game
         if (PlayerPrefManager.GetPinkCount() >= continueCoinController.GetCoinCost())
         {
             PlayerPrefManager.SubtractPinkCoins( continueCoinController.GetCoinCost());
-            Debug.Log("New pink coin count: " + PlayerPrefManager.GetPinkCount());
             GameModel.numAttempts++;
             optionsController.OnContinueGame();
         }

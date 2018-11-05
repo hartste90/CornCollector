@@ -11,10 +11,12 @@ public class PlayerController : MonoBehaviour
 
     public Transform playerDecal;
 
+    public GameObject playerImage;
     public GameObject explosionPrefab;
     public GameObject playerExplosionPrefab;
     public GameObject minePrefab;
     public GameController gameController;
+    public TrailLeaver trailLeaverController;
 
     private CharacterController characterController;
     private Vector2 startSwipePosition;
@@ -31,7 +33,7 @@ public class PlayerController : MonoBehaviour
         transform.localPosition = playerStartPositionAnchor.localPosition;
     }
 
-    void Start()
+    void Awake()
     {
         //dropsMines = true;
         direction = Vector3.zero;
@@ -252,5 +254,22 @@ public class PlayerController : MonoBehaviour
                 OnHitMine();
                 break;
         }
+    }
+
+    public void AnimateIntro()
+    {
+        animator.SetTrigger("Intro");
+    }
+
+    public void OnIntroAnimationComplete()
+    {
+        GameModel.EnableShipInput();
+        GetComponent<WrapAroundBehavior>().CreateGhostShips();
+        BeginDropExhaust();
+    }
+
+    public void BeginDropExhaust()
+    {
+        trailLeaverController.isDroppingExhaust = true;
     }
 }

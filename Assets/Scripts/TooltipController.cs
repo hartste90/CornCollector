@@ -3,6 +3,7 @@
 public class TooltipController : MonoBehaviour {
 
 	public Animator animator;
+    private bool tooltipIsVisible = false;
 	void Start () 
     {
 		animator = GetComponent<Animator>();
@@ -10,16 +11,26 @@ public class TooltipController : MonoBehaviour {
 
 	public void Show()
 	{
-        animator.SetTrigger("show");
+        if (!tooltipIsVisible)
+        {
+            animator.SetTrigger("show");
+            tooltipIsVisible = true;
+        }
+
 	}
 
 	public void Hide()
-	{
-       animator.SetTrigger ("hide");
+    {
+        if (tooltipIsVisible)
+        {
+            animator.SetTrigger("hide");
+            tooltipIsVisible = false;
+        }
+       
 	}
 
 	public void DisableTooltipObject()
 	{
-        gameObject.SetActive (false);
+        Hide();
 	}
 }

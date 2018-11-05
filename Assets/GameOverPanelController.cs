@@ -80,11 +80,6 @@ public class GameOverPanelController : MonoBehaviour
         this.optionsPanelController.ShowContinueWithCoinsSmall(shouldShowImmediately);
     }
 
-    public void ShowContinueWithAdsOption()
-    {
-        this.optionsPanelController.ShowContinueWithAdsOption();
-    }
-
     public void ShowReplayButton(bool shouldShowImmediately = false)
     {
         this.optionsPanelController.ShowReplayButton(shouldShowImmediately);

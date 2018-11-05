@@ -12,6 +12,8 @@ public class OptionsPanelController : MonoBehaviour {
     public RateGameController rateGameController;
     public ReplayPanelController replayPanelController;
     public AdController adController;
+    public ContinueCelebrationController celebrationController;
+
 
 
     public void Populate(int continueCoinCostSet)
@@ -63,6 +65,12 @@ public class OptionsPanelController : MonoBehaviour {
     public void ShowContinueWithAdsOption()
     {
         continueButtonController.ShowAsAd();
+        this.continueButtonController.Show();
+    }
+
+    public void ShowContinueWithFreeOption()
+    {
+        continueButtonController.ShowAsFree();
         this.continueButtonController.Show();
     }
 
@@ -126,7 +134,15 @@ public class OptionsPanelController : MonoBehaviour {
             storeButtonController.Show();
             if (adController.IsReady())
             {
-                ShowContinueWithAdsOption();
+                if (GameModel.GetNoAds() == true)
+                {
+                    celebrationController.Celebrate();
+                    ShowContinueWithFreeOption();
+                }
+                else
+                {
+                    ShowContinueWithAdsOption();
+                }
             }
             else
             {

@@ -91,7 +91,7 @@ public class  GameController : MonoBehaviour
 	public void TestFunc()
 	{
         PlayerPrefManager.DeleteAll();
-        PlayerPrefManager.SetPinkCount(4);
+        PlayerPrefManager.SetPinkCount(21);
         //PlayerPrefManager.AddPinkCoins(17);
         //currentCoinCount = 900;
         //currentCoinCount = 1000;
@@ -118,6 +118,8 @@ public class  GameController : MonoBehaviour
         GameModel.ResetSafes();
         GameModel.numAttempts = 1;
         GameModel.SetGoldCoinCount(0);
+        GameModel.DisableShipInput();
+
 
         //setup private links
         tooltipController = swipeTooltipObject.GetComponent<TooltipController>();
@@ -129,7 +131,6 @@ public class  GameController : MonoBehaviour
         halfwidth = Tools.screenWidth / 2;
         halfheight = Tools.screenHeight / 2;
         uiController.HideGameUI();
-        ShowSwipeTooltip();
         SetupGameStart();
 
     }
@@ -145,7 +146,6 @@ public class  GameController : MonoBehaviour
 
     private void ShowSwipeTooltip()
     {
-        swipeTooltipObject.SetActive(true);
         //enable the tooltip and play its into animation
         tooltipController.Show();
     }
@@ -166,6 +166,7 @@ public class  GameController : MonoBehaviour
         playerController = playerObject.GetComponent<PlayerController>();
         playerController.playerStartPositionAnchor = playerStartPositionAnchor;
         playerController.Init(this);
+        playerController.AnimateIntro();
         //create safes for number of coins
         numSafes = GameModel.numSafes;
         //create first safe
@@ -179,8 +180,6 @@ public class  GameController : MonoBehaviour
         {
             AddSafe();
         }
-
-        GameModel.EnableShipInput();
     }
 
     private int FindNumSafesToCreate()
@@ -233,6 +232,7 @@ public class  GameController : MonoBehaviour
     {
         titleScreenController.gameObject.SetActive(true);
         titleScreenController.ShowTitleScreen();
+        ShowSwipeTooltip();
         beginGameplay();
     }
 
@@ -340,6 +340,7 @@ public class  GameController : MonoBehaviour
         {
             Destroy(coinList[i].gameObject);
         }
+        coinList = new List<GameObject>();
         //destroy mines
         for (int i = mineList.Count-1; i >= 0; i-- )
         {

@@ -6,7 +6,7 @@ public class TrailLeaver : MonoBehaviour {
 
 
     public float exhaustFrequency = .1f;
-    public bool dropExhaust;
+    public bool isDroppingExhaust;
     public GameObject exhaustPrefab;
 
     private float lastExhaustTime;
@@ -20,7 +20,7 @@ public class TrailLeaver : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (dropExhaust)
+        if (isDroppingExhaust)
         {
             CheckExhaust();
         }
@@ -35,9 +35,9 @@ public class TrailLeaver : MonoBehaviour {
         }
     }
 
-    private void DropExhaust()
+    public void DropExhaust()
     {
-        GameObject exhaust = Instantiate(exhaustPrefab, transform.parent);
-        exhaust.transform.localPosition = transform.localPosition;
+        GameObject exhaust = Instantiate(exhaustPrefab, transform.parent.parent);
+        exhaust.transform.localPosition = transform.parent.transform.localPosition;
     }
 }

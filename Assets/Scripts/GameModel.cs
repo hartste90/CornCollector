@@ -9,6 +9,8 @@
     private static int goldCoinCount;
     private static bool allowSwiping;
 
+    private static bool purchasedNoAds;
+
     //gold coin functions
     public static int GetGoldCoinCount()
     {
@@ -52,6 +54,16 @@
     public static void ResetSafes()
     {
         numSafes = 1;
+    }
+
+    public static bool GetNoAds()
+    {
+        return purchasedNoAds;
+    }
+
+    public static void SetNoAds(bool hasPurchasedAds)
+    {
+        purchasedNoAds = hasPurchasedAds;
     }
 
 
