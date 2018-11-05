@@ -340,6 +340,7 @@ public class  GameController : MonoBehaviour
         {
             Destroy(coinList[i].gameObject);
         }
+        coinList = new List<GameObject>();
         //destroy mines
         for (int i = mineList.Count-1; i >= 0; i-- )
         {

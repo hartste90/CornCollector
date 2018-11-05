@@ -75,6 +75,7 @@ public class ContinueButtonController : MonoBehaviour {
     {
         continueAdController.Show();
         continueCoinController.Hide();
+        continueFreeController.Hide();
         continueButtonCallback = HandleContinueAd;
     }
 
@@ -90,6 +91,7 @@ public class ContinueButtonController : MonoBehaviour {
     {
         continueAdController.Hide();
         continueCoinController.Show();
+        continueFreeController.Hide();
         continueButtonCallback = HandleContinueCoinButtonPressed;
     }
 
