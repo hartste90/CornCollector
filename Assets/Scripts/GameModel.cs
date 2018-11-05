@@ -9,7 +9,7 @@
     private static int goldCoinCount;
     private static bool allowSwiping;
 
-    private static bool purchasedNoAds = true;  //TODO: set to false for production
+    private static bool purchasedNoAds;
 
     //gold coin functions
     public static int GetGoldCoinCount()
