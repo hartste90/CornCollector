@@ -37,6 +37,7 @@ public class IAPManager : MonoBehaviour
         {
             message = "You will no longer see any ads!";
             purchaseConfirmationPanelController.ShowPurchaseSuccess(message);
+            GameModel.SetNoAds(true);
         }
         else
         {

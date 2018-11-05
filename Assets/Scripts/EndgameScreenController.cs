@@ -21,7 +21,6 @@ public class EndgameScreenController : MonoBehaviour {
     public HelptextPanelController helpTextController;
     public JITEndscreenController jitEndScreenController;
     public StorePanelController storeController;
-    public ContinueCelebrationController celebrationController;
 
     public delegate void EndScreenExitCallback();
     public EndScreenExitCallback endScreenExitCallback;

@@ -69,6 +69,7 @@
     <Compile Include="Assets\ContinueButtonController.cs" />
     <Compile Include="Assets\ContinueCelebrationController.cs" />
     <Compile Include="Assets\ContinueCoinController.cs" />
+    <Compile Include="Assets\ContinueFreeController.cs" />
     <Compile Include="Assets\ContinuePanelController.cs" />
     <Compile Include="Assets\CreditsController.cs" />
     <Compile Include="Assets\FeedbackController.cs" />
