@@ -35,6 +35,7 @@ public class  GameController : MonoBehaviour
     public BackgroundMusicController backgroundMusicController;
     public SoundEffectsController soundEffectsController;
     public JITEndscreenController jITEndscreenController;
+    public InterstitialController interstitialController;
     public IAPManager iAPManager;
     //private links
     private TimeController timeController;
@@ -223,9 +224,20 @@ public class  GameController : MonoBehaviour
         uiController.ResetUI();
         jITEndscreenController.HideCoinPanel(true);
         GameModel.numSafes = 1;
-        endgameScreenController.endScreenExitCallback = SetupGameStart;
+        endgameScreenController.endScreenExitCallback = ShowInterstitial;
         endgameScreenController.Hide();
 
+    }
+
+    public void ShowInterstitial()
+    {
+        interstitialController.completeCallback = InterstitialCompleteCallback;
+        interstitialController.ShowRandomTip();
+    }
+
+    public void InterstitialCompleteCallback()
+    {
+        SetupGameStart();
     }
 
     public void SetupGameStart()

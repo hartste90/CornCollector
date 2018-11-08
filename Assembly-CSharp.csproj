@@ -75,6 +75,7 @@
     <Compile Include="Assets\FeedbackController.cs" />
     <Compile Include="Assets\GameOverPanelController.cs" />
     <Compile Include="Assets\HelptextPanelController.cs" />
+    <Compile Include="Assets\InterstitialController.cs" />
     <Compile Include="Assets\JITEndscreenController.cs" />
     <Compile Include="Assets\JITSafePanelController.cs" />
     <Compile Include="Assets\JITStorePanelController.cs" />

@@ -148,7 +148,7 @@ public class GameOverPanelController : MonoBehaviour
 
         if (goldForRound <= 20)
         {
-            jitEndScreenController.ShowSafePanel();
+            //jitEndScreenController.ShowSafePanel();
         }
         else
         {
