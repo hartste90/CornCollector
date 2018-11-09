@@ -87,7 +87,7 @@ public class InterstitialController : MonoBehaviour {
     {
         //TODO: mark this tip as hidden (won't be shown in random tips)
         hiddenTipList.Add(currentTip);
-        tipList.Remove(currentTip);
+        shownTipList.Remove(currentTip);
         Hide();
     }
 
