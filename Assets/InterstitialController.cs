@@ -85,10 +85,14 @@ public class InterstitialController : MonoBehaviour {
 
     public void HandleInterstitialDontShowAgainButtonPressed()
     {
-        //TODO: mark this tip as hidden (won't be shown in random tips)
-        hiddenTipList.Add(currentTip);
-        shownTipList.Remove(currentTip);
+        DisableTip(currentTip);
         Hide();
+    }
+
+    private void DisableTip(JITSafePanelController tip)
+    {
+        hiddenTipList.Add(tip);
+        shownTipList.Remove(tip);
     }
 
     public void OnHideAnimationComplete()
@@ -96,5 +100,21 @@ public class InterstitialController : MonoBehaviour {
         currentTip.Hide();
         currentTip = null;
         completeCallback();
+    }
+
+    public void DisableAllTips()
+    {
+        //hide all tips in tiplist
+        while(tipList.Count > 0)
+        {
+            hiddenTipList.Add(tipList[0]);
+            tipList.RemoveAt(0);
+        }
+        //hide all tips in shownTipList 
+        while (shownTipList.Count > 0)
+        {
+            hiddenTipList.Add(shownTipList[0]);
+            shownTipList.RemoveAt(0);
+        }
     }
 }
