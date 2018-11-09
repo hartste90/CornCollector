@@ -21577,8 +21577,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a33af58677de41f9b4ea7602afa77d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  safeTipController: {fileID: 757718458}
-  wraparoundTipController: {fileID: 664432727}
+  tipList:
+  - {fileID: 757718458}
+  - {fileID: 664432727}
 --- !u!222 &1670020090
 CanvasRenderer:
   m_ObjectHideFlags: 0

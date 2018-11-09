@@ -232,7 +232,7 @@ public class  GameController : MonoBehaviour
     public void ShowInterstitial()
     {
         interstitialController.completeCallback = InterstitialCompleteCallback;
-        interstitialController.ShowRandomTip();
+        interstitialController.ShowTip();
     }
 
     public void InterstitialCompleteCallback()
