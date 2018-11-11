@@ -68,7 +68,7 @@ public class EndgameScreenController : MonoBehaviour {
     {
         storeController.EnterRight();
         gameOverPanelController.ExitLeft();
-        helpTextController.ShowHelpText();
+        //helpTextController.ShowHelpText();
         jitEndScreenController.HideCoinPanel(true);
     }
 
@@ -93,8 +93,6 @@ public class EndgameScreenController : MonoBehaviour {
     {
         storeController.ExitRight();
         gameOverPanelController.EnterLeft();
-        //ShowEndGameScreen(true);
-        jitEndScreenController.ShowCoinPanel();
     }
 
 
