@@ -176,7 +176,7 @@ public class  GameController : MonoBehaviour
         safeList.Add(safeObject);
         safeObject.GetComponent<Animator>().SetTrigger("ShowImmediate");
         safeObject.GetComponent<SafeController>().collider.enabled = true;
-        safeObject.GetComponent<SafeController>().Init(this);
+        safeObject.GetComponent<SafeController>().Init(this, numCoinsInSafe);
         for (int i = 1; i < numSafes; i++)
         {
             AddSafe();
@@ -304,6 +304,10 @@ public class  GameController : MonoBehaviour
 
 	public void HandleSafeDestroyed(int numCoins, Transform safeLocation)
 	{
+        if (GameModel.canCollectCoins == true) 
+        {
+            playerController.ShowCoinCollectUpdate(numCoins);
+        }
 		//spawn multiple coins	
         numCoins = numCoinsInSafe;	
 		for (int i = 0; i < numCoins; i++)
@@ -340,7 +344,7 @@ public class  GameController : MonoBehaviour
         //Debug.Log("Adding safe");
         GameObject safe = SpawnGameObjectAtRandomPosition(safePrefab);
         safeList.Add(safe);
-        safe.GetComponent<SafeController>().Init(this);
+        safe.GetComponent<SafeController>().Init(this, numCoinsInSafe);
 
 	} 
 

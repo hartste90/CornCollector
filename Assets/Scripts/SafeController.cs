@@ -29,7 +29,7 @@ public class SafeController : MonoBehaviour {
         }
     }
 
-    public void Init (GameController gameController, int startingHealth = 1, int coinValue = 1)
+    public void Init (GameController gameController, int coinValue = 1)
 	{
         this.startingHealth = startingHealth;
         this.coinValue = coinValue;
