@@ -35,6 +35,7 @@ public class  GameController : MonoBehaviour
     public BackgroundMusicController backgroundMusicController;
     public SoundEffectsController soundEffectsController;
     public JITEndscreenController jITEndscreenController;
+    public InterstitialController interstitialController;
     public IAPManager iAPManager;
     //private links
     private TimeController timeController;
@@ -175,7 +176,7 @@ public class  GameController : MonoBehaviour
         safeList.Add(safeObject);
         safeObject.GetComponent<Animator>().SetTrigger("ShowImmediate");
         safeObject.GetComponent<SafeController>().collider.enabled = true;
-        safeObject.GetComponent<SafeController>().Init(this);
+        safeObject.GetComponent<SafeController>().Init(this, numCoinsInSafe);
         for (int i = 1; i < numSafes; i++)
         {
             AddSafe();
@@ -223,9 +224,20 @@ public class  GameController : MonoBehaviour
         uiController.ResetUI();
         jITEndscreenController.HideCoinPanel(true);
         GameModel.numSafes = 1;
-        endgameScreenController.endScreenExitCallback = SetupGameStart;
+        endgameScreenController.endScreenExitCallback = ShowInterstitial;
         endgameScreenController.Hide();
 
+    }
+
+    public void ShowInterstitial()
+    {
+        interstitialController.completeCallback = InterstitialCompleteCallback;
+        interstitialController.ShowTip();
+    }
+
+    public void InterstitialCompleteCallback()
+    {
+        SetupGameStart();
     }
 
     public void SetupGameStart()
@@ -292,6 +304,10 @@ public class  GameController : MonoBehaviour
 
 	public void HandleSafeDestroyed(int numCoins, Transform safeLocation)
 	{
+        if (GameModel.canCollectCoins == true) 
+        {
+            playerController.ShowCoinCollectUpdate(numCoins);
+        }
 		//spawn multiple coins	
         numCoins = numCoinsInSafe;	
 		for (int i = 0; i < numCoins; i++)
@@ -316,8 +332,10 @@ public class  GameController : MonoBehaviour
             int shouldHave = FindNumSafesToCreate();
             if (safeList.Count < shouldHave)
             {
+                //levelup
                 AddSafe();
                 GameModel.AddSafe();
+                userLevel++;
             }
         }
 
@@ -328,7 +346,7 @@ public class  GameController : MonoBehaviour
         //Debug.Log("Adding safe");
         GameObject safe = SpawnGameObjectAtRandomPosition(safePrefab);
         safeList.Add(safe);
-        safe.GetComponent<SafeController>().Init(this);
+        safe.GetComponent<SafeController>().Init(this, numCoinsInSafe);
 
 	} 
 

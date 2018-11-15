@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public GameObject minePrefab;
     public GameController gameController;
     public TrailLeaver trailLeaverController;
+    public  PointsUpdateTextController pointsUpdateTextController;
 
     private CharacterController characterController;
     private Vector2 startSwipePosition;
@@ -271,5 +272,10 @@ public class PlayerController : MonoBehaviour
     public void BeginDropExhaust()
     {
         trailLeaverController.isDroppingExhaust = true;
+    }
+
+    public void ShowCoinCollectUpdate(int amount)
+    {
+        pointsUpdateTextController.Show(amount);
     }
 }
