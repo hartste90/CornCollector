@@ -332,8 +332,10 @@ public class  GameController : MonoBehaviour
             int shouldHave = FindNumSafesToCreate();
             if (safeList.Count < shouldHave)
             {
+                //levelup
                 AddSafe();
                 GameModel.AddSafe();
+                userLevel++;
             }
         }
 
