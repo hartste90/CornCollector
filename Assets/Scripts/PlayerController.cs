@@ -28,11 +28,15 @@ public class PlayerController : MonoBehaviour
 
     private bool isMoving = false;
 
+    private bool isInvincible = false;
+
+
     public void Init(GameController controller)
     {
         this.gameController = controller;
         transform.localPosition = playerStartPositionAnchor.localPosition;
     }
+
 
     void Awake()
     {
@@ -212,12 +216,17 @@ public class PlayerController : MonoBehaviour
         playerExplosion1.transform.localPosition = transform.localPosition;
 		playerExplosion2.transform.localPosition = transform.localPosition;
 		playerExplosion2.transform.Rotate (0,0,45);
-		//CreatePhysicalExplosion ();
+        //CreatePhysicalExplosion ();
 
-		gameController.HandlePlayerDestroyed();
+        DestroySelf();
+        gameController.HandlePlayerDestroyed();
+	}
+
+    public void DestroySelf()
+    {
         GetComponent<WrapAroundBehavior>().DestroyAllGhosts();
         Destroy(gameObject);
-	}
+    }
 
 	//public void CreatePhysicalExplosion()
 	//{
@@ -240,8 +249,25 @@ public class PlayerController : MonoBehaviour
     //    body.AddForce(dir.normalized * explosionForce * wearoff);
     //}
 
+    public void SetInvincible(bool setInvincible)
+    {
+        this.isInvincible = setInvincible;
+        if (this.isInvincible)
+        {
+            GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+        }
+        else
+        {
+            GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        }
+    }
+
+
     public void OnCollisionEnter2D(Collision2D collision)
     {
+        if (this.isInvincible){
+            return;
+        }
         switch (collision.gameObject.tag)
         {
             case "Mine":

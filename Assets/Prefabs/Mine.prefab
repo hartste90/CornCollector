@@ -354,10 +354,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionPrefab: {fileID: 1199903913866718, guid: 4e58d5a12017541a7a70c3dd3f8b0db8,
     type: 2}
-  countDownLabel: {fileID: 114749226001629402}
-  countDownNumber: 2
-  mineAnimator: {fileID: 95642781311513064}
-  countdownAnimator: {fileID: 95101325511564808}
+  gameController: {fileID: 0}
+  explosionPuffPrefab: {fileID: 1474687329819364, guid: 1afc6c475d874415bb44a94d6915cdb8,
+    type: 2}
+  explosionPuffObjectList: []
+  explosionStrength: 150
 --- !u!114 &114749226001629402
 MonoBehaviour:
   m_ObjectHideFlags: 1
