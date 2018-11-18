@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TitleScreenController : MonoBehaviour {
 
@@ -8,6 +9,7 @@ public class TitleScreenController : MonoBehaviour {
     public Transform mineParent;
     public GameObject gameName;
     public GameObject titleScreenUI;
+    public CurrentLevelPanelController currentLevelPanelController;
 
     private GameObject mine;
 
@@ -22,6 +24,7 @@ public class TitleScreenController : MonoBehaviour {
         mine.SetActive(false);
         gameName.SetActive(true);
         titleScreenUI.SetActive(true);
+        currentLevelPanelController.Show(GameModel.userLevel);
     }
 
     public void HideTitleScreen()
@@ -29,5 +32,6 @@ public class TitleScreenController : MonoBehaviour {
         mine.SetActive(false);
         gameName.SetActive(false);
         titleScreenUI.SetActive(false);
+        currentLevelPanelController.Hide();
     }
 }
