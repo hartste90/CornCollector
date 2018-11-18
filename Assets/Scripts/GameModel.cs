@@ -5,6 +5,8 @@
     public static bool canCollectCoins;
     public static int numAttempts;
     public static int numSafes;
+    public static int userLevel;
+    public static bool shouldReplaceSafes;
 
     private static int goldCoinCount;
     private static bool allowSwiping;

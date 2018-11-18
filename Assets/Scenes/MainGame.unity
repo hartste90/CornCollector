@@ -3068,7 +3068,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.07, y: 0.43800002}
   m_AnchorMax: {x: 0.93, y: 1}
-  m_AnchoredPosition: {x: 518, y: 640.001}
+  m_AnchoredPosition: {x: 518, y: 640.0012}
   m_SizeDelta: {x: -999.6, y: -735.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &184186030
@@ -4937,7 +4937,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isVerbose: 0
   delayBeforeEndGameScreenAppears: 0.7
-  userLevel: 1
   numSafes: 1
   minimumSwipeDistance: 0
   gameSpeed: 2.5
@@ -4962,6 +4961,7 @@ MonoBehaviour:
   soundEffectsController: {fileID: 929975015}
   jITEndscreenController: {fileID: 1668514616}
   interstitialController: {fileID: 1670020089}
+  levelUpPanelController: {fileID: 564845003}
   iAPManager: {fileID: 731366329}
   lastTimePlayerWatchedVideo: -3000
   coinList: []
@@ -8667,13 +8667,14 @@ GameObject:
   - component: {fileID: 564845002}
   - component: {fileID: 564845001}
   - component: {fileID: 564845003}
+  - component: {fileID: 564845004}
   m_Layer: 0
   m_Name: Level Up Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &564845000
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8685,13 +8686,14 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1552241772}
+  - {fileID: 2013739673}
   m_Father: {fileID: 400534355}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 549}
+  m_SizeDelta: {x: 0, y: -2418}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &564845001
 MonoBehaviour:
@@ -8735,9 +8737,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 564844999}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3476343eb502842869c5ec3fbec232aa, type: 3}
+  m_Script: {fileID: 11500000, guid: e58c8a411e1be4c82bdfee3ef3f9d6c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelText: {fileID: 2013739674}
+--- !u!95 &564845004
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 564844999}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c34d52a1fc3784fb9bbe35a18a17ec34, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &568933433
 GameObject:
   m_ObjectHideFlags: 0
@@ -15531,7 +15552,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.4, y: 0.01}
-  m_AnchoredPosition: {x: 789, y: 622.0007}
+  m_AnchoredPosition: {x: 789, y: 622.0008}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &986204411
@@ -18541,7 +18562,7 @@ MonoBehaviour:
     m_FontStyle: 2
     m_BestFit: 1
     m_MinSize: 10
-    m_MaxSize: 62
+    m_MaxSize: 264
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -23755,9 +23776,8 @@ GameObject:
   - component: {fileID: 1552241772}
   - component: {fileID: 1552241775}
   - component: {fileID: 1552241774}
-  - component: {fileID: 1552241773}
   m_Layer: 0
-  m_Name: Text
+  m_Name: Level Up Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23776,29 +23796,11 @@ RectTransform:
   m_Father: {fileID: 564845000}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1243}
-  m_SizeDelta: {x: 1094.8, y: 205.3}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -93.599976}
+  m_SizeDelta: {x: 0, y: -187.3}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!95 &1552241773
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1552241771}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5d77b698abb4e49478e8273916bd5736, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &1552241774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23825,13 +23827,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 106
-    m_Alignment: 4
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Level up!
+  m_Text: '- Level up -'
 --- !u!222 &1552241775
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -26628,7 +26630,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.4, y: 0.01}
-  m_AnchoredPosition: {x: 0, y: 622.0007}
+  m_AnchoredPosition: {x: 0, y: 622.0008}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1815758858
@@ -30988,6 +30990,81 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
+--- !u!1 &2013739672
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2013739673}
+  - component: {fileID: 2013739675}
+  - component: {fileID: 2013739674}
+  m_Layer: 0
+  m_Name: Level Number Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2013739673
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2013739672}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.99935985, y: 0.99935985, z: 0.99935985}
+  m_Children: []
+  m_Father: {fileID: 564845000}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -93.599976}
+  m_SizeDelta: {x: 0, y: -187.3}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2013739674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2013739672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: e4e640557159a416e9ead53232d08705, type: 3}
+    m_FontSize: 80
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 106
+    m_Alignment: 7
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Level 88
+--- !u!222 &2013739675
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2013739672}
+  m_CullTransparentMesh: 0
 --- !u!1001 &2019542104
 Prefab:
   m_ObjectHideFlags: 0

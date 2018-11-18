@@ -10,7 +10,6 @@ public class  GameController : MonoBehaviour
     public static bool verbose = true;
     //magic numbers
     public float delayBeforeEndGameScreenAppears = .7f;
-    public int userLevel = 1;
     public int numSafes = 1;
     public float minimumSwipeDistance = 0f;
     public float gameSpeed = 2.5f;
@@ -36,6 +35,7 @@ public class  GameController : MonoBehaviour
     public SoundEffectsController soundEffectsController;
     public JITEndscreenController jITEndscreenController;
     public InterstitialController interstitialController;
+    public LevelUpPanelController levelUpPanelController;
     public IAPManager iAPManager;
     //private links
     private TimeController timeController;
@@ -62,7 +62,7 @@ public class  GameController : MonoBehaviour
     //tracking
     public float lastTimePlayerWatchedVideo = -3000f;
 	public List<GameObject> coinList;
-	public List<GameObject> mineList;
+    public List<MineController> mineList;
     public List<GameObject> safeList;
     public List<GameObject> explosionPuffList;
     public int currentCoinCount = 0;
@@ -83,7 +83,7 @@ public class  GameController : MonoBehaviour
 		Tools.screenHeight = Screen.height;
         //instantiate lists
         coinList = new List<GameObject>();
-        mineList = new List<GameObject>();
+        mineList = new List<MineController>();
         safeList = new List<GameObject>();
         explosionPuffList = new List<GameObject>();
     }
@@ -118,6 +118,7 @@ public class  GameController : MonoBehaviour
         }
         GameModel.ResetSafes();
         GameModel.numAttempts = 1;
+        GameModel.userLevel = 1;
         GameModel.SetGoldCoinCount(0);
         GameModel.DisableShipInput();
 
@@ -162,6 +163,7 @@ public class  GameController : MonoBehaviour
     public void beginGameplay()
 	{
         GameModel.canCollectCoins = true;
+        GameModel.shouldReplaceSafes = true;
         //create player
 		playerObject = Instantiate (playerPrefab, gameStageParent);
         playerController = playerObject.GetComponent<PlayerController>();
@@ -169,7 +171,7 @@ public class  GameController : MonoBehaviour
         playerController.Init(this);
         playerController.AnimateIntro();
         //create safes for number of coins
-        numSafes = GameModel.numSafes;
+        numSafes = GameModel.userLevel;
         //create first safe
         GameObject safeObject = Instantiate(safePrefab, gameStageParent);
         safeObject.transform.localPosition = safeStartPositionAnchor.localPosition;
@@ -224,9 +226,20 @@ public class  GameController : MonoBehaviour
         uiController.ResetUI();
         jITEndscreenController.HideCoinPanel(true);
         GameModel.numSafes = 1;
+        GameModel.userLevel = 1;
         endgameScreenController.endScreenExitCallback = ShowInterstitial;
         endgameScreenController.Hide();
 
+    }
+
+    public void SetupForLevelStart()
+    {
+        Time.timeScale = 1.0f;
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        DestroyAllItemsOnscreen();
+        playerController.DestroySelf();
+        uiController.HideGameUI();
+        SetupGameStart();
     }
 
     public void ShowInterstitial()
@@ -288,8 +301,9 @@ public class  GameController : MonoBehaviour
         }
         else if (gameObject == minePrefab)
         {
-            mineList.Add(obj);
-            obj.GetComponent<MineController>().gameController = this;
+            MineController mc = obj.GetComponent<MineController>();
+            mineList.Add(mc);
+            mc.gameController = this;
         }
         return obj;
     }
@@ -314,7 +328,11 @@ public class  GameController : MonoBehaviour
         {
             SpawnGameObjectAtPosition (coinPrefab, safeLocation.localPosition);
         }
-		AddSafe();
+        if (GameModel.shouldReplaceSafes)
+        {
+            AddSafe();
+        }
+		
 	}
 	
 
@@ -333,15 +351,79 @@ public class  GameController : MonoBehaviour
             if (safeList.Count < shouldHave)
             {
                 //levelup
-                AddSafe();
-                GameModel.AddSafe();
-                userLevel++;
+                this.LevelUp();
             }
         }
 
     }
 
-	public void AddSafe()
+    private void LevelUp()
+    {
+        Debug.Log("Levelup");
+        if (GameModel.shouldReplaceSafes == false) { return; }
+        //turn off input
+        GameModel.DisableShipInput();
+        //detonate all mines (making sure explosions are created)
+        for (int i = this.mineList.Count - 1; i >= 0; i--)
+        {
+            mineList[i].MineExplode();
+            //mineList[i].MineExplode();
+        }
+        //disable collider on player
+        playerController.SetInvincible(true);
+        //detonate all safes
+        GameModel.shouldReplaceSafes = false;
+        for (int i = this.safeList.Count - 1; i >= 0; i--)
+        {
+            safeList[i].GetComponent<SafeController>().HandleHitByExplosion();
+        }
+        //create explosive force
+        for (int i = 0; i < explosionPuffList.Count; i++)
+        {
+            AddExplosionForce2D(explosionPuffList[i].GetComponent<Rigidbody2D>(), 500f, playerObject.transform.position, 10000f);
+        }
+        //slow time
+        timeController.SlowTime();
+        //show levelup copy
+        GameModel.userLevel++;
+        levelUpPanelController.panelCompleteAnimationCallback = handleLevelupPanelAnimationComplete;
+        levelUpPanelController.Show(GameModel.userLevel);
+        //Debug.Break();
+
+        //AddSafe();
+        //GameModel.AddSafe();
+
+    }
+
+    public void handleLevelupPanelAnimationComplete()
+    {
+        SetupForLevelStart();
+
+    }
+
+    public void CreatePhysicalExplosion()
+    {
+        Vector3 explosionPos = playerObject.transform.position;
+        Collider[] colliders = Physics.OverlapSphere(explosionPos, 10000000f);
+        Debug.Log(colliders.Length);
+        foreach (Collider hit in colliders)
+        {
+            Rigidbody2D rb = hit.GetComponent<Rigidbody2D>();
+
+            if (rb != null)
+                AddExplosionForce2D( rb, 10f, explosionPos, 100f);
+        }
+    }
+
+    public void AddExplosionForce2D(Rigidbody2D body, float explosionForce, Vector3 explosionPosition, float explosionRadius)
+    {
+        Vector3 dir = (body.transform.position - explosionPosition);
+        float wearoff = 1 - (dir.magnitude / explosionRadius);
+        Vector3 force = dir.normalized * explosionForce * wearoff;
+        body.AddForce(force);
+    }
+
+    public void AddSafe()
 	{
         //Debug.Log("Adding safe");
         GameObject safe = SpawnGameObjectAtRandomPosition(safePrefab);
@@ -362,7 +444,7 @@ public class  GameController : MonoBehaviour
         //destroy mines
         for (int i = mineList.Count-1; i >= 0; i-- )
         {
-            mineList[i].GetComponent<MineController>().DestroySelf(true);
+            mineList[i].DestroySelf(true);
         }
         //destrxy safes
         for (int i = safeList.Count - 1; i >= 0; i--)
@@ -384,7 +466,7 @@ public class  GameController : MonoBehaviour
         GameModel.DisableShipInput();
         GameModel.canCollectCoins = false;
         StopGameCoinsFromGravitating();
-        timeController.handlePlayerDestroyed();
+        timeController.SlowTime();
         SavePlayerPrefs();
         soundEffectsController.PlayPlayerDeathSound();
 		StartCoroutine (ShowEndgameScreenAfterSeconds (delayBeforeEndGameScreenAppears));

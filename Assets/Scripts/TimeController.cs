@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TimeController : MonoBehaviour {
 
-    public void handlePlayerDestroyed()
+    public void SlowTime()
     {
         Time.timeScale = 0.2f;
     }
