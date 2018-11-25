@@ -341,19 +341,20 @@ public class  GameController : MonoBehaviour
         if (GameModel.canCollectCoins == true)
         {
             currentCoinCount++;
+            //check if we need to add another safe
+            if (currentCoinCount >= nextSafeCoinRequirement)
+            {
+                int shouldHave = FindNumSafesToCreate();
+                if (safeList.Count < shouldHave && GameModel.shouldReplaceSafes == true)
+                {
+                    //levelup
+                    this.LevelUp();
+                }
+            }
         }
         uiController.SetCoinText(currentCoinCount);
         coinList.Remove (coin);
-        //check if we need to add another safe
-        if(currentCoinCount >= nextSafeCoinRequirement)
-        {
-            int shouldHave = FindNumSafesToCreate();
-            if (safeList.Count < shouldHave &&  GameModel.shouldReplaceSafes == true)
-            {
-                //levelup
-                this.LevelUp();
-            }
-        }
+
 
     }
 
