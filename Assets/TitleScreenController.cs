@@ -10,6 +10,7 @@ public class TitleScreenController : MonoBehaviour {
     public GameObject gameName;
     public GameObject titleScreenUI;
     public CurrentLevelPanelController currentLevelPanelController;
+    public BackgroundFlareController flareController;
 
     private GameObject mine;
 
@@ -25,6 +26,7 @@ public class TitleScreenController : MonoBehaviour {
         gameName.SetActive(true);
         titleScreenUI.SetActive(true);
         currentLevelPanelController.Show(GameModel.userLevel);
+        flareController.Show();
     }
 
     public void HideTitleScreen()
@@ -33,5 +35,6 @@ public class TitleScreenController : MonoBehaviour {
         gameName.SetActive(false);
         titleScreenUI.SetActive(false);
         currentLevelPanelController.Hide();
+        flareController.Hide();
     }
 }

@@ -348,7 +348,7 @@ public class  GameController : MonoBehaviour
         if(currentCoinCount >= nextSafeCoinRequirement)
         {
             int shouldHave = FindNumSafesToCreate();
-            if (safeList.Count < shouldHave)
+            if (safeList.Count < shouldHave &&  GameModel.shouldReplaceSafes == true)
             {
                 //levelup
                 this.LevelUp();
@@ -359,7 +359,6 @@ public class  GameController : MonoBehaviour
 
     private void LevelUp()
     {
-        Debug.Log("Levelup");
         if (GameModel.shouldReplaceSafes == false) { return; }
         //turn off input
         GameModel.DisableShipInput();
