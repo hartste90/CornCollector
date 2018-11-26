@@ -86,6 +86,8 @@ public class  GameController : MonoBehaviour
         mineList = new List<MineController>();
         safeList = new List<GameObject>();
         explosionPuffList = new List<GameObject>();
+        interstitialController.gameObject.SetActive(true);
+        levelUpPanelController.gameObject.SetActive(true);
     }
 
     // a test function to trigger custom functionality for debugging

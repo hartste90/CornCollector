@@ -10,6 +10,8 @@ public class RollupController : MonoBehaviour {
 
 
     public PinkCoinPanelController pinkCoinPanelController;
+    public GoldCoinPanelController goldCoinPanelController;
+
     public GameObject uiRollupCoinPrefab;
     public Transform coinStartTransform;
     public Transform coinEndTransform;
@@ -116,6 +118,8 @@ public class RollupController : MonoBehaviour {
     public void Show(int goldForRound)
     {
         ShowAllPanels();
+        ShowImmediate();
+        return;
         if (ShouldRollup(goldForRound))
         {
             StartRollup();
@@ -133,7 +137,7 @@ public class RollupController : MonoBehaviour {
 
     public void Hide()
     {
-        pinkCoinPanelController.hideCompleteCallback = HandleHideAnimationComplete;
+        goldCoinPanelController.hideCompleteCallback = HandleHideAnimationComplete;
         pinkPanelAnimator.SetTrigger("Hide");
         goldPanelAnimator.SetTrigger("Hide");
         bestPanelAnimator.SetTrigger("Hide");
