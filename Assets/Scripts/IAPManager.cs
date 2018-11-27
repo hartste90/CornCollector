@@ -12,8 +12,8 @@ public class IAPManager : MonoBehaviour
 
     private void Start()
     {
-        purchaseListener.onPurchaseComplete.AddListener(HandlePurchaseSuccess);
-        purchaseListener.onPurchaseFailed.AddListener(HandlePurchaseFailure);
+        //purchaseListener.onPurchaseComplete.AddListener(HandlePurchaseSuccess);
+        //purchaseListener.onPurchaseFailed.AddListener(HandlePurchaseFailure);
     }
 
     public void PurchasePackage (int numCoins)
