@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public bool dropsMines;
     public Transform playerStartPositionAnchor;
 
-    public Transform playerDecal;
+    public RectTransform playerDecal;
 
     public GameObject playerImage;
     public GameObject explosionPrefab;
@@ -48,6 +48,11 @@ public class PlayerController : MonoBehaviour
         lastTouchVector = Vector3.zero;
         animator = GetComponent<Animator>();
         isMoving = false;
+    }
+
+    private void Start()
+    {
+        SetSpriteDirection(new Vector3(1, 0, 0));
     }
 
     void Update()
@@ -189,19 +194,19 @@ public class PlayerController : MonoBehaviour
     {
         if (direction == new Vector3(1, 0, 0))
         {
-            playerDecal.eulerAngles = new Vector3(0, 0, -90);
+            playerDecal.localEulerAngles = new Vector3(0, 0, -90);
         }
         else if (direction == new Vector3(-1, 0, 0))
         {
-            playerDecal.eulerAngles = new Vector3(0, 0, 90);
+            playerDecal.localEulerAngles = new Vector3(0, 0, 90);
         }
         else if (direction == new Vector3(0, 1, 0))
         {
-            playerDecal.eulerAngles = new Vector3(0, 0, 0);
+            playerDecal.localEulerAngles = new Vector3(0, 0, 0);
         }
         else
         {
-            playerDecal.eulerAngles = new Vector3(0, 0, 180);
+            playerDecal.localEulerAngles = new Vector3(0, 0, 180);
 
         }
     }
