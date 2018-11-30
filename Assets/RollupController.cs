@@ -17,6 +17,7 @@ public class RollupController : MonoBehaviour {
     public Transform coinEndTransform;
     public Text goldCoinTotalText;
     public Text pinkCoinCountText;
+    public Text bestGoldLabel;
     public Text bestGoldText;
 
     public Animator pinkPanelAnimator;
@@ -80,6 +81,11 @@ public class RollupController : MonoBehaviour {
     {
 
         this.bestGoldText.text = bestCoinCountSet;
+        
+        Debug.Log(this.bestGoldLabel.fontSize);
+        Debug.Log(this.bestGoldText.fontSize);
+        this.bestGoldText.fontSize = this.bestGoldLabel.cachedTextGenerator.fontSizeUsedForBestFit;
+
 
         this.endgameScreenController = endgameScreenControllerSet;
         this.goldCoinTotal = goldCoinTotalSet;
