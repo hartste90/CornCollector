@@ -297,7 +297,7 @@ public class  GameController : MonoBehaviour
 
         if (gameObject == coinPrefab)
         {
-            obj.transform.localScale = new Vector3(30, 30, 1);
+            //obj.transform.localScale = new Vector3(30, 30, 1);
             obj.GetComponent<GravitateToTarget>().SetTarget(uiCoinTargetTransform);
             coinList.Add(obj);
         }

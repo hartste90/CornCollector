@@ -24,14 +24,12 @@ public class MineController : MonoBehaviour
         explosionPuffObjectList = new GameObject[4];
         for (int i = 0; i < 4; i++)
         {
-            GameObject explosionPuffObject = Instantiate(explosionPuffPrefab, transform.parent, true);
+            GameObject explosionPuffObject = Instantiate(explosionPuffPrefab, transform.parent, false);
             ExplosionPuffController puffCtr = explosionPuffObject.GetComponent<ExplosionPuffController>();
             puffCtr.gameController = gameController;
             gameController.explosionPuffList.Add(explosionPuffObject);
             explosionPuffObject.transform.localPosition = transform.localPosition;
-            explosionPuffObject.transform.localScale = Vector3.one;
             explosionPuffObjectList[i] = explosionPuffObject;
-            explosionPuffObjectList[i].GetComponent<Rigidbody2D>().AddTorque(Random.Range(-1f, 1f), ForceMode2D.Impulse);
 
         }
 
@@ -43,7 +41,7 @@ public class MineController : MonoBehaviour
         explosionPuffObjectList[3].GetComponent<Rigidbody2D>().AddForce((transform.rotation * Vector3.down).normalized * explosionStrength, ForceMode2D.Force);
         explosionPuffObjectList[3].GetComponent<Transform>().Rotate(new Vector3(0, 0, 180));
 
-
+        Debug.Break();
         //GameObject explosionObject = Instantiate(explosionPrefab, transform.parent);
         //explosionObject.GetComponent<ExplosionController>().gameController = gameController;
         //explosionObject.transform.localPosition = transform.localPosition;

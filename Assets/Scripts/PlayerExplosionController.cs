@@ -13,7 +13,7 @@ public class PlayerExplosionController : ExplosionController {
 	        GameObject explosionPuffObject = Instantiate (explosionPuffPrefab, transform, true);
             gameController.explosionPuffList.Add(explosionPuffObject);
 	        explosionPuffObject.transform.localPosition = transform.localPosition;
-	        explosionPuffObject.transform.localScale = Vector3.one;
+	        //explosionPuffObject.transform.localScale = Vector3.one;
 	        explosionPuffObjectList[i] = explosionPuffObject;
 		}
 		explosionPuffObjectList[0].GetComponent<Rigidbody2D>().AddForce(Vector2.right * explosionStrength, ForceMode2D.Force);
