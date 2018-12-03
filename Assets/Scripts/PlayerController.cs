@@ -215,19 +215,6 @@ public class PlayerController : MonoBehaviour
 	public void OnHitMine()
 	{
         PlayerExplode();
-        return;
-		GameObject playerExplosion1 = Instantiate (playerExplosionPrefab, transform.parent, false);
-		GameObject playerExplosion2 = Instantiate (playerExplosionPrefab, transform.parent, false);
-        playerExplosion1.GetComponent<ExplosionController>().gameController = gameController;
-        playerExplosion2.GetComponent<ExplosionController>().gameController = gameController;
-
-        playerExplosion1.transform.localPosition = transform.localPosition;
-		playerExplosion2.transform.localPosition = transform.localPosition;
-		playerExplosion2.transform.Rotate (0,0,45);
-        //CreatePhysicalExplosion ();
-
-        DestroySelf();
-        gameController.HandlePlayerDestroyed();
 	}
 
     public void PlayerExplode()
@@ -264,14 +251,13 @@ public class PlayerController : MonoBehaviour
         //GameObject explosionObject = Instantiate(explosionPrefab, transform.parent);
         //explosionObject.GetComponent<ExplosionController>().gameController = gameController;
         //explosionObject.transform.localPosition = transform.localPosition;
+        gameController.HandlePlayerDestroyed();
         DestroySelf();
-
     }
 
     public void DestroySelf()
     {
         GetComponent<WrapAroundBehavior>().DestroyAllGhosts();
-        gameController.HandlePlayerDestroyed();
         Destroy(gameObject);
     }
 
@@ -339,7 +325,6 @@ public class PlayerController : MonoBehaviour
     {
         GameModel.EnableShipInput();
         GetComponent<WrapAroundBehavior>().CreateGhostShips();
-        BeginDropExhaust();
     }
 
     public void BeginDropExhaust()

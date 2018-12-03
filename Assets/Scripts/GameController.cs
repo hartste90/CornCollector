@@ -103,7 +103,8 @@ public class  GameController : MonoBehaviour
         //currentCoinCount = 99;
         //currentCoinCount = 0;
         currentCoinCount = 530;
-        playerController.OnHitMine();
+        //playerController.OnHitMine();
+        this.LevelUp();
 
 
     }
@@ -156,6 +157,7 @@ public class  GameController : MonoBehaviour
 
     public void OnPlayerBeginsMovement()
     {
+        playerController.BeginDropExhaust();
         tooltipController.Hide();
         backgroundMusicController.playBackgroundMusic();
         titleScreenController.HideTitleScreen();
