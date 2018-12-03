@@ -41,7 +41,7 @@ public class MineController : MonoBehaviour
         explosionPuffObjectList[3].GetComponent<Rigidbody2D>().AddForce((transform.rotation * Vector3.down).normalized * explosionStrength, ForceMode2D.Force);
         explosionPuffObjectList[3].GetComponent<Transform>().Rotate(new Vector3(0, 0, 180));
 
-        Debug.Break();
+        //Debug.Break();
         //GameObject explosionObject = Instantiate(explosionPrefab, transform.parent);
         //explosionObject.GetComponent<ExplosionController>().gameController = gameController;
         //explosionObject.transform.localPosition = transform.localPosition;

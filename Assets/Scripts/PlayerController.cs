@@ -213,8 +213,8 @@ public class PlayerController : MonoBehaviour
 
 	public void OnHitMine()
 	{
-		GameObject playerExplosion1 = Instantiate (playerExplosionPrefab, transform.parent);
-		GameObject playerExplosion2 = Instantiate (playerExplosionPrefab, transform.parent);
+		GameObject playerExplosion1 = Instantiate (playerExplosionPrefab, transform.parent, false);
+		GameObject playerExplosion2 = Instantiate (playerExplosionPrefab, transform.parent, false);
         playerExplosion1.GetComponent<ExplosionController>().gameController = gameController;
         playerExplosion2.GetComponent<ExplosionController>().gameController = gameController;
 

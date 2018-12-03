@@ -10,7 +10,7 @@ public class PlayerExplosionController : ExplosionController {
 		explosionPuffObjectList = new GameObject[4];
 		for(int i = 0; i < 4; i++)
 		{
-	        GameObject explosionPuffObject = Instantiate (explosionPuffPrefab, transform, true);
+	        GameObject explosionPuffObject = Instantiate (explosionPuffPrefab, transform, false);
             gameController.explosionPuffList.Add(explosionPuffObject);
 	        explosionPuffObject.transform.localPosition = transform.localPosition;
 	        //explosionPuffObject.transform.localScale = Vector3.one;

@@ -135,8 +135,8 @@ MonoBehaviour:
   acceleration: 0.1
   isFollowing: 1
   maxSpeed: 10
-  startColor: {r: 0, g: 0, b: 0, a: 0}
-  endColor: {r: 0, g: 0, b: 0, a: 0}
+  startColor: {r: 1, g: 0.98113215, b: 0, a: 1}
+  endColor: {r: 1, g: 0.98113215, b: 0, a: 1}
   shouldChangeColor: 1
   targetTransform: {fileID: 0}
 --- !u!212 &212965709376834048
