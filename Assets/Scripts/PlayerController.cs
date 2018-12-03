@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public GameController gameController;
     public TrailLeaver trailLeaverController;
     public  PointsUpdateTextController pointsUpdateTextController;
+    public float playerExplosionStrength = 5f;
 
     private CharacterController characterController;
     private Vector2 startSwipePosition;
@@ -213,6 +214,8 @@ public class PlayerController : MonoBehaviour
 
 	public void OnHitMine()
 	{
+        PlayerExplode();
+        return;
 		GameObject playerExplosion1 = Instantiate (playerExplosionPrefab, transform.parent, false);
 		GameObject playerExplosion2 = Instantiate (playerExplosionPrefab, transform.parent, false);
         playerExplosion1.GetComponent<ExplosionController>().gameController = gameController;
@@ -227,9 +230,48 @@ public class PlayerController : MonoBehaviour
         gameController.HandlePlayerDestroyed();
 	}
 
+    public void PlayerExplode()
+    {
+        //instantiate explosionPuffs
+        GameObject[] explosionPuffObjectList = new GameObject[8];
+        for (int i = 0; i < 8; i++)
+        {
+            GameObject explosionPuffObject = Instantiate(playerExplosionPrefab, transform.parent, false);
+            ExplosionPuffController puffCtr = explosionPuffObject.GetComponent<ExplosionPuffController>();
+            puffCtr.gameController = gameController;
+            gameController.explosionPuffList.Add(explosionPuffObject);
+            explosionPuffObject.transform.localPosition = transform.localPosition;
+            explosionPuffObjectList[i] = explosionPuffObject;
+
+        }
+
+        explosionPuffObjectList[0].GetComponent<Rigidbody2D>().AddForce((transform.rotation * Vector3.right).normalized * playerExplosionStrength, ForceMode2D.Force);
+        explosionPuffObjectList[0].GetComponent<Transform>().Rotate(new Vector3(0, 0, -90));
+        explosionPuffObjectList[1].GetComponent<Rigidbody2D>().AddForce((transform.rotation * Vector3.up).normalized * playerExplosionStrength, ForceMode2D.Force);
+        explosionPuffObjectList[2].GetComponent<Rigidbody2D>().AddForce((transform.rotation * Vector3.left).normalized * playerExplosionStrength, ForceMode2D.Force);
+        explosionPuffObjectList[2].GetComponent<Transform>().Rotate(new Vector3(0, 0, 90));
+        explosionPuffObjectList[3].GetComponent<Rigidbody2D>().AddForce((transform.rotation * Vector3.down).normalized * playerExplosionStrength, ForceMode2D.Force);
+        explosionPuffObjectList[3].GetComponent<Transform>().Rotate(new Vector3(0, 0, 180));
+        explosionPuffObjectList[4].GetComponent<Rigidbody2D>().AddForce((transform.rotation * new Vector3 (.5f, .5f, 0)).normalized * playerExplosionStrength, ForceMode2D.Force);
+        explosionPuffObjectList[4].GetComponent<Transform>().Rotate(new Vector3(0, 0, -45));
+        explosionPuffObjectList[5].GetComponent<Rigidbody2D>().AddForce((transform.rotation * new Vector3(.5f, -.5f, 0)).normalized * playerExplosionStrength, ForceMode2D.Force);
+        explosionPuffObjectList[5].GetComponent<Transform>().Rotate(new Vector3(0, 0, 45));
+        explosionPuffObjectList[6].GetComponent<Rigidbody2D>().AddForce((transform.rotation * new Vector3(-.5f, -.5f, 0)).normalized * playerExplosionStrength, ForceMode2D.Force);
+        explosionPuffObjectList[6].GetComponent<Transform>().Rotate(new Vector3(0, 0, 135));
+        explosionPuffObjectList[7].GetComponent<Rigidbody2D>().AddForce((transform.rotation * new Vector3(-.5f, .5f, 0)).normalized * playerExplosionStrength, ForceMode2D.Force);
+        explosionPuffObjectList[7].GetComponent<Transform>().Rotate(new Vector3(0, 0, -135));
+        //Debug.Break();
+        //GameObject explosionObject = Instantiate(explosionPrefab, transform.parent);
+        //explosionObject.GetComponent<ExplosionController>().gameController = gameController;
+        //explosionObject.transform.localPosition = transform.localPosition;
+        DestroySelf();
+
+    }
+
     public void DestroySelf()
     {
         GetComponent<WrapAroundBehavior>().DestroyAllGhosts();
+        gameController.HandlePlayerDestroyed();
         Destroy(gameObject);
     }
 

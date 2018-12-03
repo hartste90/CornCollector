@@ -230,12 +230,13 @@ MonoBehaviour:
   playerImage: {fileID: 1431285080212614}
   explosionPrefab: {fileID: 1199903913866718, guid: 4e58d5a12017541a7a70c3dd3f8b0db8,
     type: 2}
-  playerExplosionPrefab: {fileID: 1199903913866718, guid: d26f4743a8eb64158af657152437de0b,
+  playerExplosionPrefab: {fileID: 1474687329819364, guid: 14c89231a303043df946cf4868bc54e0,
     type: 2}
   minePrefab: {fileID: 1969627338554662, guid: eeaea0ac402084f4dbac644cb4b85895, type: 2}
   gameController: {fileID: 0}
   trailLeaverController: {fileID: 114095945973656536}
   pointsUpdateTextController: {fileID: 114360939054875920}
+  playerExplosionStrength: 150
 --- !u!114 &114360939054875920
 MonoBehaviour:
   m_ObjectHideFlags: 1
