@@ -9444,7 +9444,7 @@ RectTransform:
   m_Children:
   - {fileID: 122684}
   m_Father: {fileID: 1670020087}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.048567235, y: 0.31647336}
   m_AnchorMax: {x: 0.95313454, y: 0.63000005}
@@ -21194,7 +21194,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 83b32b7326ebe42b09b04702d3b0c097, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6b9867e5ebc4d4568aa397a82f8898b3, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -21369,8 +21369,8 @@ RectTransform:
   m_Children:
   - {fileID: 1260112895}
   - {fileID: 175352970}
-  - {fileID: 1942858828}
   - {fileID: 757718457}
+  - {fileID: 1942858828}
   - {fileID: 664432726}
   - {fileID: 1820139515}
   - {fileID: 1139959590}
@@ -21426,13 +21426,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tipList:
-  - {fileID: 1942858829}
   - {fileID: 757718458}
+  - {fileID: 1942858829}
   - {fileID: 664432727}
   - {fileID: 1820139516}
   - {fileID: 1139959591}
   - {fileID: 444821225}
   - {fileID: 766784282}
+  miniPlaysBetweenTips: 3
 --- !u!222 &1670020090
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -25466,7 +25467,7 @@ RectTransform:
   m_Children:
   - {fileID: 1663251679}
   m_Father: {fileID: 1670020087}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.048567235, y: 0.31647336}
   m_AnchorMax: {x: 0.95313454, y: 0.63000005}

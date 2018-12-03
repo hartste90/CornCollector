@@ -231,6 +231,7 @@ public class  GameController : MonoBehaviour
         jITEndscreenController.HideCoinPanel(true);
         GameModel.numSafes = 1;
         GameModel.userLevel = 1;
+        GameModel.numReplays++;
         endgameScreenController.endScreenExitCallback = ShowInterstitial;
         endgameScreenController.Hide();
 
@@ -248,8 +249,15 @@ public class  GameController : MonoBehaviour
 
     public void ShowInterstitial()
     {
-        interstitialController.completeCallback = InterstitialCompleteCallback;
-        interstitialController.ShowTip();
+        if (interstitialController.IsReady() == true){
+            interstitialController.completeCallback = InterstitialCompleteCallback;
+            interstitialController.ShowTip();
+        }
+        else
+        {
+            SetupGameStart();
+        }
+
     }
 
     public void InterstitialCompleteCallback()

@@ -4,6 +4,7 @@
 
     public static bool canCollectCoins;
     public static int numAttempts;
+    public static int numReplays;
     public static int numSafes;
     public static int userLevel;
     public static bool shouldReplaceSafes;
