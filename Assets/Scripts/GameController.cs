@@ -272,8 +272,8 @@ public class  GameController : MonoBehaviour
         //unslow time
         Time.timeScale = 1.0f;
         //reset coins (since they have already been added up in endscreen)
-        currentCoinCount = 0;
-        uiController.ResetUI();
+        //currentCoinCount = 0;
+        //uiController.ResetUI();
         jITEndscreenController.HideCoinPanel(true);
         //replay game start UI tooltip/tutorial
         endgameScreenController.endScreenExitCallback = beginGameplay;
