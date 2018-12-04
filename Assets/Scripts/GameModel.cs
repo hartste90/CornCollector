@@ -9,6 +9,8 @@
     public static int userLevel;
     public static bool shouldReplaceSafes;
 
+    public static bool hasJustContinued = false;
+
     private static int goldCoinCount;
     private static bool allowSwiping;
 

@@ -2729,7 +2729,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &202504473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12145,6 +12145,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerDeathSoundClip: {fileID: 8300000, guid: a984da3b68b6047d195c430c7dbce491,
     type: 3}
+  playerTurnSoundClip: {fileID: 0}
+  mineExplodeSoundClip: {fileID: 0}
+  safeBustSoundClip: {fileID: 0}
+  coinCollectedSoundClip: {fileID: 0}
+  uiMinorSoundClip: {fileID: 0}
+  uiMajorSoundClip: {fileID: 0}
 --- !u!4 &929975016
 Transform:
   m_ObjectHideFlags: 0
@@ -14442,7 +14448,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1149738723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16121,7 +16127,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 950aabde917a24158a46dac92ba9464e, type: 3}
+  m_audioClip: {fileID: 8300000, guid: ad60db121b1ab4c61abe0b5b781996b6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -16231,6 +16237,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cad10cf9f03664799b2ed265b546940e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volumeIncrease: 0.1
+  volumeDecrease: 0.1
 --- !u!1 &1275599486
 GameObject:
   m_ObjectHideFlags: 0
@@ -17616,7 +17624,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1403030591
 RectTransform:
   m_ObjectHideFlags: 0

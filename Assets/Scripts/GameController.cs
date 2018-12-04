@@ -159,9 +159,14 @@ public class  GameController : MonoBehaviour
     {
         playerController.BeginDropExhaust();
         tooltipController.Hide();
-        backgroundMusicController.playBackgroundMusic();
         titleScreenController.HideTitleScreen();
         uiController.ShowGameUI();
+        if (GetCoinCount() == 0 || GameModel.hasJustContinued == true)
+        {
+            backgroundMusicController.fadeInBackgroundMusic();
+            GameModel.hasJustContinued = false;
+        }
+
     }
 
     public void beginGameplay()
@@ -187,6 +192,7 @@ public class  GameController : MonoBehaviour
         {
             AddSafe();
         }
+
     }
 
     private int FindNumSafesToCreate()
@@ -288,6 +294,7 @@ public class  GameController : MonoBehaviour
         endgameScreenController.Hide();
         //should be callback for when endgame screen is gone
         //beginGameplay();
+        GameModel.hasJustContinued = true;
     }
 
 
@@ -481,7 +488,8 @@ public class  GameController : MonoBehaviour
         timeController.SlowTime();
         SavePlayerPrefs();
         soundEffectsController.PlayPlayerDeathSound();
-		StartCoroutine (ShowEndgameScreenAfterSeconds (delayBeforeEndGameScreenAppears));
+        backgroundMusicController.fadeOutBackgroundMusic();
+        StartCoroutine(ShowEndgameScreenAfterSeconds (delayBeforeEndGameScreenAppears));
 	}
 
     private void StopGameCoinsFromGravitating()
