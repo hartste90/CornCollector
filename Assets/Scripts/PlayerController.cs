@@ -170,6 +170,7 @@ public class PlayerController : MonoBehaviour
         {
             gameController.SpawnGameObjectAtPosition(minePrefab, transform.GetComponent<RectTransform>().anchoredPosition);
         }
+        gameController.soundEffectsController.PlayPlayerTurnSound();
         SetDirection(tempDirection);
     }
 
@@ -306,6 +307,7 @@ public class PlayerController : MonoBehaviour
             case "Mine":
                 OnHitMine();
                 collision.gameObject.GetComponent<MineController>().MineExplode();
+                gameController.soundEffectsController.PlayMineExplodeSound();
                 break;
             case "Explosion":
                 OnHitMine();
@@ -324,7 +326,7 @@ public class PlayerController : MonoBehaviour
     public void OnIntroAnimationComplete()
     {
         GameModel.EnableShipInput();
-        GetComponent<WrapAroundBehavior>().CreateGhostShips();
+        GetComponent<WrapAroundBehavior>().CreateGhostShips(transform.localScale);
     }
 
     public void BeginDropExhaust()

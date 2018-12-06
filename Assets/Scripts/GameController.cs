@@ -340,6 +340,7 @@ public class  GameController : MonoBehaviour
         if (GameModel.canCollectCoins == true) 
         {
             playerController.ShowCoinCollectUpdate(numCoins);
+            soundEffectsController.PlaySafeBustSound();
         }
 		//spawn multiple coins	
         numCoins = numCoinsInSafe;	
@@ -360,6 +361,7 @@ public class  GameController : MonoBehaviour
         if (GameModel.canCollectCoins == true)
         {
             currentCoinCount++;
+            soundEffectsController.PlayCoinCollectedSound();
             //check if we need to add another safe
             if (currentCoinCount >= nextSafeCoinRequirement)
             {
