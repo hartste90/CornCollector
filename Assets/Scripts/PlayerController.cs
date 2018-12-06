@@ -326,7 +326,7 @@ public class PlayerController : MonoBehaviour
     public void OnIntroAnimationComplete()
     {
         GameModel.EnableShipInput();
-        GetComponent<WrapAroundBehavior>().CreateGhostShips(transform.localScale);
+        GetComponent<WrapAroundBehavior>().CreateGhostShips();
     }
 
     public void BeginDropExhaust()

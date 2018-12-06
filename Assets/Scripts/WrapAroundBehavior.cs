@@ -30,7 +30,7 @@ public class WrapAroundBehavior : MonoBehaviour {
 		
 	}
 
-	public void CreateGhostShips(Vector3 scale)
+	public void CreateGhostShips()
 	{
 	    for(int i = 0; i < 4; i++)
 	    {
@@ -38,7 +38,6 @@ public class WrapAroundBehavior : MonoBehaviour {
             ghosts[i].GetComponent<PolygonCollider2D>().enabled = false;
 	        ghosts[i].GetComponent<PlayerController>().dropsMines = doGhostsDropMines;
             ghosts[i].GetComponent<PlayerController>().playerImage.SetActive(true);
-            ghosts[i].transform.localScale = scale;
             Destroy(ghosts[i].GetComponent<WrapAroundBehavior>());
 	    }
         doGhostsExist = true;
