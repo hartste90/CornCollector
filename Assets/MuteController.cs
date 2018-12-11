@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.UI;
 
 public class MuteController : MonoBehaviour {
@@ -30,6 +31,12 @@ public class MuteController : MonoBehaviour {
 
     public void SetMuted(bool shouldBeMuted)
     {
+
+        Analytics.CustomEvent("mute", new Dictionary<string, object>
+        {
+            { "isMuted", shouldBeMuted }
+        });
+
         isMuted = shouldBeMuted;
         bgController.gameObject.GetComponent<AudioSource>().mute = shouldBeMuted;
         sfController.gameObject.GetComponent<AudioSource>().mute = shouldBeMuted;

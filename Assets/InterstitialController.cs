@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class InterstitialController : MonoBehaviour {
 
@@ -110,6 +111,11 @@ public class InterstitialController : MonoBehaviour {
 
     private void DisableTip(JITSafePanelController tip)
     {
+        Analytics.CustomEvent("disableSingleTip", new Dictionary<string, object>
+        {
+            { "userId", AnalyticsSessionInfo.userId },
+            { "tipName", tip.gameObject.name }
+        });
         hiddenTipList.Add(tip);
         shownTipList.Remove(tip);
     }
@@ -123,8 +129,13 @@ public class InterstitialController : MonoBehaviour {
 
     public void DisableAllTips()
     {
+        Analytics.CustomEvent("disableAllTips", new Dictionary<string, object>
+        {
+            { "userId", AnalyticsSessionInfo.userId }
+        });
+
         //hide all tips in tiplist
-        while(tipList.Count > 0)
+        while (tipList.Count > 0)
         {
             hiddenTipList.Add(tipList[0]);
             tipList.RemoveAt(0);
