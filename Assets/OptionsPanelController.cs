@@ -28,7 +28,7 @@ public class OptionsPanelController : MonoBehaviour {
 
     public void Hide()
     {
-        storeButtonController.HideImmediate();
+        //storeButtonController.HideImmediate();
         continueButtonController.HideImmediate();
         replayPanelController.HideImmediate();
         rateGameController.HideImmediate();
@@ -36,7 +36,7 @@ public class OptionsPanelController : MonoBehaviour {
 
     public void ShowPanelsForPurchase()
     {
-        storeButtonController.Show();
+        //storeButtonController.Show();
         continueButtonController.Show();
         replayPanelController.Show();
     }
@@ -131,21 +131,23 @@ public class OptionsPanelController : MonoBehaviour {
         }
         else
         {
-            storeButtonController.Show();
+            //storeButtonController.Show();
             if (adController.IsReady())
             {
-                if (GameModel.GetNoAds() == true)
-                {
-                    celebrationController.Celebrate();
-                    ShowContinueWithFreeOption();
-                }
-                else
-                {
+                //if (GameModel.GetNoAds() == true)
+                //{
+                //    celebrationController.Celebrate();
+                //    ShowContinueWithFreeOption();
+                //}
+                //else
+                //{
                     ShowContinueWithAdsOption();
-                }
+                //}
             }
             else
             {
+                //celebrationController.Celebrate();
+                ShowContinueWithFreeOption();
                 if (ShouldAskForRating(goldForRound))
                 {
                     ShowContinueWithCoinsSmall(shouldShowImmediately);
@@ -154,7 +156,7 @@ public class OptionsPanelController : MonoBehaviour {
                 }
                 else
                 {
-                    ShowContinueWithCoinsOption(shouldShowImmediately);
+                    //ShowContinueWithCoinsOption(shouldShowImmediately);
                 }
 
             }

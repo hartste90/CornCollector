@@ -25,7 +25,7 @@ public class ExplosionController : MonoBehaviour {
             puffCtr.gameController = gameController;
             gameController.explosionPuffList.Add(explosionPuffObject);
             explosionPuffObject.transform.localPosition = transform.localPosition;
-            explosionPuffObject.transform.localScale = Vector3.one;
+            //explosionPuffObject.transform.localScale = Vector3.one;
             explosionPuffObjectList[i] = explosionPuffObject;
             explosionPuffObjectList[i].GetComponent<Rigidbody2D>().AddTorque(Random.Range(-1f, 1f), ForceMode2D.Impulse);
 

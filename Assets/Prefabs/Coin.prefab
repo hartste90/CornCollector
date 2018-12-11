@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114942081530479378}
   - component: {fileID: 58245486717288262}
   - component: {fileID: 50374311676571324}
+  - component: {fileID: 114295032793109964}
   m_Layer: 9
   m_Name: Coin
   m_TagString: Coin
@@ -94,6 +95,17 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.39
+--- !u!114 &114295032793109964
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1115446076801792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9067f586b4e5140d5b5c924e5c4d6933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114814290759779048
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -123,6 +135,10 @@ MonoBehaviour:
   acceleration: 0.1
   isFollowing: 1
   maxSpeed: 10
+  startColor: {r: 1, g: 0.98113215, b: 0, a: 1}
+  endColor: {r: 1, g: 0.98113215, b: 0, a: 1}
+  shouldChangeColor: 1
+  targetTransform: {fileID: 0}
 --- !u!212 &212965709376834048
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -175,7 +191,7 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1115446076801792}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 40, y: 40, z: 1}
   m_Children:

@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 114679019618581236}
   - component: {fileID: 114768941480693770}
   - component: {fileID: 60976381138330722}
+  - component: {fileID: 114168100051935444}
   m_Layer: 8
   m_Name: ExplosionPuff
   m_TagString: Explosion
@@ -54,7 +55,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1069980647364090}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -16197.12}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 125, y: 125, z: 1}
   m_Children: []
   m_Father: {fileID: 224095127291692834}
@@ -109,6 +110,17 @@ PolygonCollider2D:
       - {x: -14.849731, y: -28.63086}
       - {x: 14.592392, y: -28.630615}
       - {x: 21.320442, y: -12.799927}
+--- !u!114 &114168100051935444
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1474687329819364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9067f586b4e5140d5b5c924e5c4d6933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114679019618581236
 MonoBehaviour:
   m_ObjectHideFlags: 1

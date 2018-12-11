@@ -8,7 +8,7 @@ public class UIController : MonoBehaviour {
     public GameObject uiView;
 
     //public Image background;
-    public SpriteRenderer coin;
+    public Image coin;
 	public Text coinCountUILabel;
 
     public GameObject titleUI;

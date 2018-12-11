@@ -86,6 +86,8 @@ public class  GameController : MonoBehaviour
         mineList = new List<MineController>();
         safeList = new List<GameObject>();
         explosionPuffList = new List<GameObject>();
+        interstitialController.gameObject.SetActive(true);
+        levelUpPanelController.gameObject.SetActive(true);
     }
 
     // a test function to trigger custom functionality for debugging
@@ -101,7 +103,8 @@ public class  GameController : MonoBehaviour
         //currentCoinCount = 99;
         //currentCoinCount = 0;
         currentCoinCount = 530;
-        playerController.OnHitMine();
+        //playerController.OnHitMine();
+        this.LevelUp();
 
 
     }
@@ -154,10 +157,16 @@ public class  GameController : MonoBehaviour
 
     public void OnPlayerBeginsMovement()
     {
+        playerController.BeginDropExhaust();
         tooltipController.Hide();
-        backgroundMusicController.playBackgroundMusic();
         titleScreenController.HideTitleScreen();
         uiController.ShowGameUI();
+        if (GetCoinCount() == 0 || GameModel.hasJustContinued == true)
+        {
+            backgroundMusicController.fadeInBackgroundMusic();
+            GameModel.hasJustContinued = false;
+        }
+
     }
 
     public void beginGameplay()
@@ -183,6 +192,7 @@ public class  GameController : MonoBehaviour
         {
             AddSafe();
         }
+
     }
 
     private int FindNumSafesToCreate()
@@ -227,6 +237,7 @@ public class  GameController : MonoBehaviour
         jITEndscreenController.HideCoinPanel(true);
         GameModel.numSafes = 1;
         GameModel.userLevel = 1;
+        GameModel.numReplays++;
         endgameScreenController.endScreenExitCallback = ShowInterstitial;
         endgameScreenController.Hide();
 
@@ -244,8 +255,15 @@ public class  GameController : MonoBehaviour
 
     public void ShowInterstitial()
     {
-        interstitialController.completeCallback = InterstitialCompleteCallback;
-        interstitialController.ShowTip();
+        if (interstitialController.IsReady() == true){
+            interstitialController.completeCallback = InterstitialCompleteCallback;
+            interstitialController.ShowTip();
+        }
+        else
+        {
+            SetupGameStart();
+        }
+
     }
 
     public void InterstitialCompleteCallback()
@@ -268,14 +286,15 @@ public class  GameController : MonoBehaviour
         //unslow time
         Time.timeScale = 1.0f;
         //reset coins (since they have already been added up in endscreen)
-        currentCoinCount = 0;
-        uiController.ResetUI();
+        //currentCoinCount = 0;
+        //uiController.ResetUI();
         jITEndscreenController.HideCoinPanel(true);
         //replay game start UI tooltip/tutorial
         endgameScreenController.endScreenExitCallback = beginGameplay;
         endgameScreenController.Hide();
         //should be callback for when endgame screen is gone
         //beginGameplay();
+        GameModel.hasJustContinued = true;
     }
 
 
@@ -295,7 +314,7 @@ public class  GameController : MonoBehaviour
 
         if (gameObject == coinPrefab)
         {
-            obj.transform.localScale = new Vector3(30, 30, 1);
+            //obj.transform.localScale = new Vector3(30, 30, 1);
             obj.GetComponent<GravitateToTarget>().SetTarget(uiCoinTargetTransform);
             coinList.Add(obj);
         }
@@ -321,6 +340,7 @@ public class  GameController : MonoBehaviour
         if (GameModel.canCollectCoins == true) 
         {
             playerController.ShowCoinCollectUpdate(numCoins);
+            soundEffectsController.PlaySafeBustSound();
         }
 		//spawn multiple coins	
         numCoins = numCoinsInSafe;	
@@ -341,19 +361,21 @@ public class  GameController : MonoBehaviour
         if (GameModel.canCollectCoins == true)
         {
             currentCoinCount++;
+            soundEffectsController.PlayCoinCollectedSound();
+            //check if we need to add another safe
+            if (currentCoinCount >= nextSafeCoinRequirement)
+            {
+                int shouldHave = FindNumSafesToCreate();
+                if (safeList.Count < shouldHave && GameModel.shouldReplaceSafes == true)
+                {
+                    //levelup
+                    this.LevelUp();
+                }
+            }
         }
         uiController.SetCoinText(currentCoinCount);
         coinList.Remove (coin);
-        //check if we need to add another safe
-        if(currentCoinCount >= nextSafeCoinRequirement)
-        {
-            int shouldHave = FindNumSafesToCreate();
-            if (safeList.Count < shouldHave &&  GameModel.shouldReplaceSafes == true)
-            {
-                //levelup
-                this.LevelUp();
-            }
-        }
+
 
     }
 
@@ -468,7 +490,8 @@ public class  GameController : MonoBehaviour
         timeController.SlowTime();
         SavePlayerPrefs();
         soundEffectsController.PlayPlayerDeathSound();
-		StartCoroutine (ShowEndgameScreenAfterSeconds (delayBeforeEndGameScreenAppears));
+        backgroundMusicController.fadeOutBackgroundMusic();
+        StartCoroutine(ShowEndgameScreenAfterSeconds (delayBeforeEndGameScreenAppears));
 	}
 
     private void StopGameCoinsFromGravitating()

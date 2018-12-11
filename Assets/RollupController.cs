@@ -10,11 +10,14 @@ public class RollupController : MonoBehaviour {
 
 
     public PinkCoinPanelController pinkCoinPanelController;
+    public GoldCoinPanelController goldCoinPanelController;
+
     public GameObject uiRollupCoinPrefab;
     public Transform coinStartTransform;
     public Transform coinEndTransform;
     public Text goldCoinTotalText;
     public Text pinkCoinCountText;
+    public Text bestGoldLabel;
     public Text bestGoldText;
 
     public Animator pinkPanelAnimator;
@@ -78,6 +81,11 @@ public class RollupController : MonoBehaviour {
     {
 
         this.bestGoldText.text = bestCoinCountSet;
+        
+        Debug.Log(this.bestGoldLabel.fontSize);
+        Debug.Log(this.bestGoldText.fontSize);
+        this.bestGoldText.fontSize = this.bestGoldLabel.cachedTextGenerator.fontSizeUsedForBestFit;
+
 
         this.endgameScreenController = endgameScreenControllerSet;
         this.goldCoinTotal = goldCoinTotalSet;
@@ -116,6 +124,8 @@ public class RollupController : MonoBehaviour {
     public void Show(int goldForRound)
     {
         ShowAllPanels();
+        ShowImmediate();
+        return;
         if (ShouldRollup(goldForRound))
         {
             StartRollup();
@@ -133,7 +143,7 @@ public class RollupController : MonoBehaviour {
 
     public void Hide()
     {
-        pinkCoinPanelController.hideCompleteCallback = HandleHideAnimationComplete;
+        goldCoinPanelController.hideCompleteCallback = HandleHideAnimationComplete;
         pinkPanelAnimator.SetTrigger("Hide");
         goldPanelAnimator.SetTrigger("Hide");
         bestPanelAnimator.SetTrigger("Hide");

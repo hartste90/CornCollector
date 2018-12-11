@@ -5,12 +5,16 @@ using UnityEngine;
 public class InterstitialController : MonoBehaviour {
 
     public List<JITSafePanelController> tipList;
+    public int miniPlaysBetweenTips;
 
     private Animator animator;
     private JITSafePanelController currentTip;
     private List<JITSafePanelController> hiddenTipList;
     private List<JITSafePanelController> shownTipList;
     private int lastIndexShown = -1;
+
+    private int playsAtLastTipShown = -1;
+    
 
     public delegate void InterstitialCompleteCallback();
     public InterstitialCompleteCallback completeCallback;
@@ -22,6 +26,21 @@ public class InterstitialController : MonoBehaviour {
         //TODO: the tips that are hidden and shown should follow a user across devices
         hiddenTipList = new List<JITSafePanelController>();
         shownTipList = new List<JITSafePanelController>();
+        //playsSinceTipShown = miniPlaysBetweenTips; //show tip first play
+    }
+
+    /*
+     * Returns true if the timing is right for another tip interstitial, don't want to show them
+     * every time because people skip them
+     */
+    public bool IsReady()
+    {
+        if (GameModel.numReplays == 1 || GameModel.numReplays - playsAtLastTipShown >= miniPlaysBetweenTips)
+        {
+            playsAtLastTipShown = GameModel.numReplays;
+            return true;
+        }
+        return false;
     }
 
     public void ShowTip()
