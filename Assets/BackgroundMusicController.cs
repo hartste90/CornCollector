@@ -23,7 +23,7 @@ public class BackgroundMusicController : MonoBehaviour {
         if(volumeIncreasing)
         {
             audioSource.volume += volumeIncrease;
-            if (audioSource.volume >= 1)
+            if (audioSource.volume >= .2)
             {
                 volumeIncreasing = false;
             }

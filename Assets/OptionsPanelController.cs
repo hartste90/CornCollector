@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.UI;
 
 public class OptionsPanelController : MonoBehaviour {
@@ -23,6 +24,15 @@ public class OptionsPanelController : MonoBehaviour {
 
     public void HandleAdButtonPressed()
     {
+        Analytics.CustomEvent("optedIntoAd", new Dictionary<string, object>
+        {
+            { "userId", AnalyticsSessionInfo.userId },
+            { "attempts", GameModel.numAttempts},
+            { "replays", GameModel.numReplays },
+            { "time", Time.time },
+            {"score", GameModel.GetGoldCoinCount()},
+
+        });
         adController.ShowRewardedAd();
     }
 
@@ -70,6 +80,15 @@ public class OptionsPanelController : MonoBehaviour {
 
     public void ShowContinueWithFreeOption()
     {
+        Analytics.CustomEvent("shownFreeContinue", new Dictionary<string, object>
+        {
+            { "userId", AnalyticsSessionInfo.userId },
+            { "attempts", GameModel.numAttempts},
+            { "replays", GameModel.numReplays },
+            { "time", Time.time },
+            {"score", GameModel.GetGoldCoinCount()},
+
+        });
         continueButtonController.ShowAsFree();
         this.continueButtonController.Show();
     }

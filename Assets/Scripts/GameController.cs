@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -77,6 +78,13 @@ public class  GameController : MonoBehaviour
 
     public void Awake()
     {
+        string userId = AnalyticsSessionInfo.userId;
+        Analytics.CustomEvent("gameLoad", new Dictionary<string, object>
+        {
+            { "userId", userId }
+        });
+        Analytics.CustomEvent("gameLoadNoID");
+
         isVerbose = verbose;
         //record device dimensions
 		Tools.screenWidth = Screen.width;
@@ -163,6 +171,14 @@ public class  GameController : MonoBehaviour
         uiController.ShowGameUI();
         if (GetCoinCount() == 0 || GameModel.hasJustContinued == true)
         {
+            Analytics.CustomEvent("startedGameplay", new Dictionary<string, object>
+            {
+                { "userId", AnalyticsSessionInfo.userId },
+                { "attempts", GameModel.numAttempts},
+                { "replays", GameModel.numReplays },
+                { "time", Time.time }
+
+            });
             backgroundMusicController.fadeInBackgroundMusic();
             GameModel.hasJustContinued = false;
         }
@@ -229,6 +245,15 @@ public class  GameController : MonoBehaviour
 
     public void ResetScene()
     {
+        Analytics.CustomEvent("pressedReplay", new Dictionary<string, object>
+        {
+            { "userId", AnalyticsSessionInfo.userId },
+            { "attempts", GameModel.numAttempts},
+            { "replays", GameModel.numReplays },
+            { "time", Time.time },
+            { "score", GameModel.GetGoldCoinCount()},
+
+        });
         Time.timeScale = 1.0f;
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         DestroyAllItemsOnscreen();
@@ -339,6 +364,15 @@ public class  GameController : MonoBehaviour
 	{
         if (GameModel.canCollectCoins == true) 
         {
+            Analytics.CustomEvent("safeDestroyed", new Dictionary<string, object>
+            {
+                { "userId", AnalyticsSessionInfo.userId },
+                { "numSafes", GameModel.numSafes },
+                { "attempts", GameModel.numAttempts },
+                { "replays", GameModel.numReplays },
+                { "time", Time.time }
+
+            });
             playerController.ShowCoinCollectUpdate(numCoins);
             soundEffectsController.PlaySafeBustSound();
         }
@@ -484,6 +518,15 @@ public class  GameController : MonoBehaviour
 
 	public void HandlePlayerDestroyed()
 	{
+        Analytics.CustomEvent("playerDestroyed", new Dictionary<string, object>
+            {
+                { "userId", AnalyticsSessionInfo.userId },
+                { "attempts", GameModel.numAttempts},
+                { "replays", GameModel.numReplays },
+                { "score", GameModel.GetGoldCoinCount()},
+                { "time", Time.time }
+
+            });
         GameModel.DisableShipInput();
         GameModel.canCollectCoins = false;
         StopGameCoinsFromGravitating();
@@ -506,6 +549,16 @@ public class  GameController : MonoBehaviour
     {
         if (PlayerPrefManager.GetBestScore() < currentCoinCount)
         {
+            Analytics.CustomEvent("newBestScore", new Dictionary<string, object>
+        {
+            { "userId", AnalyticsSessionInfo.userId },
+            { "attempts", GameModel.numAttempts},
+            { "replays", GameModel.numReplays },
+            { "time", Time.time },
+            { "newBest", currentCoinCount},
+            { "oldBest", PlayerPrefManager.GetBestScore()},
+
+        });
             PlayerPrefManager.SetBestScore(currentCoinCount);
         }
     }
