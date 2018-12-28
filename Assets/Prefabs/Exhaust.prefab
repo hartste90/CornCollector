@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224049385646220742}
   - component: {fileID: 114965395089986978}
+  - component: {fileID: 114119192710239144}
   m_Layer: 15
   m_Name: Exhaust
   m_TagString: Coin
@@ -56,6 +57,17 @@ Transform:
   m_Father: {fileID: 224049385646220742}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114119192710239144
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1163104217667706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9067f586b4e5140d5b5c924e5c4d6933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114965395089986978
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -122,7 +134,7 @@ RectTransform:
   m_GameObject: {fileID: 1163104217667706}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 39.99936, y: 39.99936, z: 1.00032}
+  m_LocalScale: {x: 39.999355, y: 39.999355, z: 1.0003198}
   m_Children:
   - {fileID: 4746496087493072}
   m_Father: {fileID: 0}

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class SettingsController : MonoBehaviour {
 
@@ -14,6 +15,11 @@ public class SettingsController : MonoBehaviour {
 
     public void ShowSettingsPanel()
     {
+        Analytics.CustomEvent("showSettings", new Dictionary<string, object>
+        {
+            { "userId", AnalyticsSessionInfo.userId }
+        });
+
         GameModel.DisableShipInput();
         isShowingSettings = true;
         gameObject.SetActive(true);

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class RateGameController : MonoBehaviour {
 
@@ -36,6 +37,12 @@ public class RateGameController : MonoBehaviour {
 
     public void ShowPrimaryQuestionPanel()
     {
+
+        Analytics.CustomEvent("showRatePrimaryQuestion", new Dictionary<string, object>
+        {
+            { "userId", AnalyticsSessionInfo.userId }
+        });
+
         //hide other panels
         HideAllPanels();
         //show primary question panel
@@ -46,6 +53,10 @@ public class RateGameController : MonoBehaviour {
 
     public void GoToNegativeFollowupPanel()
     {
+        Analytics.CustomEvent("showRateNegativeFollowup", new Dictionary<string, object>
+        {
+            { "userId", AnalyticsSessionInfo.userId }
+        });
         //animate off
         animator.SetTrigger("Hide");
         //setup next panel as negative followup
@@ -54,6 +65,10 @@ public class RateGameController : MonoBehaviour {
 
     public void GoToAffirmativeFollowupPanel()
     {
+        Analytics.CustomEvent("showRatePositiveFollowup", new Dictionary<string, object>
+        {
+            { "userId", AnalyticsSessionInfo.userId }
+        });
         animator.SetTrigger("Hide");
         nextPanelToShow = affirmativeFollowupPanel;
     }
@@ -61,6 +76,10 @@ public class RateGameController : MonoBehaviour {
 
     public void GoToAffirmativeConclusionPanel()
     {
+        Analytics.CustomEvent("showRatePositiveConclusion", new Dictionary<string, object>
+        {
+            { "userId", AnalyticsSessionInfo.userId }
+        });
         animator.SetTrigger("Hide");
         nextPanelToShow = affirmativeConclusionPanel;
     }
@@ -68,6 +87,10 @@ public class RateGameController : MonoBehaviour {
 
     public void GoToNegativeConclusionPanel()
     {
+        Analytics.CustomEvent("showRateNegativeConclusion", new Dictionary<string, object>
+        {
+            { "userId", AnalyticsSessionInfo.userId }
+        });
         animator.SetTrigger("Hide");
         nextPanelToShow = negativeConclusionPanel;
     }
@@ -100,6 +123,10 @@ public class RateGameController : MonoBehaviour {
 
     public void GoToAppStorePage()
     {
+        Analytics.CustomEvent("goToAppStore", new Dictionary<string, object>
+        {
+            { "userId", AnalyticsSessionInfo.userId }
+        });
 #if UNITY_ANDROID
         Application.OpenURL("market://details?id="+Application.productName);
 #elif UNITY_IPHONE

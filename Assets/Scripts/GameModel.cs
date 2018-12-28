@@ -4,7 +4,13 @@
 
     public static bool canCollectCoins;
     public static int numAttempts;
+    public static int numReplays;
     public static int numSafes;
+    public static bool adJustSeen;
+    public static int userLevel;
+    public static bool shouldReplaceSafes;
+
+    public static bool hasJustContinued = false;
 
     private static int goldCoinCount;
     private static bool allowSwiping;

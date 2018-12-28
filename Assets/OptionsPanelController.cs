@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.UI;
 
 public class OptionsPanelController : MonoBehaviour {
@@ -23,12 +24,21 @@ public class OptionsPanelController : MonoBehaviour {
 
     public void HandleAdButtonPressed()
     {
+        Analytics.CustomEvent("optedIntoAd", new Dictionary<string, object>
+        {
+            { "userId", AnalyticsSessionInfo.userId },
+            { "attempts", GameModel.numAttempts},
+            { "replays", GameModel.numReplays },
+            { "time", Time.time },
+            {"score", GameModel.GetGoldCoinCount()},
+
+        });
         adController.ShowRewardedAd();
     }
 
     public void Hide()
     {
-        storeButtonController.HideImmediate();
+        //storeButtonController.HideImmediate();
         continueButtonController.HideImmediate();
         replayPanelController.HideImmediate();
         rateGameController.HideImmediate();
@@ -36,7 +46,7 @@ public class OptionsPanelController : MonoBehaviour {
 
     public void ShowPanelsForPurchase()
     {
-        storeButtonController.Show();
+        //storeButtonController.Show();
         continueButtonController.Show();
         replayPanelController.Show();
     }
@@ -70,6 +80,15 @@ public class OptionsPanelController : MonoBehaviour {
 
     public void ShowContinueWithFreeOption()
     {
+        Analytics.CustomEvent("shownFreeContinue", new Dictionary<string, object>
+        {
+            { "userId", AnalyticsSessionInfo.userId },
+            { "attempts", GameModel.numAttempts},
+            { "replays", GameModel.numReplays },
+            { "time", Time.time },
+            {"score", GameModel.GetGoldCoinCount()},
+
+        });
         continueButtonController.ShowAsFree();
         this.continueButtonController.Show();
     }
@@ -131,21 +150,25 @@ public class OptionsPanelController : MonoBehaviour {
         }
         else
         {
-            storeButtonController.Show();
-            if (adController.IsReady())
+            //storeButtonController.Show();
+            if (GameModel.adJustSeen == false && adController.IsReady())
             {
-                if (GameModel.GetNoAds() == true)
-                {
-                    celebrationController.Celebrate();
-                    ShowContinueWithFreeOption();
-                }
-                else
-                {
-                    ShowContinueWithAdsOption();
-                }
+                //if (GameModel.GetNoAds() == true)
+                //{
+                //    celebrationController.Celebrate();
+                //    ShowContinueWithFreeOption();
+                //}
+                //else
+                //{
+                GameModel.adJustSeen = true;
+                ShowContinueWithAdsOption();
+                //}
             }
-            else
+            else if (UnityEngine.Random.Range(0, 10) == 1)
             {
+                GameModel.adJustSeen = false;
+                //celebrationController.Celebrate();
+                ShowContinueWithFreeOption();
                 if (ShouldAskForRating(goldForRound))
                 {
                     ShowContinueWithCoinsSmall(shouldShowImmediately);
@@ -154,9 +177,15 @@ public class OptionsPanelController : MonoBehaviour {
                 }
                 else
                 {
-                    ShowContinueWithCoinsOption(shouldShowImmediately);
+                    //ShowContinueWithCoinsOption(shouldShowImmediately);
                 }
 
+            }
+            else
+            {
+                GameModel.adJustSeen = false;
+                HideContinueButton(true);
+                shouldShowImmediately = true;
             }
         }
         if (shouldShowImmediately || goldForRound <= 20)

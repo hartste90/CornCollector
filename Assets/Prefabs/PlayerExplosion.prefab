@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 224085043556814040}
   - component: {fileID: 222355030691694170}
   - component: {fileID: 114694886764588882}
+  - component: {fileID: 114494460554617366}
   m_Layer: 0
   m_Name: PlayerExplosion
   m_TagString: Explosion
@@ -28,6 +29,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &114494460554617366
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1199903913866718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9067f586b4e5140d5b5c924e5c4d6933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114694886764588882
 MonoBehaviour:
   m_ObjectHideFlags: 1

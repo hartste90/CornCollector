@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -10,7 +11,6 @@ public class  GameController : MonoBehaviour
     public static bool verbose = true;
     //magic numbers
     public float delayBeforeEndGameScreenAppears = .7f;
-    public int userLevel = 1;
     public int numSafes = 1;
     public float minimumSwipeDistance = 0f;
     public float gameSpeed = 2.5f;
@@ -36,6 +36,7 @@ public class  GameController : MonoBehaviour
     public SoundEffectsController soundEffectsController;
     public JITEndscreenController jITEndscreenController;
     public InterstitialController interstitialController;
+    public LevelUpPanelController levelUpPanelController;
     public IAPManager iAPManager;
     //private links
     private TimeController timeController;
@@ -62,7 +63,7 @@ public class  GameController : MonoBehaviour
     //tracking
     public float lastTimePlayerWatchedVideo = -3000f;
 	public List<GameObject> coinList;
-	public List<GameObject> mineList;
+    public List<MineController> mineList;
     public List<GameObject> safeList;
     public List<GameObject> explosionPuffList;
     public int currentCoinCount = 0;
@@ -77,15 +78,24 @@ public class  GameController : MonoBehaviour
 
     public void Awake()
     {
+        string userId = AnalyticsSessionInfo.userId;
+        Analytics.CustomEvent("gameLoad", new Dictionary<string, object>
+        {
+            { "userId", userId }
+        });
+        Analytics.CustomEvent("gameLoadNoID");
+
         isVerbose = verbose;
         //record device dimensions
 		Tools.screenWidth = Screen.width;
 		Tools.screenHeight = Screen.height;
         //instantiate lists
         coinList = new List<GameObject>();
-        mineList = new List<GameObject>();
+        mineList = new List<MineController>();
         safeList = new List<GameObject>();
         explosionPuffList = new List<GameObject>();
+        interstitialController.gameObject.SetActive(true);
+        levelUpPanelController.gameObject.SetActive(true);
     }
 
     // a test function to trigger custom functionality for debugging
@@ -101,7 +111,8 @@ public class  GameController : MonoBehaviour
         //currentCoinCount = 99;
         //currentCoinCount = 0;
         currentCoinCount = 530;
-        playerController.OnHitMine();
+        //playerController.OnHitMine();
+        this.LevelUp();
 
 
     }
@@ -118,6 +129,7 @@ public class  GameController : MonoBehaviour
         }
         GameModel.ResetSafes();
         GameModel.numAttempts = 1;
+        GameModel.userLevel = 1;
         GameModel.SetGoldCoinCount(0);
         GameModel.DisableShipInput();
 
@@ -153,15 +165,30 @@ public class  GameController : MonoBehaviour
 
     public void OnPlayerBeginsMovement()
     {
+        playerController.BeginDropExhaust();
         tooltipController.Hide();
-        backgroundMusicController.playBackgroundMusic();
         titleScreenController.HideTitleScreen();
         uiController.ShowGameUI();
+        if (GetCoinCount() == 0 || GameModel.hasJustContinued == true)
+        {
+            Analytics.CustomEvent("startedGameplay", new Dictionary<string, object>
+            {
+                { "userId", AnalyticsSessionInfo.userId },
+                { "attempts", GameModel.numAttempts},
+                { "replays", GameModel.numReplays },
+                { "time", Time.time }
+
+            });
+            backgroundMusicController.fadeInBackgroundMusic();
+            GameModel.hasJustContinued = false;
+        }
+
     }
 
     public void beginGameplay()
 	{
         GameModel.canCollectCoins = true;
+        GameModel.shouldReplaceSafes = true;
         //create player
 		playerObject = Instantiate (playerPrefab, gameStageParent);
         playerController = playerObject.GetComponent<PlayerController>();
@@ -169,7 +196,7 @@ public class  GameController : MonoBehaviour
         playerController.Init(this);
         playerController.AnimateIntro();
         //create safes for number of coins
-        numSafes = GameModel.numSafes;
+        numSafes = GameModel.userLevel;
         //create first safe
         GameObject safeObject = Instantiate(safePrefab, gameStageParent);
         safeObject.transform.localPosition = safeStartPositionAnchor.localPosition;
@@ -181,6 +208,7 @@ public class  GameController : MonoBehaviour
         {
             AddSafe();
         }
+
     }
 
     private int FindNumSafesToCreate()
@@ -217,6 +245,15 @@ public class  GameController : MonoBehaviour
 
     public void ResetScene()
     {
+        Analytics.CustomEvent("pressedReplay", new Dictionary<string, object>
+        {
+            { "userId", AnalyticsSessionInfo.userId },
+            { "attempts", GameModel.numAttempts},
+            { "replays", GameModel.numReplays },
+            { "time", Time.time },
+            { "score", GameModel.GetGoldCoinCount()},
+
+        });
         Time.timeScale = 1.0f;
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         DestroyAllItemsOnscreen();
@@ -224,15 +261,34 @@ public class  GameController : MonoBehaviour
         uiController.ResetUI();
         jITEndscreenController.HideCoinPanel(true);
         GameModel.numSafes = 1;
+        GameModel.userLevel = 1;
+        GameModel.numReplays++;
         endgameScreenController.endScreenExitCallback = ShowInterstitial;
         endgameScreenController.Hide();
 
     }
 
+    public void SetupForLevelStart()
+    {
+        Time.timeScale = 1.0f;
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        DestroyAllItemsOnscreen();
+        playerController.DestroySelf();
+        uiController.HideGameUI();
+        SetupGameStart();
+    }
+
     public void ShowInterstitial()
     {
-        interstitialController.completeCallback = InterstitialCompleteCallback;
-        interstitialController.ShowTip();
+        if (interstitialController.IsReady() == true){
+            interstitialController.completeCallback = InterstitialCompleteCallback;
+            interstitialController.ShowTip();
+        }
+        else
+        {
+            SetupGameStart();
+        }
+
     }
 
     public void InterstitialCompleteCallback()
@@ -255,14 +311,15 @@ public class  GameController : MonoBehaviour
         //unslow time
         Time.timeScale = 1.0f;
         //reset coins (since they have already been added up in endscreen)
-        currentCoinCount = 0;
-        uiController.ResetUI();
+        //currentCoinCount = 0;
+        //uiController.ResetUI();
         jITEndscreenController.HideCoinPanel(true);
         //replay game start UI tooltip/tutorial
         endgameScreenController.endScreenExitCallback = beginGameplay;
         endgameScreenController.Hide();
         //should be callback for when endgame screen is gone
         //beginGameplay();
+        GameModel.hasJustContinued = true;
     }
 
 
@@ -282,14 +339,15 @@ public class  GameController : MonoBehaviour
 
         if (gameObject == coinPrefab)
         {
-            obj.transform.localScale = new Vector3(30, 30, 1);
+            //obj.transform.localScale = new Vector3(30, 30, 1);
             obj.GetComponent<GravitateToTarget>().SetTarget(uiCoinTargetTransform);
             coinList.Add(obj);
         }
         else if (gameObject == minePrefab)
         {
-            mineList.Add(obj);
-            obj.GetComponent<MineController>().gameController = this;
+            MineController mc = obj.GetComponent<MineController>();
+            mineList.Add(mc);
+            mc.gameController = this;
         }
         return obj;
     }
@@ -306,7 +364,17 @@ public class  GameController : MonoBehaviour
 	{
         if (GameModel.canCollectCoins == true) 
         {
+            Analytics.CustomEvent("safeDestroyed", new Dictionary<string, object>
+            {
+                { "userId", AnalyticsSessionInfo.userId },
+                { "numSafes", GameModel.numSafes },
+                { "attempts", GameModel.numAttempts },
+                { "replays", GameModel.numReplays },
+                { "time", Time.time }
+
+            });
             playerController.ShowCoinCollectUpdate(numCoins);
+            soundEffectsController.PlaySafeBustSound();
         }
 		//spawn multiple coins	
         numCoins = numCoinsInSafe;	
@@ -314,7 +382,11 @@ public class  GameController : MonoBehaviour
         {
             SpawnGameObjectAtPosition (coinPrefab, safeLocation.localPosition);
         }
-		AddSafe();
+        if (GameModel.shouldReplaceSafes)
+        {
+            AddSafe();
+        }
+		
 	}
 	
 
@@ -323,25 +395,90 @@ public class  GameController : MonoBehaviour
         if (GameModel.canCollectCoins == true)
         {
             currentCoinCount++;
+            soundEffectsController.PlayCoinCollectedSound();
+            //check if we need to add another safe
+            if (currentCoinCount >= nextSafeCoinRequirement)
+            {
+                int shouldHave = FindNumSafesToCreate();
+                if (safeList.Count < shouldHave && GameModel.shouldReplaceSafes == true)
+                {
+                    //levelup
+                    this.LevelUp();
+                }
+            }
         }
         uiController.SetCoinText(currentCoinCount);
         coinList.Remove (coin);
-        //check if we need to add another safe
-        if(currentCoinCount >= nextSafeCoinRequirement)
-        {
-            int shouldHave = FindNumSafesToCreate();
-            if (safeList.Count < shouldHave)
-            {
-                //levelup
-                AddSafe();
-                GameModel.AddSafe();
-                userLevel++;
-            }
-        }
+
 
     }
 
-	public void AddSafe()
+    private void LevelUp()
+    {
+        if (GameModel.shouldReplaceSafes == false) { return; }
+        //turn off input
+        GameModel.DisableShipInput();
+        //detonate all mines (making sure explosions are created)
+        for (int i = this.mineList.Count - 1; i >= 0; i--)
+        {
+            mineList[i].MineExplode();
+            //mineList[i].MineExplode();
+        }
+        //disable collider on player
+        playerController.SetInvincible(true);
+        //detonate all safes
+        GameModel.shouldReplaceSafes = false;
+        for (int i = this.safeList.Count - 1; i >= 0; i--)
+        {
+            safeList[i].GetComponent<SafeController>().HandleHitByExplosion();
+        }
+        //create explosive force
+        for (int i = 0; i < explosionPuffList.Count; i++)
+        {
+            AddExplosionForce2D(explosionPuffList[i].GetComponent<Rigidbody2D>(), 500f, playerObject.transform.position, 10000f);
+        }
+        //slow time
+        timeController.SlowTime();
+        //show levelup copy
+        GameModel.userLevel++;
+        levelUpPanelController.panelCompleteAnimationCallback = handleLevelupPanelAnimationComplete;
+        levelUpPanelController.Show(GameModel.userLevel);
+        //Debug.Break();
+
+        //AddSafe();
+        //GameModel.AddSafe();
+
+    }
+
+    public void handleLevelupPanelAnimationComplete()
+    {
+        SetupForLevelStart();
+
+    }
+
+    public void CreatePhysicalExplosion()
+    {
+        Vector3 explosionPos = playerObject.transform.position;
+        Collider[] colliders = Physics.OverlapSphere(explosionPos, 10000000f);
+        Debug.Log(colliders.Length);
+        foreach (Collider hit in colliders)
+        {
+            Rigidbody2D rb = hit.GetComponent<Rigidbody2D>();
+
+            if (rb != null)
+                AddExplosionForce2D( rb, 10f, explosionPos, 100f);
+        }
+    }
+
+    public void AddExplosionForce2D(Rigidbody2D body, float explosionForce, Vector3 explosionPosition, float explosionRadius)
+    {
+        Vector3 dir = (body.transform.position - explosionPosition);
+        float wearoff = 1 - (dir.magnitude / explosionRadius);
+        Vector3 force = dir.normalized * explosionForce * wearoff;
+        body.AddForce(force);
+    }
+
+    public void AddSafe()
 	{
         //Debug.Log("Adding safe");
         GameObject safe = SpawnGameObjectAtRandomPosition(safePrefab);
@@ -362,7 +499,7 @@ public class  GameController : MonoBehaviour
         //destroy mines
         for (int i = mineList.Count-1; i >= 0; i-- )
         {
-            mineList[i].GetComponent<MineController>().DestroySelf(true);
+            mineList[i].DestroySelf(true);
         }
         //destrxy safes
         for (int i = safeList.Count - 1; i >= 0; i--)
@@ -381,13 +518,23 @@ public class  GameController : MonoBehaviour
 
 	public void HandlePlayerDestroyed()
 	{
+        Analytics.CustomEvent("playerDestroyed", new Dictionary<string, object>
+            {
+                { "userId", AnalyticsSessionInfo.userId },
+                { "attempts", GameModel.numAttempts},
+                { "replays", GameModel.numReplays },
+                { "score", GameModel.GetGoldCoinCount()},
+                { "time", Time.time }
+
+            });
         GameModel.DisableShipInput();
         GameModel.canCollectCoins = false;
         StopGameCoinsFromGravitating();
-        timeController.handlePlayerDestroyed();
+        timeController.SlowTime();
         SavePlayerPrefs();
         soundEffectsController.PlayPlayerDeathSound();
-		StartCoroutine (ShowEndgameScreenAfterSeconds (delayBeforeEndGameScreenAppears));
+        backgroundMusicController.fadeOutBackgroundMusic();
+        StartCoroutine(ShowEndgameScreenAfterSeconds (delayBeforeEndGameScreenAppears));
 	}
 
     private void StopGameCoinsFromGravitating()
@@ -402,6 +549,16 @@ public class  GameController : MonoBehaviour
     {
         if (PlayerPrefManager.GetBestScore() < currentCoinCount)
         {
+            Analytics.CustomEvent("newBestScore", new Dictionary<string, object>
+        {
+            { "userId", AnalyticsSessionInfo.userId },
+            { "attempts", GameModel.numAttempts},
+            { "replays", GameModel.numReplays },
+            { "time", Time.time },
+            { "newBest", currentCoinCount},
+            { "oldBest", PlayerPrefManager.GetBestScore()},
+
+        });
             PlayerPrefManager.SetBestScore(currentCoinCount);
         }
     }

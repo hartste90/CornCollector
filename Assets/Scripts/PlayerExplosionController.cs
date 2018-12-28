@@ -10,10 +10,10 @@ public class PlayerExplosionController : ExplosionController {
 		explosionPuffObjectList = new GameObject[4];
 		for(int i = 0; i < 4; i++)
 		{
-	        GameObject explosionPuffObject = Instantiate (explosionPuffPrefab, transform, true);
+	        GameObject explosionPuffObject = Instantiate (explosionPuffPrefab, transform, false);
             gameController.explosionPuffList.Add(explosionPuffObject);
 	        explosionPuffObject.transform.localPosition = transform.localPosition;
-	        explosionPuffObject.transform.localScale = Vector3.one;
+	        //explosionPuffObject.transform.localScale = Vector3.one;
 	        explosionPuffObjectList[i] = explosionPuffObject;
 		}
 		explosionPuffObjectList[0].GetComponent<Rigidbody2D>().AddForce(Vector2.right * explosionStrength, ForceMode2D.Force);
