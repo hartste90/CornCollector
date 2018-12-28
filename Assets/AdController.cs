@@ -8,6 +8,16 @@ public class AdController : MonoBehaviour
 
     public GameController gameController;
 
+    string gameId = "2983745";
+    bool testMode = false;
+
+    void Start()
+    {
+        Advertisement.Initialize(gameId, testMode);
+        Debug.Log("Advertisements Initialized: " + gameId);
+    }
+    
+
     public bool IsReady()
     {
         if(gameController.debugAllowAds)

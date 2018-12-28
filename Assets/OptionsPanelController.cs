@@ -151,7 +151,7 @@ public class OptionsPanelController : MonoBehaviour {
         else
         {
             //storeButtonController.Show();
-            if (adController.IsReady())
+            if (GameModel.adJustSeen == false && adController.IsReady())
             {
                 //if (GameModel.GetNoAds() == true)
                 //{
@@ -160,11 +160,13 @@ public class OptionsPanelController : MonoBehaviour {
                 //}
                 //else
                 //{
-                    ShowContinueWithAdsOption();
+                GameModel.adJustSeen = true;
+                ShowContinueWithAdsOption();
                 //}
             }
-            else
+            else if (UnityEngine.Random.Range(0, 10) == 1)
             {
+                GameModel.adJustSeen = false;
                 //celebrationController.Celebrate();
                 ShowContinueWithFreeOption();
                 if (ShouldAskForRating(goldForRound))
@@ -178,6 +180,12 @@ public class OptionsPanelController : MonoBehaviour {
                     //ShowContinueWithCoinsOption(shouldShowImmediately);
                 }
 
+            }
+            else
+            {
+                GameModel.adJustSeen = false;
+                HideContinueButton(true);
+                shouldShowImmediately = true;
             }
         }
         if (shouldShowImmediately || goldForRound <= 20)
