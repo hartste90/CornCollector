@@ -6,3 +6,4 @@ UserPrefs.xml
 *.ide-wal
 *.ide
 storage.ide-wal
+/builds

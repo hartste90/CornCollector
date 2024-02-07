@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Purchasing;
 using UnityEngine.UI;
 
 public class RemoveAdsButtonController : MonoBehaviour {
@@ -13,8 +12,8 @@ public class RemoveAdsButtonController : MonoBehaviour {
 
     public void Start()
     {
-        canvasGroup = GetComponent<CanvasGroup>();
-        CodelessIAPStoreListener.Instance.initializationCompleteCallback = OnPurchasingInitialized;
+        // canvasGroup = GetComponent<CanvasGroup>();
+        // CodelessIAPStoreListener.Instance.initializationCompleteCallback = OnPurchasingInitialized;
     }
 
     public void OnPurchasingInitialized()
@@ -25,10 +24,10 @@ public class RemoveAdsButtonController : MonoBehaviour {
     private void CheckPurchases()
     {
         //if they have purchased remove ads/cover the button
-        if (CodelessIAPStoreListener.Instance.GetProduct("remove.ads").hasReceipt)
-        {
-            RemoveAdsPurchased();
-        }
+        // if (CodelessIAPStoreListener.Instance.GetProduct("remove.ads").hasReceipt)
+        // {
+        //     RemoveAdsPurchased();
+        // }
     }
 
     public void RemoveAdsPurchased()
